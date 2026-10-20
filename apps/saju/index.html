@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="태어난 날의 네 기둥과 MBTI를 오늘의 일진에 견주어 하루 운의 흐름과 오늘의 명언을 알려 드려요.">
+
+<!-- Google AdSense: ca-pub-XXXXXXXXXXXXXXXX 를 내 게시자 ID로 바꾸세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+<title>오늘의 사주 일진과 명언</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* Layout: 넓은 화면은 왼쪽 입력 카드 + 오른쪽 결과, 좁은 화면은 위아래로 쌓음. 결과는 날짜·총평 → 4개 분야 → 사주 원국 순. */
+:root {
+  --bg: #EDEFF1;
+  --surface: #F9FAFB;
+  --sunken: #E4E7EA;
+  --fg: #1E242B;
+  --muted: #5F6873;
+  --line: #D3D8DE;
+  --ink: #26323F;
+  --seal: #A8432F;
+  --on-ink: #F4F6F8;
+  --wood: #4F7D55; --fire: #B5533B; --earth: #A6843F; --metal: #7D858F; --water: #375A82;
+  --good: #3F7A57; --warn: #B07A2C; --bad: #A8432F;
+  --font-display: "Noto Serif KR", "Nanum Myeongjo", "AppleMyungjo", serif;
+  --font-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14181D; --surface: #1C2229; --sunken: #232A32; --fg: #E6E9ED; --muted: #9AA3AE; --line: #2F3741;
+    --ink: #C9D3DE; --seal: #D9735C; --on-ink: #14181D;
+    --wood: #7DB085; --fire: #E07F66; --earth: #D1AE68; --metal: #A9B1BA; --water: #7FA3CC;
+    --good: #74B48D; --warn: #D7A55B; --bad: #E07F66;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14181D; --surface: #1C2229; --sunken: #232A32; --fg: #E6E9ED; --muted: #9AA3AE; --line: #2F3741;
+  --ink: #C9D3DE; --seal: #D9735C; --on-ink: #14181D;
+  --wood: #7DB085; --fire: #E07F66; --earth: #D1AE68; --metal: #A9B1BA; --water: #7FA3CC;
+  --good: #74B48D; --warn: #D7A55B; --bad: #E07F66;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.65; }
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 36px 56px;
+  display: flex; flex-direction: column; gap: 28px;
+}
+header { display: flex; flex-direction: column; gap: 4px; }
+.home { align-self: flex-start; font-size: .9rem; color: var(--muted); text-decoration: none; margin-bottom: 8px; }
+.home:hover { color: var(--fg); }
+header h1 { margin: 0; font-family: var(--font-display); font-weight: 900; font-size: clamp(1.8rem, 4.5vw, 2.4rem); color: var(--ink); text-wrap: balance; }
+header p { margin: 0; color: var(--muted); }
+
+.layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+form { display: flex; flex-direction: column; gap: 20px; }
+@media (min-width: 861px) { form.panel { position: sticky; top: calc(16px + env(safe-area-inset-top, 0px)); } }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field > label, .field > .lbl { font-weight: 600; font-size: .95rem; }
+.row { display: grid; gap: 8px; }
+.row.date { grid-template-columns: 1.3fr 1fr 1fr; }
+.row.time { grid-template-columns: 1fr 1fr; }
+input[type="text"], select {
+  width: 100%; box-sizing: border-box;
+  font: inherit; font-size: 1.05rem;
+  padding: 12px 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+}
+select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 16px) 52%, calc(100% - 11px) 52%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 28px; }
+input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+select:disabled { opacity: .45; }
+.check { display: flex; align-items: center; gap: 8px; font-size: .95rem; color: var(--muted); cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--ink); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { text-align: center; padding: 12px; font-size: 1.05rem; cursor: pointer; background: var(--bg); color: var(--fg); transition: background .2s, color .2s; }
+.seg label + input + label, .seg input + label + input + label { border-left: 1px solid var(--line); }
+.seg input:checked + label { background: var(--ink); color: var(--on-ink); font-weight: 600; }
+.seg input:focus-visible + label { outline: 2px solid var(--ink); outline-offset: -3px; }
+.submit {
+  font: inherit; font-size: 1.1rem; font-weight: 600;
+  padding: 14px; border: 0; border-radius: 12px; cursor: pointer;
+  background: var(--ink); color: var(--on-ink);
+}
+.submit:hover { filter: brightness(1.08); }
+.err { color: var(--bad); font-size: .9rem; margin: 0; min-height: 0; }
+.note { font-size: .82rem; color: var(--muted); margin: 0; line-height: 1.55; }
+
+.result { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.sample { align-self: flex-start; font-size: .85rem; padding: 4px 10px; border-radius: 999px; background: var(--sunken); color: var(--muted); }
+
+.today { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.seal {
+  flex: none; width: 84px; height: 84px; border-radius: 12px;
+  border: 2.5px solid var(--seal); color: var(--seal);
+  display: grid; place-items: center; text-align: center;
+  font-family: var(--font-display); font-weight: 900; font-size: 1.7rem; line-height: 1.05;
+  transform: rotate(-3deg);
+}
+.seal small { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .1em; margin-top: 2px; }
+.today-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.today-date { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.25rem, 3.2vw, 1.55rem); color: var(--ink); }
+.today-sub { color: var(--muted); }
+
+.summary { display: flex; flex-direction: column; gap: 14px; }
+.summary-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.summary-head h2 { margin: 0; font-family: var(--font-display); font-size: 1.3rem; color: var(--ink); }
+.score-big { font-variant-numeric: tabular-nums; font-weight: 600; }
+.score-big b { font-family: var(--font-display); font-size: 2rem; color: var(--ink); margin-right: 6px; }
+.summary p { margin: 0; font-size: 1.05rem; text-wrap: pretty; word-break: keep-all; }
+.summary .lines { display: flex; flex-direction: column; gap: 6px; }
+
+.cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 560px) { .cats { grid-template-columns: minmax(0, 1fr); } }
+.cat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.cat-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.cat-head h3 { margin: 0; font-family: var(--font-display); font-size: 1.15rem; display: flex; align-items: baseline; gap: 6px; }
+.cat-head h3 span { font-size: .85rem; color: var(--muted); font-weight: 500; }
+.pill { font-size: .82rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+.pill.g4 { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.pill.g3 { background: color-mix(in srgb, var(--good) 12%, transparent); color: var(--good); }
+.pill.g2 { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); }
+.pill.g1 { background: color-mix(in srgb, var(--bad) 14%, transparent); color: var(--bad); }
+.bar { height: 6px; border-radius: 999px; background: var(--sunken); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: inherit; background: var(--ink); transition: width .6s ease; }
+.cat p { margin: 0; word-break: keep-all; text-wrap: pretty; }
+.cat .num { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .85rem; }
+
+.chart h2 { margin: 0 0 14px; font-family: var(--font-display); font-size: 1.15rem; color: var(--ink); }
+.pillars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.pillar { display: flex; flex-direction: column; gap: 6px; text-align: center; }
+.pillar .pos { font-size: .82rem; color: var(--muted); letter-spacing: .06em; }
+.ch {
+  border-radius: 10px; padding: 8px 4px 6px; display: flex; flex-direction: column; align-items: center;
+  background: color-mix(in srgb, var(--c) 13%, transparent); color: var(--c);
+}
+.ch b { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.5rem, 4.5vw, 2rem); line-height: 1.1; }
+.ch span { font-size: .78rem; }
+.pillar.me .ch:first-of-type { box-shadow: inset 0 0 0 2px var(--c); }
+.ch.empty { --c: var(--muted); background: var(--sunken); }
+.tg { font-size: .78rem; color: var(--muted); min-height: 1.2em; }
+.el-wood { --c: var(--wood); } .el-fire { --c: var(--fire); } .el-earth { --c: var(--earth); } .el-metal { --c: var(--metal); } .el-water { --c: var(--water); }
+
+.elements { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+.el-row { display: grid; grid-template-columns: 56px minmax(0, 1fr) 28px; gap: 10px; align-items: center; font-size: .9rem; }
+.el-row .t { color: var(--c); font-weight: 600; }
+.el-row .b { height: 8px; border-radius: 999px; background: var(--sunken); overflow: hidden; }
+.el-row .b i { display: block; height: 100%; background: var(--c); border-radius: inherit; }
+.el-row .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+.chart-note { margin: 14px 0 0; font-size: .9rem; color: var(--muted); word-break: keep-all; }
+
+.word {
+  background: var(--ink); color: var(--on-ink);
+  border-radius: 16px; padding: clamp(26px, 5vw, 44px) clamp(22px, 5vw, 48px);
+  display: flex; flex-direction: column; gap: 18px;
+}
+.word .eyebrow { font-size: .85rem; letter-spacing: .08em; opacity: .75; }
+.word blockquote {
+  margin: 0; font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(1.4rem, 3.8vw, 1.95rem); line-height: 1.6;
+  word-break: keep-all; text-wrap: pretty;
+}
+.word .who { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; opacity: .85; }
+.word .who::before { content: "— "; }
+.word .why { margin: 0; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--on-ink) 22%, transparent); font-size: .98rem; opacity: .88; word-break: keep-all; }
+.mbti-tag { display: inline-block; font-weight: 600; padding: 1px 8px; margin-right: 4px; border-radius: 6px; background: color-mix(in srgb, var(--on-ink) 16%, transparent); }
+
+footer { font-size: .82rem; color: var(--muted); text-align: center; }
+@media (prefers-reduced-motion: reduce) { .bar i, .seg label { transition: none; } }
+
+/* 기본 리셋 */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+/* 광고 영역 */
+.ad-area { display: flex; flex-direction: column; gap: 6px; }
+.ad-label { font-size: .75rem; color: var(--muted); letter-spacing: .08em; text-align: center; }
+.ad-box {
+  min-height: 100px; border-radius: 12px; overflow: hidden;
+  background: var(--surface); border: 1px dashed var(--line);
+  display: flex; align-items: center; justify-content: center;
+}
+.ad-box ins.adsbygoogle { width: 100%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="home" href="../../index.html">← 스토리패커 홈</a>
+    <h1>오늘의 사주 일진과 명언</h1>
+    <p>태어난 날의 네 기둥과 당신의 MBTI를 오늘의 일진에 견주어 하루 운의 흐름을 풀어드리고 조언해 드려요.</p>
+  </header>
+
+  <div class="layout">
+    <form class="panel" id="form" novalidate>
+      <div class="field">
+        <label for="name">이름</label>
+        <input type="text" id="name" autocomplete="name" placeholder="예: 홍길동" maxlength="20">
+      </div>
+      <div class="field">
+        <span class="lbl" id="dlbl">생년월일 (양력)</span>
+        <div class="row date" role="group" aria-labelledby="dlbl">
+          <select id="by" aria-label="태어난 해"></select>
+          <select id="bm" aria-label="태어난 달"></select>
+          <select id="bd" aria-label="태어난 날"></select>
+        </div>
+      </div>
+      <div class="field">
+        <span class="lbl" id="tlbl">태어난 시간</span>
+        <div class="row time" role="group" aria-labelledby="tlbl">
+          <select id="th" aria-label="시"></select>
+          <select id="tm" aria-label="분"></select>
+        </div>
+        <label class="check"><input type="checkbox" id="tunk"> 태어난 시간을 몰라요</label>
+      </div>
+      <div class="field">
+        <span class="lbl" id="glbl">성별</span>
+        <div class="seg" role="radiogroup" aria-labelledby="glbl">
+          <input type="radio" name="g" id="gm" value="m" checked><label for="gm">남</label>
+          <input type="radio" name="g" id="gf" value="f"><label for="gf">여</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="mbti">MBTI</label>
+        <select id="mbti">
+          <option value="">잘 모르겠어요</option>
+          <optgroup label="분석형 (NT)"><option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option></optgroup>
+          <optgroup label="공감형 (NF)"><option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option></optgroup>
+          <optgroup label="관리형 (SJ)"><option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option></optgroup>
+          <optgroup label="탐험형 (SP)"><option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option></optgroup>
+        </select>
+      </div>
+      <p class="err" id="err" role="alert"></p>
+      <button class="submit" type="submit">오늘 운세 보기</button>
+      <p class="note">절기는 태양의 위치로 계산하고, 시간은 한국 표준시에서 30분을 보정해 봅니다. 밤 11시 30분 이후 출생은 다음 날 자시(子時)로 계산해요.</p>
+    </form>
+
+    <main class="result" id="result" aria-live="polite"></main>
+  </div>
+
+  <!-- ===== 광고 영역 시작 =====
+       1) 아래 data-ad-client 값을 내 게시자 ID(ca-pub-로 시작)로 바꾸세요.
+       2) data-ad-slot 값을 AdSense에서 만든 광고 단위 ID(숫자)로 바꾸세요.
+       3) <head>의 AdSense 스크립트 주소에 있는 ca-pub 값도 같은 ID로 바꾸세요. -->
+  <aside class="ad-area" aria-label="광고">
+    <span class="ad-label">광고</span>
+    <div class="ad-box">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="0000000000"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+  </aside>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  <!-- ===== 광고 영역 끝 ===== -->
+
+  <footer>사주 명리의 원리를 바탕으로 한 참고용 풀이예요. 중요한 결정은 스스로의 판단을 믿으세요.</footer>
+</div>
+
+<script>
+const ST = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+const STK = ["갑","을","병","정","무","기","경","신","임","계"];
+const BR = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const BRK = ["자","축","인","묘","진","사","오","미","신","유","술","해"];
+const ST_EL = [0,0,1,1,2,2,3,3,4,4];
+const BR_EL = [4,2,0,0,2,1,1,2,3,3,2,4];
+const BR_MAIN = [9,5,0,1,4,2,3,5,6,7,4,8];
+const EL = [
+  { k:"목", h:"木", cls:"el-wood",  color:"초록", dir:"동쪽", num:"3, 8", organ:"간과 눈" },
+  { k:"화", h:"火", cls:"el-fire",  color:"빨강·주황", dir:"남쪽", num:"2, 7", organ:"심장과 혈액순환" },
+  { k:"토", h:"土", cls:"el-earth", color:"노랑·베이지", dir:"중앙", num:"5, 10", organ:"위장과 소화기" },
+  { k:"금", h:"金", cls:"el-metal", color:"흰색·은색", dir:"서쪽", num:"4, 9", organ:"폐와 호흡기" },
+  { k:"수", h:"水", cls:"el-water", color:"검정·남색", dir:"북쪽", num:"1, 6", organ:"신장과 방광" }
+];
+const DM = [
+  ["큰 나무","곧고 앞장서는"], ["풀과 꽃","유연하고 끈기 있는"], ["태양","밝고 열정적인"], ["촛불","섬세하고 따뜻한"],
+  ["큰 산","듬직하고 믿음직한"], ["기름진 논밭","포용력 있고 실속 있는"], ["단단한 쇠","결단력 있고 의리 있는"],
+  ["빛나는 보석","깔끔하고 예리한"], ["큰 강과 바다","지혜롭고 스케일이 큰"], ["이슬과 빗물","차분하고 감수성이 풍부한"]
+];
+
+const TG = [
+  { n:"비견", h:"比肩", head:"내 힘으로 밀고 나가는 자립의 날이에요.",
+    biz:["남에게 기대기보다 스스로 판단하고 움직일 때 성과가 납니다.","동료와 역할이 겹치기 쉬우니 맡은 범위를 먼저 분명히 해 두세요."],
+    money:["수입과 지출이 비슷하게 오가는 평범한 흐름입니다.","돈을 나누거나 함께 쓰는 약속은 금액과 기한을 정확히 정해 두세요."],
+    rel:["또래나 형제, 오래된 친구와 마음이 잘 통하는 날이에요.","고집이 부딪히면 쉽게 물러서지 않게 되니 한 번은 먼저 양보해 보세요."],
+    health:["체력과 기운이 비교적 단단한 편입니다.","혼자 다 짊어지면 어깨와 목이 뭉치기 쉬우니 틈틈이 풀어 주세요."],
+    w:{biz:4,money:0,rel:4,health:6} },
+  { n:"겁재", h:"劫財", head:"경쟁심이 살아나지만 지출과 충동은 조심해야 하는 날이에요.",
+    biz:["경쟁 상황에서 추진력이 강해져 밀어붙이는 힘이 생깁니다.","성급한 결정은 손해로 이어지기 쉬우니 계약과 결재는 한 번 더 확인하세요."],
+    money:["예상하지 못한 지출이나 돈을 빌려 달라는 부탁이 생길 수 있어요.","오늘은 큰 결제와 투자를 미루고 지갑을 닫아 두는 편이 안전합니다."],
+    rel:["주변 사람과 미묘한 경쟁 구도가 생기기 쉬운 날이에요.","이기려 하기보다 상대의 체면을 살려 주면 오히려 내 편이 늘어납니다."],
+    health:["기운은 넘치지만 과격한 운동이나 과음으로 무리하기 쉬워요.","근육과 관절 부상에 주의하고 운동 전 준비 운동을 충분히 하세요."],
+    w:{biz:0,money:-10,rel:-4,health:0} },
+  { n:"식신", h:"食神", head:"마음에 여유가 생기고 재능이 자연스럽게 드러나는 날이에요.",
+    biz:["아이디어가 잘 떠오르고 손에 익은 일을 즐겁게 해낼 수 있습니다.","기획, 글쓰기, 만들기처럼 결과물이 남는 일에 시간을 쓰면 좋아요."],
+    money:["꾸준히 해 온 일에서 작은 보상이 들어오는 흐름입니다.","먹고 즐기는 데 쓰는 돈이 늘 수 있으니 기분 좋은 만큼만 쓰세요."],
+    rel:["말과 표정이 부드러워져 사람들이 편하게 다가옵니다.","함께 식사하며 나누는 대화가 관계를 한층 가깝게 해 줘요."],
+    health:["먹을 복이 있고 컨디션이 무난한 날입니다.","과식만 조심하면 되니 소화가 잘되는 음식 위주로 천천히 드세요."],
+    w:{biz:8,money:6,rel:8,health:6} },
+  { n:"상관", h:"傷官", head:"재치와 표현력이 빛나지만 말 한마디를 조심해야 하는 날이에요.",
+    biz:["기존 방식을 바꾸는 참신한 제안이 눈에 띄는 날입니다.","윗사람이나 규정에 정면으로 맞서면 공이 묻힐 수 있으니 표현을 다듬으세요."],
+    money:["재능이나 기술로 돈을 버는 일에 기회가 열려 있습니다.","기분에 따른 소비가 늘기 쉬우니 장바구니는 하루 묵혔다가 결제하세요."],
+    rel:["말솜씨가 좋아져 분위기를 이끌지만 농담이 지나치면 오해를 살 수 있어요.","감정을 담은 메시지나 글은 보내기 전에 한 번 더 읽어 보세요."],
+    health:["신경이 예민해지고 생각이 많아 쉽게 피로해질 수 있습니다.","목과 기관지가 마르기 쉬우니 물을 자주 마시고 일찍 쉬세요."],
+    w:{biz:2,money:2,rel:-6,health:-2} },
+  { n:"편재", h:"偏財", head:"활동 범위가 넓어지고 돈의 흐름이 크게 움직이는 날이에요.",
+    biz:["외부 미팅, 영업, 출장처럼 밖으로 뛰는 일에서 성과가 납니다.","판을 크게 벌리기 좋은 기운이지만 세부 조건은 꼼꼼히 챙기세요."],
+    money:["뜻밖의 수입이나 좋은 거래 기회가 들어올 수 있어요.","그만큼 큰돈이 나가기도 쉬우니 투기성 투자는 욕심을 덜어 내세요."],
+    rel:["새로운 사람을 만나고 인맥을 넓히기 좋은 날입니다.","사교 자리가 늘어나니 약속을 무리하게 겹쳐 잡지 마세요."],
+    health:["활동량이 많아 기운이 바깥으로 흩어지기 쉬워요.","이동이 많다면 교통안전에 유의하고 저녁에는 충분히 쉬세요."],
+    w:{biz:8,money:10,rel:6,health:-2} },
+  { n:"정재", h:"正財", head:"성실함이 차곡차곡 쌓여 안정된 결과로 돌아오는 날이에요.",
+    biz:["계획한 일을 순서대로 처리하면 실수 없이 마무리됩니다.","숫자, 정산, 문서 정리처럼 꼼꼼함이 필요한 업무에 특히 유리해요."],
+    money:["고정 수입과 저축 운이 좋은 안정된 금전 흐름입니다.","가계부를 정리하거나 새는 지출을 점검하기에 알맞은 날이에요."],
+    rel:["약속을 잘 지키는 모습이 신뢰를 얻는 날입니다.","가족에게 작은 정성을 보이면 관계가 한결 따뜻해집니다."],
+    health:["생활 리듬이 안정되어 몸 상태도 고르게 유지됩니다.","규칙적인 식사와 가벼운 걷기로 지금의 컨디션을 이어 가세요."],
+    w:{biz:6,money:12,rel:4,health:4} },
+  { n:"편관", h:"偏官", head:"압박과 책임이 커지지만 버텨 내면 실력이 단단해지는 날이에요.",
+    biz:["갑작스러운 업무 지시나 까다로운 상황이 생길 수 있습니다.","피하지 말고 우선순위를 정해 하나씩 처리하면 능력을 인정받는 계기가 됩니다."],
+    money:["예상치 못한 비용이나 과태료 같은 지출이 생기기 쉬워요.","보험, 세금, 납부 기한을 미리 확인해 두면 손해를 막을 수 있습니다."],
+    rel:["윗사람이나 주변의 요구가 부담스럽게 느껴질 수 있어요.","감정적으로 맞서기보다 짧고 분명하게 내 입장을 전하세요."],
+    health:["긴장과 스트레스로 피로가 쌓이기 쉬운 날입니다.","두통이나 근육 긴장이 느껴지면 깊게 호흡하고 일정 중간에 쉬는 시간을 꼭 넣으세요."],
+    w:{biz:-2,money:-6,rel:-6,health:-10} },
+  { n:"정관", h:"正官", head:"질서와 신뢰가 힘이 되어 인정받기 좋은 날이에요.",
+    biz:["원칙대로 처리한 일이 좋은 평가로 이어지는 날입니다.","보고, 면접, 공식 발표처럼 격식 있는 자리에서 특히 운이 따릅니다."],
+    money:["정해진 수입이 안정적으로 들어오고 큰 흔들림이 없어요.","정당한 방법으로 차근차근 돈을 관리하면 손해 볼 일이 없습니다."],
+    rel:["예의 바른 태도가 좋은 인상을 남겨 윗사람의 도움을 받기 쉬워요.","공적인 관계에서 신뢰가 쌓이니 약속 시간은 꼭 지키세요."],
+    health:["생활이 규칙적으로 돌아가 몸 상태가 무난합니다.","책임감에 몰두하면 쉬는 것을 잊기 쉬우니 식사 시간은 꼭 지키세요."],
+    w:{biz:10,money:4,rel:6,health:2} },
+  { n:"편인", h:"偏印", head:"직관이 예리해지지만 생각이 많아지기 쉬운 날이에요.",
+    biz:["남들이 놓친 부분을 꿰뚫어 보는 통찰력이 생깁니다.","계획이 자주 바뀌기 쉬우니 한번 결정한 일은 끝까지 밀고 가세요."],
+    money:["돈보다 공부나 자기 계발에 투자하기 좋은 날입니다.","확실하지 않은 정보에 기대는 투자는 피하고 지금 가진 것을 지키세요."],
+    rel:["혼자만의 시간이 필요하게 느껴지고 말수가 줄 수 있어요.","가까운 사람에게 피곤하다고 미리 말해 두면 오해가 생기지 않습니다."],
+    health:["생각이 많아 잠이 얕아지거나 입맛이 떨어질 수 있어요.","잠들기 전에는 화면을 멀리하고 따뜻한 차로 몸을 풀어 주세요."],
+    w:{biz:2,money:-4,rel:-4,health:-4} },
+  { n:"정인", h:"正印", head:"도움의 손길과 좋은 소식이 찾아오는 편안한 날이에요.",
+    biz:["윗사람이나 선배의 조언이 일을 푸는 열쇠가 됩니다.","계약서, 자격, 서류 같은 문서 관련 일이 순조롭게 진행돼요."],
+    money:["큰돈보다는 지원이나 선물처럼 받는 운이 있습니다.","서두르지 않고 지금의 안정을 지키는 쪽이 이롭습니다."],
+    rel:["어른이나 가족에게 따뜻한 배려를 받는 날이에요.","고마운 사람에게 짧은 감사 인사를 건네면 운이 더 좋아집니다."],
+    health:["마음이 안정되어 몸도 회복되는 흐름입니다.","충분한 수면과 휴식이 오늘 가장 좋은 보약이에요."],
+    w:{biz:6,money:2,rel:8,health:10} }
+];
+
+/* ---------- MBTI × 오늘의 사주 명언 ---------- */
+const MBTI_TRAIT = {
+  INTJ:"멀리 내다보는 전략형", INTP:"호기심 많은 분석형", ENTJ:"앞장서 이끄는 지휘형", ENTP:"아이디어가 샘솟는 도전형",
+  INFJ:"깊이 통찰하는 조언형", INFP:"따뜻한 이상을 품은 몽상형", ENFJ:"사람을 북돋는 리더형", ENFP:"열정 넘치는 영감형",
+  ISTJ:"책임감 강한 원칙형", ISFJ:"묵묵히 돌보는 헌신형", ESTJ:"일을 매듭짓는 관리형", ESFJ:"사람을 챙기는 친선형",
+  ISTP:"침착한 해결사형", ISFP:"감성 풍부한 예술가형", ESTP:"순발력 좋은 행동형", ESFP:"분위기를 밝히는 낙천형"
+};
+function temperament(mbti, tgGroup) {
+  if (mbti) {
+    if (mbti[1] === "N") return mbti[2] === "T" ? "NT" : "NF";
+    return mbti[3] === "J" ? "SJ" : "SP";
+  }
+  return ["SP","NF","SP","SJ","NT"][tgGroup]; // MBTI를 모르면 오늘 십성의 성격으로 대신
+}
+const WORDS = {
+  NT: {
+    cheer: [
+      ["미래를 예측하는 가장 좋은 방법은 미래를 만드는 것이다.","피터 드러커"],
+      ["작은 기회에서 종종 위대한 일이 시작된다.","데모스테네스"],
+      ["행운은 준비가 기회를 만날 때 찾아온다.","세네카"],
+      ["던지지 않은 슛은 100% 빗나간다.","웨인 그레츠키"],
+      ["상상력은 지식보다 중요하다.","알베르트 아인슈타인"],
+      ["앞길을 막는 장애물이 곧 길이 된다.","마르쿠스 아우렐리우스"]
+    ],
+    comfort: [
+      ["우리를 괴롭히는 것은 일 자체가 아니라 그 일에 대한 우리의 생각이다.","에픽테토스"],
+      ["어떤 것은 우리 힘에 달려 있고, 어떤 것은 그렇지 않다.","에픽테토스"],
+      ["인생에서 두려워할 것은 없다. 이해해야 할 것이 있을 뿐이다.","마리 퀴리"],
+      ["인생은 뒤돌아볼 때만 이해할 수 있지만, 살아가는 것은 앞을 향해서다.","쇠렌 키르케고르"],
+      ["위대한 것은 갑자기 만들어지지 않는다.","에픽테토스"],
+      ["우리는 현실보다 상상 속에서 더 자주 고통받는다.","세네카"]
+    ]
+  },
+  NF: {
+    cheer: [
+      ["행복이란 생각과 말과 행동이 조화를 이룬 상태다.","마하트마 간디"],
+      ["세상에서 가장 아름다운 것은 보이거나 만져지지 않는다. 마음으로 느껴야 한다.","헬렌 켈러"],
+      ["우리는 위대한 일을 할 수 없다. 다만 작은 일을 큰 사랑으로 할 수 있을 뿐이다.","마더 테레사"],
+      ["가장 아름다운 날은 아직 살지 않은 날이다.","나짐 히크메트"],
+      ["삶을 사랑하라. 그러면 삶도 당신을 사랑할 것이다.","아르투르 루빈스타인"],
+      ["인생은 과감한 모험이거나, 아무것도 아니다.","헬렌 켈러"]
+    ],
+    comfort: [
+      ["상처는 빛이 당신 안으로 들어오는 자리다.","잘랄루딘 루미"],
+      ["겨울 한가운데서 나는 마침내 내 안에 꺾이지 않는 여름이 있음을 알았다.","알베르 카뮈"],
+      ["진흙이 없으면 연꽃도 없다.","틱낫한"],
+      ["당신은 하늘이다. 나머지는 모두 지나가는 날씨일 뿐이다.","페마 초드론"],
+      ["모든 슬픔은 이야기로 만들거나 이야기할 수 있다면 견딜 수 있다.","이자크 디네센"],
+      ["슬퍼하지 마라. 잃어버린 것은 다른 모습으로 다시 돌아온다.","잘랄루딘 루미"]
+    ]
+  },
+  SJ: {
+    cheer: [
+      ["천 리 길도 한 걸음부터 시작된다.","노자"],
+      ["성공은 날마다 되풀이한 작은 노력들의 합이다.","로버트 콜리어"],
+      ["위대한 일은 작은 일들이 하나하나 모여 이루어진다.","빈센트 반 고흐"],
+      ["우리가 반복하는 것이 곧 우리 자신이다.","아리스토텔레스 (윌 듀랜트의 풀이)"],
+      ["하루하루를 어떻게 보내느냐가 곧 인생을 어떻게 보내느냐이다.","애니 딜러드"],
+      ["인내는 쓰지만 그 열매는 달다.","장 자크 루소"]
+    ],
+    comfort: [
+      ["내일 일을 걱정하지 마라. 내일 걱정은 내일이 할 것이다.","마태복음 6:34"],
+      ["멈추지만 않는다면 얼마나 천천히 가는지는 중요하지 않다.","공자"],
+      ["완벽을 두려워하지 마라. 어차피 완벽에 닿을 일은 없을 테니.","살바도르 달리"],
+      ["휴식은 일을 달콤하게 하는 양념이다.","플루타르코스"],
+      ["이 또한 지나가리라.","페르시아 격언"],
+      ["지쳤다면 쉬는 법을 배워라. 그만두는 법 말고.","뱅크시"]
+    ]
+  },
+  SP: {
+    cheer: [
+      ["오늘을 붙잡아라. 내일은 최소한만 믿어라.","호라티우스"],
+      ["매일 두려운 일을 하나씩 해 보라.","엘리너 루스벨트"],
+      ["배는 항구에 있을 때 가장 안전하다. 그러나 배는 그러려고 만든 것이 아니다.","존 A. 셰드"],
+      ["지금 있는 곳에서 시작하라. 가진 것을 쓰라. 할 수 있는 것을 하라.","아서 애시"],
+      ["이 순간을 행복하게 여겨라. 이 순간이 바로 당신의 삶이다.","오마르 하이얌"],
+      ["행동은 두려움을 치료한다.","데이비드 J. 슈워츠"]
+    ],
+    comfort: [
+      ["인생은 폭풍이 지나가기를 기다리는 것이 아니라 빗속에서 춤추는 법을 배우는 것이다.","비비안 그린"],
+      ["바람의 방향은 바꿀 수 없지만, 돛은 언제든 조정할 수 있다.","지미 딘"],
+      ["잔잔한 바다는 결코 노련한 뱃사람을 만들지 못한다.","영국 속담"],
+      ["거의 모든 것은 플러그를 몇 분 뽑았다 꽂으면 다시 작동한다. 당신도 마찬가지다.","앤 라모트"],
+      ["잠시 멈추고 장미 향기를 맡아라.","영어 격언"],
+      ["내일은 또 다른 날이다.","마거릿 미첼, 《바람과 함께 사라지다》"]
+    ]
+  }
+};
+const WHY = {
+  cheer: {
+    NT: "오늘 기운이 구상을 실행으로 옮기기 좋은 흐름이에요. 머릿속 계획 중 한 가지라도 시작해 보세요.",
+    NF: "마음이 가는 일에 힘이 실리는 날이에요. 좋아하는 사람과 일에 진심을 표현해 보세요.",
+    SJ: "꾸준히 쌓아 온 것이 빛을 보는 날이에요. 오늘 할 일을 차근차근 매듭지어 보세요.",
+    SP: "움직이는 만큼 운이 따르는 날이에요. 망설이던 일에 가볍게 첫발을 내디뎌 보세요."
+  },
+  comfort: {
+    NT: "모든 변수를 통제하려 애쓰지 않아도 괜찮아요. 오늘은 바꿀 수 있는 것 하나에만 집중해 보세요.",
+    NF: "마음이 쉽게 흔들릴 수 있는 날이에요. 내 감정을 있는 그대로 인정해 주는 것부터 시작하세요.",
+    SJ: "계획대로 되지 않아도 당신의 성실함은 그대로예요. 오늘은 조금 덜 해도 괜찮습니다.",
+    SP: "답답하게 느껴진다면 잠깐 몸을 움직이고 바람을 쐬어 보세요. 흐름은 곧 바뀝니다."
+  }
+};
+function dailyWord(v, f) {
+  const tgGroup = Math.floor(f.tgI / 2);
+  const temp = temperament(v.mbti, tgGroup);
+  const tone = (f.total < 65 || f.clashDay) ? "comfort" : "cheer";
+  const pool = WORDS[temp][tone];
+  const [text, who] = pool[hash(v.name + v.mbti + f.tdi + "word") % pool.length];
+  return { text, who, tone, temp, why: WHY[tone][temp] };
+}
+
+/* ---------- 만세력 계산 ---------- */
+const mod = (a, n) => ((a % n) + n) % n;
+function dayIndex(y, m, d) { // 1900-01-01 = 甲戌(10)
+  const days = Math.round((Date.UTC(y, m - 1, d) - Date.UTC(1900, 0, 1)) / 86400000);
+  return mod(10 + days, 60);
+}
+function sunLongitude(jd) {
+  const T = (jd - 2451545.0) / 36525, r = Math.PI / 180;
+  const L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+  const M = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
+  const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M * r)
+          + (0.019993 - 0.000101 * T) * Math.sin(2 * M * r) + 0.000289 * Math.sin(3 * M * r);
+  const om = 125.04 - 1934.136 * T;
+  return mod(L0 + C - 0.00569 - 0.00478 * Math.sin(om * r), 360);
+}
+function calcSaju(y, m, d, hh, mm, known) {
+  const H = known ? hh : 12, Mi = known ? mm : 0;
+  const utcMs = Date.UTC(y, m - 1, d, H, Mi) - 9 * 3600000;
+  const lam = sunLongitude(utcMs / 86400000 + 2440587.5);
+  const mIdx = Math.floor(mod(lam - 315, 360) / 30); // 0 = 寅월
+  let sy = y;
+  if (m <= 2 && mIdx >= 10) sy = y - 1;
+  const yi = mod(sy - 4, 60);
+  const yS = yi % 10, yB = yi % 12;
+  const mS = mod((yS % 5) * 2 + 2 + mIdx, 10), mB = mod(2 + mIdx, 12);
+  let dy = y, dm = m, dd = d;
+  if (known && hh * 60 + mm >= 23 * 60 + 30) { const t = new Date(Date.UTC(y, m - 1, d + 1)); dy = t.getUTCFullYear(); dm = t.getUTCMonth() + 1; dd = t.getUTCDate(); }
+  const di = dayIndex(dy, dm, dd);
+  const dS = di % 10, dB = di % 12;
+  let hour = null;
+  if (known) {
+    const corr = hh * 60 + mm - 30;
+    const hB = Math.floor(mod(corr + 60, 1440) / 120);
+    hour = { s: mod((dS % 5) * 2 + hB, 10), b: hB };
+  }
+  return { year: { s: yS, b: yB }, month: { s: mS, b: mB }, day: { s: dS, b: dB }, hour };
+}
+function tenGod(dm, s) {
+  const diff = mod(ST_EL[s] - ST_EL[dm], 5);
+  return diff * 2 + ((s % 2) === (dm % 2) ? 0 : 1);
+}
+function relEl(dmEl, el) { return mod(el - dmEl, 5); } // 0비겁 1식상 2재성 3관성 4인성
+
+function analyze(saju) {
+  const dm = saju.day.s, dmEl = ST_EL[dm];
+  const counts = [0,0,0,0,0];
+  const pts = [[saju.year.s,"s"],[saju.year.b,"b"],[saju.month.s,"s"],[saju.month.b,"b"],[saju.day.s,"s"],[saju.day.b,"b"]];
+  if (saju.hour) pts.push([saju.hour.s,"s"],[saju.hour.b,"b"]);
+  pts.forEach(([v,t]) => counts[t === "s" ? ST_EL[v] : BR_EL[v]]++);
+  let sup = 0, tot = 0;
+  const add = (el, w) => { tot += w; const r = relEl(dmEl, el); if (r === 0 || r === 4) sup += w; };
+  add(ST_EL[saju.year.s],1); add(ST_EL[saju.month.s],1); add(BR_EL[saju.year.b],1);
+  add(BR_EL[saju.month.b],2); add(BR_EL[saju.day.b],1);
+  if (saju.hour) { add(ST_EL[saju.hour.s],1); add(BR_EL[saju.hour.b],1); }
+  const strong = sup / tot >= 0.5;
+  const favRel = strong ? [1,2,3] : [4,0];
+  const favEls = favRel.map(r => mod(dmEl + r, 5));
+  const lucky = favEls.slice().sort((a,b) => counts[a] - counts[b])[0];
+  const lacking = counts.findIndex(c => c === 0);
+  return { dm, dmEl, counts, strong, favRel, lucky, lacking };
+}
+
+function hash(str) { let h = 2166136261; for (const c of str) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+function fortune(input, saju, an, today) {
+  const { name, gender } = input;
+  const tdi = dayIndex(today.y, today.m, today.d);
+  const tS = tdi % 10, tB = tdi % 12;
+  const tgI = tenGod(an.dm, tS), tg = TG[tgI];
+  const tgB = tenGod(an.dm, BR_MAIN[tB]);
+  const rS = relEl(an.dmEl, ST_EL[tS]), rB = relEl(an.dmEl, BR_EL[tB]);
+  const fav = an.favRel.includes(rS), favB = an.favRel.includes(rB);
+  const clashDay = mod(tB - saju.day.b, 12) === 6;
+  const harmDay = mod(tB + saju.day.b, 12) === 1;
+  const clashYear = mod(tB - saju.year.b, 12) === 6;
+  const h = hash(name + JSON.stringify(saju) + tdi);
+  const jit = k => ((h >> (k * 4)) & 15) % 9 - 4;
+
+  const score = {}, text = {};
+  ["biz","money","rel","health"].forEach((k, i) => {
+    let s = 62 + tg.w[k] + (fav ? 6 : -5) + (favB ? 3 : -2) + jit(i);
+    s += Math.round(TG[tgB].w[k] / 3);
+    score[k] = s; text[k] = tg[k].slice();
+  });
+
+  const tgGroup = Math.floor(tgI / 2);
+  // 사업
+  if (clashYear) { score.biz -= 4; text.biz.push("주변 환경에 변화의 기운이 있으니 큰 결정은 하루 이틀 미뤄 보세요."); }
+  else if (harmDay) { score.biz += 3; text.biz.push("일진이 일지와 합(合)을 이루어 협력하는 사람과 손발이 잘 맞습니다."); }
+  else if (fav) text.biz.push("오늘 기운이 사주에 힘을 보태니 미뤄 둔 일을 시작하기에도 괜찮아요.");
+  // 금전
+  if (tgGroup === 2 && an.strong) { score.money += 4; text.money.push("신강한 사주라 재물을 감당할 힘이 있으니 들어온 기회는 잡아도 좋아요."); }
+  else if (tgGroup === 2 && !an.strong) { score.money -= 4; text.money.push("신약한 사주에 재성이 들어와 돈 문제가 부담이 될 수 있으니 무리한 확장은 피하세요."); }
+  else if (!fav && tgGroup === 0) text.money.push("남에게 보증을 서거나 돈을 빌려주는 일은 오늘만큼은 거절해도 괜찮아요.");
+  // 대인관계
+  if (clashDay) { score.rel -= 8; text.rel.push("일진이 일지와 충(沖)을 이루어 가까운 사이일수록 말투를 부드럽게 해야 해요."); }
+  else if (harmDay) { score.rel += 8; text.rel.push("일진이 일지와 합(合)을 이루어 마음 맞는 사람과의 인연이 깊어지는 날이에요."); }
+  else if (gender === "m" && tgGroup === 2) { score.rel += 3; text.rel.push("남성에게 재성의 날은 이성 인연이 움직이는 날이니 연인이나 배우자와 시간을 보내 보세요."); }
+  else if (gender === "f" && tgGroup === 3) { score.rel += 3; text.rel.push("여성에게 관성의 날은 이성 인연이 움직이는 날이니 연인이나 배우자와 시간을 보내 보세요."); }
+  // 건강
+  if (clashDay) { score.health -= 6; text.health.push("일지가 충을 받아 몸의 리듬이 흔들리기 쉬우니 이동과 운동 중 안전에 신경 쓰세요."); }
+  else if (an.lacking >= 0) text.health.push(`사주에 ${EL[an.lacking].k}(${EL[an.lacking].h}) 기운이 부족한 편이라 ${EL[an.lacking].organ}을 평소에 잘 챙기면 좋아요.`);
+
+  Object.keys(score).forEach(k => score[k] = Math.max(30, Math.min(96, score[k])));
+  const total = Math.round((score.biz + score.money + score.rel + score.health) / 4);
+
+  const dmD = DM[an.dm], tEl = EL[ST_EL[tS]], L = EL[an.lucky];
+  const lines = [
+    `${name}님은 ${ST[an.dm]}${EL[an.dmEl].h}(${STK[an.dm]}${EL[an.dmEl].k}) 일간으로, ${dmD[0]}처럼 ${dmD[1]} 기질을 타고났어요.`,
+    `오늘 ${STK[tS]}${BRK[tB]}(${ST[tS]}${BR[tB]})일은 ${name}님에게 ${tg.n}(${tg.h})의 날로, ${tg.head}`,
+    clashDay ? `일진이 일지와 충을 이루어 크고 작은 변동이 생기기 쉬우니, 계획보다 여유를 두고 움직이세요.`
+      : fav ? `오늘 들어오는 ${tEl.k}(${tEl.h}) 기운은 ${an.strong ? "신강한" : "신약한"} 사주에 필요한 기운이라 전체 흐름이 순조로운 편이에요.`
+      : `오늘 들어오는 ${tEl.k}(${tEl.h}) 기운은 사주에 부담이 되는 쪽이라, 속도를 조금 늦추고 지키는 데 힘쓰면 좋아요.`,
+    `행운의 색은 ${L.color}, 방향은 ${L.dir}, 숫자는 ${L.num}입니다.`
+  ];
+  return { tS, tB, tg, tgI, tdi, clashDay, lines, score, text, total };
+}
+
+/* ---------- 화면 ---------- */
+const $ = id => document.getElementById(id);
+const by = $("by"), bm = $("bm"), bd = $("bd"), th = $("th"), tm = $("tm"), tunk = $("tunk");
+const WEEK = ["일","월","화","수","목","금","토"];
+
+function todayKST() {
+  const t = new Date(Date.now() + 9 * 3600000);
+  return { y: t.getUTCFullYear(), m: t.getUTCMonth() + 1, d: t.getUTCDate(), w: t.getUTCDay() };
+}
+const TODAY = todayKST();
+
+function fillSelects() {
+  for (let y = TODAY.y; y >= 1920; y--) by.add(new Option(`${y}년`, y));
+  for (let m = 1; m <= 12; m++) bm.add(new Option(`${m}월`, m));
+  for (let h = 0; h < 24; h++) {
+    const ap = h < 12 ? "오전" : "오후", hh = h % 12 === 0 ? 12 : h % 12;
+    th.add(new Option(`${ap} ${hh}시 (${String(h).padStart(2,"0")}시)`, h));
+  }
+  for (let m = 0; m < 60; m++) tm.add(new Option(`${String(m).padStart(2,"0")}분`, m));
+}
+function fillDays(keep) {
+  const n = new Date(Date.UTC(+by.value, +bm.value, 0)).getUTCDate();
+  const cur = keep ?? +bd.value;
+  bd.innerHTML = "";
+  for (let d = 1; d <= n; d++) bd.add(new Option(`${d}일`, d));
+  bd.value = Math.min(cur || 1, n);
+}
+fillSelects();
+by.addEventListener("change", () => fillDays()); bm.addEventListener("change", () => fillDays());
+tunk.addEventListener("change", () => { th.disabled = tm.disabled = tunk.checked; });
+
+const SAMPLE = { name: "홍길동", y: 1990, m: 5, d: 15, hh: 7, mm: 30, unk: false, gender: "m", mbti: "ISTJ" };
+function setForm(v) {
+  $("name").value = v.name; by.value = v.y; bm.value = v.m; fillDays(v.d);
+  th.value = v.hh; tm.value = v.mm; tunk.checked = v.unk; th.disabled = tm.disabled = v.unk;
+  (v.gender === "f" ? $("gf") : $("gm")).checked = true;
+  $("mbti").value = MBTI_TRAIT[v.mbti] ? v.mbti : "";
+}
+function readForm() {
+  return { name: $("name").value.trim(), y: +by.value, m: +bm.value, d: +bd.value, hh: +th.value, mm: +tm.value,
+           unk: tunk.checked, gender: $("gf").checked ? "f" : "m", mbti: $("mbti").value };
+}
+
+const grade = s => s >= 80 ? ["g4","아주 좋음"] : s >= 65 ? ["g3","좋음"] : s >= 50 ? ["g2","보통"] : ["g1","주의"];
+const chip = (ch, ko, el) => `<div class="ch ${EL[el].cls}"><b>${ch}</b><span>${ko} · ${EL[el].k}</span></div>`;
+
+function render(v, isSample) {
+  const saju = calcSaju(v.y, v.m, v.d, v.hh, v.mm, !v.unk);
+  const an = analyze(saju);
+  const f = fortune({ name: v.name, gender: v.gender }, saju, an, TODAY);
+  const cats = [["biz","사업","事業"],["money","금전","金錢"],["rel","대인관계","人間"],["health","건강","健康"]];
+
+  const pillar = (pos, p, me) => {
+    if (!p) return `<div class="pillar"><span class="pos">${pos}</span><div class="ch empty"><b>?</b><span>모름</span></div><div class="ch empty"><b>?</b><span>모름</span></div><span class="tg"></span></div>`;
+    const tgName = me ? "일간(나)" : TG[tenGod(an.dm, p.s)].n;
+    return `<div class="pillar${me ? " me" : ""}"><span class="pos">${pos}</span>${chip(ST[p.s], STK[p.s], ST_EL[p.s])}${chip(BR[p.b], BRK[p.b], BR_EL[p.b])}<span class="tg">${tgName}</span></div>`;
+  };
+  const maxC = Math.max(...an.counts, 1);
+  v.mbti = MBTI_TRAIT[v.mbti] ? v.mbti : "";
+  const w = dailyWord(v, f);
+  const toneKo = w.tone === "cheer" ? "격려" : "위로";
+  const whoLine = v.mbti
+    ? `<span class="mbti-tag">${v.mbti}</span>${MBTI_TRAIT[v.mbti]}인 ${v.name}님에게 ${f.tg.n}(${f.tg.h})의 날 건네는 ${toneKo}예요. ${w.why}`
+    : `${f.tg.n}(${f.tg.h})의 날, ${v.name}님에게 건네는 ${toneKo}예요. ${w.why} MBTI를 입력하면 성격에 더 맞는 문장을 골라 드려요.`;
+
+  $("result").innerHTML = `
+    ${isSample ? `<span class="sample">예시 결과예요. 왼쪽에 내 정보를 넣어 보세요.</span>` : ""}
+    <section class="panel today">
+      <div class="seal" aria-hidden="true">${ST[f.tS]}${BR[f.tB]}<small>日辰</small></div>
+      <div class="today-text">
+        <span class="today-date">${TODAY.y}년 ${TODAY.m}월 ${TODAY.d}일 ${WEEK[TODAY.w]}요일</span>
+        <span class="today-sub">${STK[f.tS]}${BRK[f.tB]}일 · ${v.name}님의 ${f.tg.n}(${f.tg.h}) 날</span>
+      </div>
+    </section>
+    <section class="panel summary">
+      <div class="summary-head">
+        <h2>오늘의 총평</h2>
+        <span class="score-big"><b>${f.total}</b>점 · ${grade(f.total)[1]}</span>
+      </div>
+      <div class="lines">${f.lines.map(l => `<p>${l}</p>`).join("")}</div>
+    </section>
+    <div class="cats">
+      ${cats.map(([k, ko, hj]) => { const g = grade(f.score[k]); return `
+        <section class="cat">
+          <div class="cat-head"><h3>${ko} <span>${hj}</span></h3><span class="pill ${g[0]}">${g[1]}</span></div>
+          <div class="bar" role="img" aria-label="${ko} ${f.score[k]}점"><i style="width:${f.score[k]}%"></i></div>
+          <span class="num">${f.score[k]}점</span>
+          ${f.text[k].map(t => `<p>${t}</p>`).join("")}
+        </section>`; }).join("")}
+    </div>
+    <section class="word">
+      <span class="eyebrow">오늘의 한 줄 · ${toneKo}</span>
+      <blockquote>${w.text}</blockquote>
+      <p class="who">${w.who}</p>
+      <p class="why">${whoLine}</p>
+    </section>
+    <section class="panel chart">
+      <h2>${v.name}님의 사주 원국</h2>
+      <div class="pillars">
+        ${pillar("시주", saju.hour)}${pillar("일주", saju.day, true)}${pillar("월주", saju.month)}${pillar("년주", saju.year)}
+      </div>
+      <div class="elements">
+        ${an.counts.map((c, i) => `<div class="el-row ${EL[i].cls}"><span class="t">${EL[i].h} ${EL[i].k}</span><span class="b"><i style="width:${c / maxC * 100}%"></i></span><span class="n">${c}</span></div>`).join("")}
+      </div>
+      <p class="chart-note">${an.strong ? "신강(身強)" : "신약(身弱)"}한 사주로 보아, ${an.favRel.map(r => ["비겁","식상","재성","관성","인성"][r]).join("·")} 기운을 반기는 편이에요.${v.unk ? " 태어난 시간을 몰라 시주는 빼고 풀이했어요." : ""}</p>
+    </section>`;
+}
+
+$("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = readForm();
+  if (!v.name) { $("err").textContent = "이름을 입력해 주세요."; $("name").focus(); return; }
+  if (new Date(Date.UTC(v.y, v.m - 1, v.d)) > new Date(Date.UTC(TODAY.y, TODAY.m - 1, TODAY.d))) { $("err").textContent = "생년월일이 오늘 이후예요. 날짜를 다시 확인해 주세요."; return; }
+  $("err").textContent = "";
+  try { localStorage.setItem("saju-input", JSON.stringify(v)); } catch (_) {}
+  render(v, false);
+  if (window.matchMedia("(max-width: 860px)").matches) $("result").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+let saved = null;
+try { saved = JSON.parse(localStorage.getItem("saju-input")); } catch (_) {}
+if (saved && saved.name) { setForm(saved); render(saved, false); }
+else { setForm(SAMPLE); render(SAMPLE, true); }
+</script>
+</body>
+</html>
