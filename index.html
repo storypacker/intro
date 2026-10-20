@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
-     crossorigin="anonymous"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="작가 겸 신사업·AI·로보틱스·스토리텔링 마케팅 컨설턴트 박희선의 스토리패커(Storypacker)">
@@ -163,9 +161,12 @@ a.app:hover{border-color:var(--accent);transform:translateY(-2px)}
 @media (max-width:560px){.apps{grid-template-columns:1fr}}
 
 /* quote */
-.quote{font-family:var(--display);font-size:clamp(22px,3vw,32px);line-height:1.5;max-width:28em;margin:0;text-wrap:balance}
-.quote::before{content:"“";color:var(--accent)}
-.quote::after{content:"”";color:var(--accent)}
+.quote-box{container-type:inline-size;min-width:0}
+.quote{font-family:var(--display);font-size:clamp(15px,4.3cqi,32px);line-height:1.55;margin:0}
+.quote .ln{display:block}
+.quote .ln.one{white-space:nowrap}
+.quote .ln:first-child::before{content:"“";color:var(--accent)}
+.quote .ln:last-child::after{content:"”";color:var(--accent)}
 .topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
 .topics span{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--surface)}
 
@@ -354,7 +355,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
     <div class="wrap">
       <div class="sec-head">
         <div class="eyebrow">Point of view</div>
-        <p class="quote">좋은 기술은 스스로 팔리지 않습니다. 고객이 이해하는 이야기가 있어야 사업이 됩니다.</p>
+        <div class="quote-box"><p class="quote"><span class="ln">좋은 기술은 스스로 팔리지 않습니다.</span><span class="ln one">고객이 이해하는 이야기가 있어야 사업이 됩니다.</span></p></div>
       </div>
       <div class="topics" aria-label="강연 주제">
         <span>AI로봇 비즈니스의 현재와 미래</span><span>로봇 신사업, 어떻게 사업화할까</span><span>일 잘하는 마케터의 스토리텔링</span><span>신사업 기획과 공모전 전략</span><span>AI 시대의 브랜드 이야기</span>
