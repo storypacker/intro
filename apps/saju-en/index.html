@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Today's fortune for work, money, relationships and health, plus a quote for the day, based on Korean Saju (the Four Pillars of Destiny).">
+<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+<style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Daily Fortune &amp; Quote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&text=甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥&display=swap">
+<style>
+/* Layout: wide screens put the input card left and the reading right; narrow screens stack. Reading order: date and summary, four areas, quote, birth chart. */
+:root {
+  --bg: #EDEFF1;
+  --surface: #F9FAFB;
+  --sunken: #E4E7EA;
+  --fg: #1E242B;
+  --muted: #5B6470;
+  --line: #D3D8DE;
+  --ink: #26323F;
+  --seal: #A8432F;
+  --on-ink: #F4F6F8;
+  --wood: #4F7D55; --fire: #B5533B; --earth: #93733A; --metal: #6F7782; --water: #375A82;
+  --good: #3F7A57; --warn: #9C6A22; --bad: #A8432F;
+  --font-display: "Fraunces", "Georgia", "Times New Roman", serif;
+  --font-hanja: "Noto Serif KR", "Noto Serif CJK KR", "Songti SC", "SimSun", serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14181D; --surface: #1C2229; --sunken: #232A32; --fg: #E6E9ED; --muted: #9AA3AE; --line: #2F3741;
+    --ink: #C9D3DE; --seal: #D9735C; --on-ink: #14181D;
+    --wood: #7DB085; --fire: #E07F66; --earth: #D1AE68; --metal: #A9B1BA; --water: #7FA3CC;
+    --good: #74B48D; --warn: #D7A55B; --bad: #E07F66;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14181D; --surface: #1C2229; --sunken: #232A32; --fg: #E6E9ED; --muted: #9AA3AE; --line: #2F3741;
+  --ink: #C9D3DE; --seal: #D9735C; --on-ink: #14181D;
+  --wood: #7DB085; --fire: #E07F66; --earth: #D1AE68; --metal: #A9B1BA; --water: #7FA3CC;
+  --good: #74B48D; --warn: #D7A55B; --bad: #E07F66;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 36px 56px;
+  display: flex; flex-direction: column; gap: 28px;
+}
+header { display: flex; flex-direction: column; gap: 6px; }
+.home { align-self: flex-start; font-size: .9rem; color: var(--muted); text-decoration: none; margin-bottom: 6px; }
+.home:hover { color: var(--fg); }
+header h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 5vw, 2.7rem); line-height: 1.1; color: var(--ink); text-wrap: balance; letter-spacing: -0.01em; }
+header p { margin: 0; color: var(--muted); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+form { display: flex; flex-direction: column; gap: 20px; }
+@media (min-width: 861px) { form.panel { position: sticky; top: calc(16px + env(safe-area-inset-top, 0px)); } }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field > label, .field > .lbl { font-weight: 600; font-size: .95rem; }
+.row { display: grid; gap: 8px; }
+.row.date { grid-template-columns: 1.2fr .9fr 1.2fr; }
+.row.time { grid-template-columns: 1fr 1fr; }
+input[type="text"], select {
+  width: 100%; box-sizing: border-box; min-width: 0;
+  font: inherit; font-size: 1rem;
+  padding: 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+}
+select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 16px) 52%, calc(100% - 11px) 52%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 28px; text-overflow: ellipsis; }
+input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+select:disabled { opacity: .45; }
+.check { display: flex; align-items: center; gap: 8px; font-size: .95rem; color: var(--muted); cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--ink); }
+.hint { font-size: .82rem; color: var(--muted); margin: 0; }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { text-align: center; padding: 12px 6px; font-size: .98rem; cursor: pointer; background: var(--bg); color: var(--fg); transition: background .2s, color .2s; }
+.seg label:not(:first-of-type) { border-left: 1px solid var(--line); }
+.seg input:checked + label { background: var(--ink); color: var(--on-ink); font-weight: 600; }
+.seg input:focus-visible + label { outline: 2px solid var(--ink); outline-offset: -3px; }
+.submit {
+  font: inherit; font-size: 1.08rem; font-weight: 600;
+  padding: 14px; border: 0; border-radius: 12px; cursor: pointer;
+  background: var(--ink); color: var(--on-ink);
+}
+.submit:hover { filter: brightness(1.08); }
+.err { color: var(--bad); font-size: .9rem; margin: 0; }
+.err:empty { display: none; }
+.note { font-size: .82rem; color: var(--muted); margin: 0; line-height: 1.55; }
+
+.result { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.sample { align-self: flex-start; font-size: .85rem; padding: 4px 10px; border-radius: 999px; background: var(--sunken); color: var(--muted); }
+
+.today { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.seal {
+  flex: none; width: 84px; height: 84px; border-radius: 12px;
+  border: 2.5px solid var(--seal); color: var(--seal);
+  display: grid; place-items: center; align-content: center; text-align: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 2.1rem; line-height: 1;
+  transform: rotate(-3deg);
+}
+.seal small { display: block; font-family: var(--font-body); font-size: .72rem; font-weight: 600; letter-spacing: .14em; margin-top: 4px; }
+.today-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.today-date { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.25rem, 3.2vw, 1.55rem); color: var(--ink); }
+.today-sub { color: var(--muted); }
+
+.summary { display: flex; flex-direction: column; gap: 14px; }
+.summary-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.summary-head h2 { margin: 0; font-family: var(--font-display); font-size: 1.35rem; color: var(--ink); }
+.score-big { font-variant-numeric: tabular-nums; font-weight: 600; }
+.score-big b { font-family: var(--font-display); font-size: 2.1rem; color: var(--ink); margin-right: 4px; }
+.summary p { margin: 0; font-size: 1.05rem; text-wrap: pretty; }
+.summary .lines { display: flex; flex-direction: column; gap: 8px; }
+
+.cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 560px) { .cats { grid-template-columns: minmax(0, 1fr); } }
+.cat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.cat-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.cat-head h3 { margin: 0; font-family: var(--font-display); font-size: 1.15rem; }
+.pill { font-size: .82rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+.pill.g4 { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.pill.g3 { background: color-mix(in srgb, var(--good) 12%, transparent); color: var(--good); }
+.pill.g2 { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); }
+.pill.g1 { background: color-mix(in srgb, var(--bad) 14%, transparent); color: var(--bad); }
+.bar { height: 6px; border-radius: 999px; background: var(--sunken); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: inherit; background: var(--ink); transition: width .6s ease; }
+.cat p { margin: 0; text-wrap: pretty; }
+.cat .num { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .85rem; }
+
+.chart h2 { margin: 0 0 14px; font-family: var(--font-display); font-size: 1.2rem; color: var(--ink); }
+.pillars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.pillar { display: flex; flex-direction: column; gap: 6px; text-align: center; min-width: 0; }
+.pillar .pos { font-size: .78rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
+.ch {
+  border-radius: 10px; padding: 8px 4px 7px; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: color-mix(in srgb, var(--c) 13%, transparent); color: var(--c);
+}
+.ch b { font-family: var(--font-hanja); font-weight: 900; font-size: clamp(1.6rem, 4.6vw, 2.1rem); line-height: 1.15; }
+.ch span { font-size: .74rem; line-height: 1.3; }
+.pillar.me .ch:first-of-type { box-shadow: inset 0 0 0 2px var(--c); }
+.ch.empty { --c: var(--muted); background: var(--sunken); }
+.tg { font-size: .76rem; color: var(--muted); min-height: 1.2em; line-height: 1.3; }
+.el-wood { --c: var(--wood); } .el-fire { --c: var(--fire); } .el-earth { --c: var(--earth); } .el-metal { --c: var(--metal); } .el-water { --c: var(--water); }
+
+.elements { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+.el-row { display: grid; grid-template-columns: 60px minmax(0, 1fr) 28px; gap: 10px; align-items: center; font-size: .9rem; }
+.el-row .t { color: var(--c); font-weight: 600; }
+.el-row .b { height: 8px; border-radius: 999px; background: var(--sunken); overflow: hidden; }
+.el-row .b i { display: block; height: 100%; background: var(--c); border-radius: inherit; }
+.el-row .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+.chart-note { margin: 14px 0 0; font-size: .9rem; color: var(--muted); }
+
+.word {
+  background: var(--ink); color: var(--on-ink);
+  border-radius: 16px; padding: clamp(26px, 5vw, 44px) clamp(22px, 5vw, 48px);
+  display: flex; flex-direction: column; gap: 18px;
+}
+.word .eyebrow { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; font-weight: 600; }
+.word blockquote {
+  margin: 0; font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.45rem, 3.8vw, 2rem); line-height: 1.4;
+  text-wrap: pretty;
+}
+.word .who { margin: 0; font-family: var(--font-display); font-weight: 500; font-style: italic; font-size: 1.05rem; opacity: .85; }
+.word .who::before { content: "— "; }
+.word .why { margin: 0; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--on-ink) 22%, transparent); font-size: .98rem; opacity: .9; }
+
+footer { font-size: .82rem; color: var(--muted); text-align: center; }
+@media (prefers-reduced-motion: reduce) { .bar i, .seg label { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="home" href="../../index.html">← Storypacker Home</a>
+    <h1>Daily Fortune &amp; Quote</h1>
+    <p>Enter your birth details to get today's fortune score, a reading for work, money, relationships and health, and a quote picked to carry you through the day. Based on Saju, the Korean Four Pillars of Destiny.</p>
+  </header>
+
+  <div class="layout">
+    <form class="panel" id="form" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" autocomplete="given-name" placeholder="e.g. Alex" maxlength="24">
+      </div>
+      <div class="field">
+        <span class="lbl" id="dlbl">Date of birth</span>
+        <div class="row date" role="group" aria-labelledby="dlbl">
+          <select id="bm" aria-label="Birth month"></select>
+          <select id="bd" aria-label="Birth day"></select>
+          <select id="by" aria-label="Birth year"></select>
+        </div>
+      </div>
+      <div class="field">
+        <span class="lbl" id="tlbl">Time of birth</span>
+        <div class="row time" role="group" aria-labelledby="tlbl">
+          <select id="th" aria-label="Birth hour"></select>
+          <select id="tm" aria-label="Birth minute"></select>
+        </div>
+        <label class="check"><input type="checkbox" id="tunk"> I don't know my birth time</label>
+      </div>
+      <div class="field">
+        <label for="tz">Birthplace time zone</label>
+        <select id="tz"></select>
+        <p class="hint">Pick the zone where you were born, not where you live now.</p>
+      </div>
+      <div class="field">
+        <span class="lbl" id="glbl">Gender</span>
+        <div class="seg" role="radiogroup" aria-labelledby="glbl">
+          <input type="radio" name="g" id="gm" value="m" checked><label for="gm">Male</label>
+          <input type="radio" name="g" id="gf" value="f"><label for="gf">Female</label>
+          <input type="radio" name="g" id="gx" value="x"><label for="gx">Non-binary</label>
+        </div>
+      </div>
+      <p class="err" id="err" role="alert"></p>
+      <button class="submit" type="submit">See today's fortune</button>
+      <p class="note">Solar terms are calculated from the sun's position. Your birth time is converted to your birthplace's standard time, with daylight saving removed. Births from 11 PM count toward the next day.</p>
+    </form>
+
+    <main class="result" id="result" aria-live="polite"></main>
+  </div>
+
+  <footer>A reading based on the principles of Korean Saju (the Four Pillars of Destiny), for reflection and fun. Trust your own judgment for important decisions.</footer>
+</div>
+
+<script>
+const ST = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+const STN = ["Yang Wood","Yin Wood","Yang Fire","Yin Fire","Yang Earth","Yin Earth","Yang Metal","Yin Metal","Yang Water","Yin Water"];
+const BR = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const BRN = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
+const ST_EL = [0,0,1,1,2,2,3,3,4,4];
+const BR_EL = [4,2,0,0,2,1,1,2,3,3,2,4];
+const BR_MAIN = [9,5,0,1,4,2,3,5,6,7,4,8];
+const EL = [
+  { n:"Wood",  cls:"el-wood",  color:"green", dir:"East", num:"3 and 8", organ:"liver and eyes" },
+  { n:"Fire",  cls:"el-fire",  color:"red or orange", dir:"South", num:"2 and 7", organ:"heart and circulation" },
+  { n:"Earth", cls:"el-earth", color:"yellow or beige", dir:"the center of your space", num:"5 and 10", organ:"stomach and digestion" },
+  { n:"Metal", cls:"el-metal", color:"white or silver", dir:"West", num:"4 and 9", organ:"lungs and breathing" },
+  { n:"Water", cls:"el-water", color:"black or navy", dir:"North", num:"1 and 6", organ:"kidneys and bladder" }
+];
+const DM = [
+  ["a tall tree","upright and ready to lead"], ["grass and flowers","flexible and quietly resilient"], ["the sun","bright and passionate"], ["a candle flame","attentive and warm"],
+  ["a great mountain","steady and dependable"], ["fertile farmland","nurturing and practical"], ["solid steel","decisive and loyal"],
+  ["a polished jewel","refined and sharp-eyed"], ["a great river","wise and big-picture"], ["dew and rain","calm and deeply perceptive"]
+];
+const GROUPS = ["Peer","Output","Wealth","Authority","Resource"];
+
+const TG = [
+  { n:"Companion", head:"It's a day to move forward on your own strength.",
+    biz:["You'll get results by deciding and acting for yourself rather than leaning on others.","Roles can overlap with coworkers today, so agree on who owns what before you start."],
+    money:["Money comes in and goes out at about the same pace. A quiet, ordinary day.","If you split costs or share money with someone, settle the amount and the deadline clearly."],
+    rel:["You click easily with friends, siblings and people your own age today.","When stubbornness collides, nobody wants to back down. Try being the first to give a little."],
+    health:["Your stamina and energy are fairly solid.","Carrying everything alone can tighten your neck and shoulders, so stretch them now and then."],
+    w:{biz:4,money:0,rel:4,health:6} },
+  { n:"Rival", head:"Your competitive spirit wakes up, but watch your spending and your impulses.",
+    biz:["Competition gives you extra drive and the push to move things forward.","Hasty calls can turn into losses, so double-check contracts and approvals."],
+    money:["An unexpected expense or a request to borrow money may come up.","Put off big purchases and investments today. Keeping your wallet closed is the safe move."],
+    rel:["A subtle sense of rivalry may form with people around you.","Instead of trying to win, help the other person save face. You'll gain allies that way."],
+    health:["You have energy to spare, which makes it easy to overdo workouts or drinks.","Watch out for strained muscles and joints, and warm up well before exercise."],
+    w:{biz:0,money:-10,rel:-4,health:0} },
+  { n:"Creator", head:"You feel relaxed, and your talents show without forcing them.",
+    biz:["Ideas come easily, and familiar work feels enjoyable.","Spend time on work that leaves something behind: planning, writing or making things."],
+    money:["Small rewards arrive from work you've kept at steadily.","Spending on food and fun may rise. Enjoy it, but only as much as feels good tomorrow too."],
+    rel:["Your words and expressions soften, so people feel at ease approaching you.","Conversation over a shared meal brings you closer to someone."],
+    health:["You're blessed with good appetite and steady energy today.","Just avoid overeating. Choose foods that are easy to digest and eat slowly."],
+    w:{biz:8,money:6,rel:8,health:6} },
+  { n:"Performer", head:"Your wit and expression shine, but choose your words carefully.",
+    biz:["Fresh proposals that change the usual way of doing things get noticed.","Openly challenging a boss or the rules could bury your good work, so soften how you say it."],
+    money:["Chances open up to earn from your skills or talents.","Mood-driven spending creeps up today. Leave items in your cart overnight before you buy."],
+    rel:["You're a great talker today, but jokes taken too far could be misunderstood.","Reread any emotional message or post once more before you send it."],
+    health:["Your nerves are on edge and your mind is busy, which wears you out quickly.","Your throat may feel dry, so sip water often and rest early tonight."],
+    w:{biz:2,money:2,rel:-6,health:-2} },
+  { n:"Windfall", head:"Your world widens and money moves in bigger waves.",
+    biz:["Work that takes you outside pays off: meetings, sales, travel.","It's a good day to think big, but check the fine print."],
+    money:["Unexpected income or a good deal may come your way.","Big money can flow out just as fast, so ease off on speculative bets."],
+    rel:["A great day to meet new people and grow your network.","Social plans pile up, so don't double-book yourself."],
+    health:["You're on the move a lot, and your energy scatters outward.","If you're traveling, stay alert on the road, and rest well in the evening."],
+    w:{biz:8,money:10,rel:6,health:-2} },
+  { n:"Steady Wealth", head:"Your diligence adds up and comes back as solid results.",
+    biz:["Handle planned tasks in order and you'll finish without mistakes.","Detail work suits you best today: numbers, accounts and paperwork."],
+    money:["A stable money day, good for regular income and savings.","A good day to review your budget and find the small leaks."],
+    rel:["Keeping your word earns people's trust today.","A small kindness to family makes home feel warmer."],
+    health:["A steady daily rhythm keeps your body in balance.","Keep it going with regular meals and an easy walk."],
+    w:{biz:6,money:12,rel:4,health:4} },
+  { n:"Challenger", head:"Pressure and responsibility grow, but getting through it makes you stronger.",
+    biz:["Sudden requests or tricky situations may land on your desk.","Don't dodge them. Set priorities and handle one thing at a time, and your skill will be recognized."],
+    money:["Surprise costs, like fees or fines, are more likely today.","Check insurance, taxes and due dates ahead of time to avoid losses."],
+    rel:["Demands from people above you or around you may feel heavy.","Rather than reacting emotionally, state your position briefly and clearly."],
+    health:["Tension and stress make fatigue build up quickly.","If you feel a headache or tight muscles, breathe deeply and schedule real breaks."],
+    w:{biz:-2,money:-6,rel:-6,health:-10} },
+  { n:"Authority", head:"Order and trust work in your favor. A good day to be recognized.",
+    biz:["Work done by the book earns good reviews today.","Formal settings go your way: reports, interviews, presentations."],
+    money:["Regular income arrives steadily with no big swings.","Manage money the honest, step-by-step way and you won't lose out."],
+    rel:["Good manners leave a strong impression, and seniors are likely to help you.","Trust builds in professional relationships, so be on time."],
+    health:["A regular routine keeps you in good shape.","When you're absorbed in duty it's easy to forget breaks. Don't skip meals."],
+    w:{biz:10,money:4,rel:6,health:2} },
+  { n:"Intuition", head:"Your intuition is sharp, though your mind may run in circles.",
+    biz:["You see straight through to what others have missed.","Plans may keep changing. Once you decide, see it through."],
+    money:["A better day to invest in learning or self-growth than in money.","Avoid investments based on shaky information. Protect what you have."],
+    rel:["You may want time alone and feel less talkative.","Tell people close to you that you're tired, so nobody takes it the wrong way."],
+    health:["A busy mind can mean lighter sleep or a weaker appetite.","Put screens away before bed and unwind with a warm cup of tea."],
+    w:{biz:2,money:-4,rel:-4,health:-4} },
+  { n:"Support", head:"A comfortable day when help and good news find you.",
+    biz:["Advice from a mentor or senior colleague is the key that unlocks your work.","Documents go smoothly today: contracts, certifications, paperwork."],
+    money:["Luck comes as support or gifts rather than big money.","Don't rush. Holding on to the stability you have pays off."],
+    rel:["Family and elders show you warm care today.","A short thank-you to someone who helped you makes the day even luckier."],
+    health:["A calm mind helps your body recover.","Plenty of sleep and rest is the best medicine today."],
+    w:{biz:6,money:2,rel:8,health:10} }
+];
+
+/* ---------- Quotes matched to today's energy ---------- */
+const WORDS = [
+  { // Peer: self-reliance
+    cheer: [
+      ["Trust thyself: every heart vibrates to that iron string.","Ralph Waldo Emerson"],
+      ["Do what you can, with what you have, where you are.","Theodore Roosevelt"],
+      ["The best way out is always through.","Robert Frost"],
+      ["It is not the mountain we conquer, but ourselves.","Edmund Hillary"],
+      ["You miss 100% of the shots you don't take.","Wayne Gretzky"]
+    ],
+    comfort: [
+      ["Fall seven times, stand up eight.","Japanese proverb"],
+      ["Courage doesn't always roar. Sometimes courage is the quiet voice at the end of the day saying, 'I will try again tomorrow.'","Mary Anne Radmacher"],
+      ["The impediment to action advances action. What stands in the way becomes the way.","Marcus Aurelius"],
+      ["This too shall pass.","Persian adage"],
+      ["Rivers know this: there is no hurry. We shall get there some day.","A. A. Milne"]
+    ]
+  },
+  { // Output: creativity and expression
+    cheer: [
+      ["You can't use up creativity. The more you use, the more you have.","Maya Angelou"],
+      ["Imagination is more important than knowledge.","Albert Einstein"],
+      ["Find out who you are and do it on purpose.","Dolly Parton"],
+      ["Start where you are. Use what you have. Do what you can.","Arthur Ashe"],
+      ["Seize the day, putting as little trust as possible in tomorrow.","Horace"]
+    ],
+    comfort: [
+      ["Have patience with all things, but first of all with yourself.","Francis de Sales"],
+      ["Almost everything will work again if you unplug it for a few minutes, including you.","Anne Lamott"],
+      ["Be kind, for everyone you meet is fighting a hard battle.","Ian Maclaren"],
+      ["Out of difficulties grow miracles.","Jean de La Bruyère"],
+      ["Life isn't about waiting for the storm to pass. It's about learning to dance in the rain.","Vivian Greene"]
+    ]
+  },
+  { // Wealth: action and opportunity
+    cheer: [
+      ["Luck is what happens when preparation meets opportunity.","Seneca"],
+      ["Small opportunities are often the beginning of great enterprises.","Demosthenes"],
+      ["The harder I work, the luckier I get.","Samuel Goldwyn"],
+      ["A journey of a thousand miles begins with a single step.","Lao Tzu"],
+      ["A ship in harbor is safe, but that is not what ships are built for.","John A. Shedd"]
+    ],
+    comfort: [
+      ["It is not the man who has too little, but the man who craves more, that is poor.","Seneca"],
+      ["Content makes poor men rich; discontent makes rich men poor.","Benjamin Franklin"],
+      ["Beware of little expenses; a small leak will sink a great ship.","Benjamin Franklin"],
+      ["Wealth consists not in having great possessions, but in having few wants.","Epictetus"],
+      ["Rome wasn't built in a day.","English proverb"]
+    ]
+  },
+  { // Authority: duty, pressure and recognition
+    cheer: [
+      ["Well done is better than well said.","Benjamin Franklin"],
+      ["We are what we repeatedly do. Excellence, then, is not an act, but a habit.","Will Durant, on Aristotle"],
+      ["The only way to do great work is to love what you do.","Steve Jobs"],
+      ["It always seems impossible until it's done.","Nelson Mandela"],
+      ["Pressure is a privilege.","Billie Jean King"]
+    ],
+    comfort: [
+      ["A smooth sea never made a skilled sailor.","English proverb"],
+      ["We suffer more often in imagination than in reality.","Seneca"],
+      ["You may encounter many defeats, but you must not be defeated.","Maya Angelou"],
+      ["Nothing in life is to be feared, it is only to be understood.","Marie Curie"],
+      ["If you're going through hell, keep going.","Winston Churchill"]
+    ]
+  },
+  { // Resource: support, learning and rest
+    cheer: [
+      ["No one is useless in this world who lightens the burdens of another.","Charles Dickens"],
+      ["Alone we can do so little; together we can do so much.","Helen Keller"],
+      ["Live as if you were to die tomorrow. Learn as if you were to live forever.","Mahatma Gandhi"],
+      ["Gratitude is not only the greatest of virtues, but the parent of all the others.","Cicero"],
+      ["Feeling gratitude and not expressing it is like wrapping a present and not giving it.","William Arthur Ward"]
+    ],
+    comfort: [
+      ["Nature does not hurry, yet everything is accomplished.","Lao Tzu"],
+      ["Muddy water is best cleared by leaving it alone.","Alan Watts"],
+      ["It does not matter how slowly you go as long as you do not stop.","Confucius"],
+      ["You yourself, as much as anybody in the entire universe, deserve your love and affection.","Sharon Salzberg"],
+      ["Rest is not idleness, and to lie sometimes on the grass under trees on a summer's day, listening to the murmur of the water, or watching the clouds float across the sky, is by no means a waste of time.","John Lubbock"]
+    ]
+  }
+];
+const WHY = {
+  cheer: [
+    "Today rewards self-reliance. Trust your own judgment and take one step on your own.",
+    "Your ideas flow easily today. Make something, write something, or share what you love.",
+    "Luck follows movement today. Say yes to the good opportunity in front of you.",
+    "Your steady work gets noticed today. Do things properly and let the results speak.",
+    "Help and good news are on their way. Accept support gladly and say thank you."
+  ],
+  comfort: [
+    "You don't have to win every contest today. Holding your ground is enough.",
+    "If your words come out sharper than you meant, give yourself grace and try again gently.",
+    "You don't have to chase every chance today. Protecting what you already have is a win too.",
+    "The pressure you feel is real, and so is your strength. Take it one task at a time.",
+    "If your head feels crowded, slow down. Rest is part of moving forward."
+  ]
+};
+function dailyWord(v, f) {
+  const g = Math.floor(f.tgI / 2);
+  const tone = (f.total < 65 || f.clashDay) ? "comfort" : "cheer";
+  const pool = WORDS[g][tone];
+  const [text, who] = pool[hash(v.name + f.tdi + "word") % pool.length];
+  return { text, who, tone, why: WHY[tone][g] };
+}
+
+/* ---------- Time zone handling ---------- */
+const fmtCache = {};
+function tzOffsetMin(tz, ms) {
+  const f = fmtCache[tz] || (fmtCache[tz] = new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }));
+  const p = {};
+  f.formatToParts(new Date(ms)).forEach(x => { if (x.type !== "literal") p[x.type] = +x.value; });
+  const asUTC = Date.UTC(p.year, p.month - 1, p.day, p.hour === 24 ? 0 : p.hour, p.minute, p.second);
+  return Math.round((asUTC - Math.floor(ms / 1000) * 1000) / 60000);
+}
+// Local birth time in a zone -> UTC ms, plus that zone's standard (non-DST) offset in minutes
+function toUTC(y, m, d, H, Mi, tz) {
+  const guess = Date.UTC(y, m - 1, d, H, Mi);
+  try {
+    let off = tzOffsetMin(tz, guess);
+    let utc = guess - off * 60000;
+    const off2 = tzOffsetMin(tz, utc);
+    if (off2 !== off) utc = guess - off2 * 60000;
+    const std = Math.min(tzOffsetMin(tz, Date.UTC(y, 0, 15, 12)), tzOffsetMin(tz, Date.UTC(y, 6, 15, 12)));
+    return { utc, std };
+  } catch (_) {
+    const off = -new Date(y, m - 1, d, H, Mi).getTimezoneOffset();
+    return { utc: guess - off * 60000, std: off };
+  }
+}
+
+/* ---------- Four Pillars calculation ---------- */
+const mod = (a, n) => ((a % n) + n) % n;
+function dayIndex(y, m, d) { // 1900-01-01 = 甲戌 (10)
+  const days = Math.round((Date.UTC(y, m - 1, d) - Date.UTC(1900, 0, 1)) / 86400000);
+  return mod(10 + days, 60);
+}
+function sunLongitude(jd) {
+  const T = (jd - 2451545.0) / 36525, r = Math.PI / 180;
+  const L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+  const M = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
+  const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M * r)
+          + (0.019993 - 0.000101 * T) * Math.sin(2 * M * r) + 0.000289 * Math.sin(3 * M * r);
+  const om = 125.04 - 1934.136 * T;
+  return mod(L0 + C - 0.00569 - 0.00478 * Math.sin(om * r), 360);
+}
+function calcSaju(v) {
+  const known = !v.unk;
+  const { utc, std } = toUTC(v.y, v.m, v.d, known ? v.hh : 12, known ? v.mm : 0, v.tz);
+  const lam = sunLongitude(utc / 86400000 + 2440587.5);
+  const mIdx = Math.floor(mod(lam - 315, 360) / 30); // 0 = Tiger (寅) month
+  // Birth moment on the birthplace's standard clock
+  let ly = v.y, lm = v.m, ld = v.d, lmin = 12 * 60;
+  if (known) {
+    const L = new Date(utc + std * 60000);
+    ly = L.getUTCFullYear(); lm = L.getUTCMonth() + 1; ld = L.getUTCDate();
+    lmin = L.getUTCHours() * 60 + L.getUTCMinutes();
+  }
+  let sy = ly;
+  if (lm <= 2 && mIdx >= 10) sy = ly - 1;
+  const yi = mod(sy - 4, 60);
+  const yS = yi % 10, yB = yi % 12;
+  const mS = mod((yS % 5) * 2 + 2 + mIdx, 10), mB = mod(2 + mIdx, 12);
+  let dy = ly, dm = lm, dd = ld;
+  if (known && lmin >= 23 * 60) { const t = new Date(Date.UTC(ly, lm - 1, ld + 1)); dy = t.getUTCFullYear(); dm = t.getUTCMonth() + 1; dd = t.getUTCDate(); }
+  const di = dayIndex(dy, dm, dd);
+  const dS = di % 10, dB = di % 12;
+  let hour = null;
+  if (known) {
+    const hB = Math.floor(mod(lmin + 60, 1440) / 120);
+    hour = { s: mod((dS % 5) * 2 + hB, 10), b: hB };
+  }
+  return { year: { s: yS, b: yB }, month: { s: mS, b: mB }, day: { s: dS, b: dB }, hour };
+}
+function tenGod(dm, s) {
+  const diff = mod(ST_EL[s] - ST_EL[dm], 5);
+  return diff * 2 + ((s % 2) === (dm % 2) ? 0 : 1);
+}
+function relEl(dmEl, el) { return mod(el - dmEl, 5); } // 0 Peer 1 Output 2 Wealth 3 Authority 4 Resource
+
+function analyze(saju) {
+  const dm = saju.day.s, dmEl = ST_EL[dm];
+  const counts = [0,0,0,0,0];
+  const pts = [[saju.year.s,"s"],[saju.year.b,"b"],[saju.month.s,"s"],[saju.month.b,"b"],[saju.day.s,"s"],[saju.day.b,"b"]];
+  if (saju.hour) pts.push([saju.hour.s,"s"],[saju.hour.b,"b"]);
+  pts.forEach(([v,t]) => counts[t === "s" ? ST_EL[v] : BR_EL[v]]++);
+  let sup = 0, tot = 0;
+  const add = (el, w) => { tot += w; const r = relEl(dmEl, el); if (r === 0 || r === 4) sup += w; };
+  add(ST_EL[saju.year.s],1); add(ST_EL[saju.month.s],1); add(BR_EL[saju.year.b],1);
+  add(BR_EL[saju.month.b],2); add(BR_EL[saju.day.b],1);
+  if (saju.hour) { add(ST_EL[saju.hour.s],1); add(BR_EL[saju.hour.b],1); }
+  const strong = sup / tot >= 0.5;
+  const favRel = strong ? [1,2,3] : [4,0];
+  const favEls = favRel.map(r => mod(dmEl + r, 5));
+  const lucky = favEls.slice().sort((a,b) => counts[a] - counts[b])[0];
+  const lacking = counts.findIndex(c => c === 0);
+  return { dm, dmEl, counts, strong, favRel, lucky, lacking };
+}
+
+function hash(str) { let h = 2166136261; for (const c of str) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+
+function fortune(input, saju, an, today) {
+  const { name, gender } = input;
+  const tdi = dayIndex(today.y, today.m, today.d);
+  const tS = tdi % 10, tB = tdi % 12;
+  const tgI = tenGod(an.dm, tS), tg = TG[tgI];
+  const tgB = tenGod(an.dm, BR_MAIN[tB]);
+  const rS = relEl(an.dmEl, ST_EL[tS]), rB = relEl(an.dmEl, BR_EL[tB]);
+  const fav = an.favRel.includes(rS), favB = an.favRel.includes(rB);
+  const clashDay = mod(tB - saju.day.b, 12) === 6;
+  const harmDay = mod(tB + saju.day.b, 12) === 1;
+  const clashYear = mod(tB - saju.year.b, 12) === 6;
+  const h = hash(name + JSON.stringify(saju) + tdi);
+  const jit = k => ((h >> (k * 4)) & 15) % 9 - 4;
+
+  const score = {}, text = {};
+  ["biz","money","rel","health"].forEach((k, i) => {
+    let s = 62 + tg.w[k] + (fav ? 6 : -5) + (favB ? 3 : -2) + jit(i);
+    s += Math.round(TG[tgB].w[k] / 3);
+    score[k] = s; text[k] = tg[k].slice();
+  });
+
+  const g = Math.floor(tgI / 2);
+  // Work
+  if (clashYear) { score.biz -= 4; text.biz.push("Change is stirring around you, so hold big decisions for a day or two."); }
+  else if (harmDay) { score.biz += 3; text.biz.push("Today's branch harmonizes with your own day branch, so teamwork clicks."); }
+  else if (fav) text.biz.push("Today's energy supports your chart, so it's a fine day to start something you've put off.");
+  // Money
+  if (g === 2 && an.strong) { score.money += 4; text.money.push("Your chart is strong enough to handle wealth energy, so go ahead and take a good opportunity."); }
+  else if (g === 2 && !an.strong) { score.money -= 4; text.money.push("Wealth energy can feel heavy on a gentler chart like yours. Skip any big expansion today."); }
+  else if (!fav && g === 0) text.money.push("If someone asks you to lend money or co-sign today, it's fine to say no.");
+  // Relationships
+  const romance = (gender === "m" && g === 2) || (gender === "f" && g === 3) || (gender === "x" && (g === 2 || g === 3));
+  if (clashDay) { score.rel -= 8; text.rel.push("Today's branch clashes with your own day branch. Speak gently, especially with the people closest to you."); }
+  else if (harmDay) { score.rel += 8; text.rel.push("Today's branch harmonizes with your own day branch, so bonds with like-minded people grow deeper."); }
+  else if (romance) { score.rel += 3; text.rel.push("Romantic energy is stirring for you today. Make time for your partner or someone you're drawn to."); }
+  // Health
+  if (clashDay) { score.health -= 6; text.health.push("With your day branch under clash, your body's rhythm may wobble. Take care when traveling or exercising."); }
+  else if (an.lacking >= 0) text.health.push(`Your chart is light on ${EL[an.lacking].n} energy, so give your ${EL[an.lacking].organ} a little extra care.`);
+
+  Object.keys(score).forEach(k => score[k] = Math.max(30, Math.min(96, score[k])));
+  const total = Math.round((score.biz + score.money + score.rel + score.health) / 4);
+
+  const dmD = DM[an.dm], tEl = EL[ST_EL[tS]], L = EL[an.lucky];
+  const nm = esc(name);
+  const lines = [
+    `${nm}, your Day Master is ${STN[an.dm]}. Like ${dmD[0]}, you are naturally ${dmD[1]}.`,
+    `Today is a ${STN[tS]} ${BRN[tB]} day, which makes it your <strong>${tg.n}</strong> day. ${tg.head}`,
+    clashDay ? `Today's branch clashes with your own day branch, so small shake-ups are likely. Leave extra room in your plans.`
+      : fav ? `Today brings ${tEl.n} energy, which your ${an.strong ? "strong" : "gentle"} chart needs, so the day tends to flow smoothly.`
+      : `Today's ${tEl.n} energy weighs a little on your chart. Slow down and focus on protecting what you have.`,
+    `Lucky color: ${L.color}. Lucky direction: ${L.dir}. Lucky numbers: ${L.num}.`
+  ];
+  return { tS, tB, tg, tgI, tdi, clashDay, lines, score, text, total };
+}
+
+/* ---------- Screen ---------- */
+const $ = id => document.getElementById(id);
+const by = $("by"), bm = $("bm"), bd = $("bd"), th = $("th"), tm = $("tm"), tunk = $("tunk"), tzSel = $("tz");
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+const now = new Date();
+const TODAY = { y: now.getFullYear(), m: now.getMonth() + 1, d: now.getDate() };
+let LOCAL_TZ = "UTC";
+try { LOCAL_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC"; } catch (_) {}
+
+function fillSelects() {
+  for (let y = TODAY.y; y >= 1920; y--) by.add(new Option(y, y));
+  MONTHS.forEach((n, i) => bm.add(new Option(n, i + 1)));
+  for (let h = 0; h < 24; h++) {
+    const ap = h < 12 ? "AM" : "PM", hh = h % 12 === 0 ? 12 : h % 12;
+    th.add(new Option(`${hh} ${ap}`, h));
+  }
+  for (let m = 0; m < 60; m++) tm.add(new Option(`:${String(m).padStart(2,"0")}`, m));
+  let zones = [];
+  try { zones = Intl.supportedValuesOf("timeZone"); } catch (_) {}
+  if (!zones.length) zones = ["UTC","America/Los_Angeles","America/Denver","America/Chicago","America/New_York","America/Sao_Paulo","Europe/London","Europe/Paris","Europe/Berlin","Africa/Johannesburg","Asia/Dubai","Asia/Kolkata","Asia/Singapore","Asia/Shanghai","Asia/Seoul","Asia/Tokyo","Australia/Sydney","Pacific/Auckland"];
+  if (!zones.includes(LOCAL_TZ)) zones.unshift(LOCAL_TZ);
+  if (!zones.includes("UTC")) zones.push("UTC");
+  zones.forEach(z => tzSel.add(new Option(z.replace(/_/g, " ").replace(/\//g, " / "), z)));
+}
+function fillDays(keep) {
+  const n = new Date(Date.UTC(+by.value, +bm.value, 0)).getUTCDate();
+  const cur = keep ?? +bd.value;
+  bd.innerHTML = "";
+  for (let d = 1; d <= n; d++) bd.add(new Option(d, d));
+  bd.value = Math.min(cur || 1, n);
+}
+fillSelects();
+by.addEventListener("change", () => fillDays()); bm.addEventListener("change", () => fillDays());
+tunk.addEventListener("change", () => { th.disabled = tm.disabled = tunk.checked; });
+
+const SAMPLE = { name: "Alex", y: 1990, m: 5, d: 15, hh: 7, mm: 30, unk: false, tz: "America/New_York", gender: "f" };
+function setForm(v) {
+  $("name").value = v.name; by.value = v.y; bm.value = v.m; fillDays(v.d);
+  th.value = v.hh; tm.value = v.mm; tunk.checked = v.unk; th.disabled = tm.disabled = v.unk;
+  if (![...tzSel.options].some(o => o.value === v.tz)) tzSel.add(new Option(v.tz.replace(/_/g, " ").replace(/\//g, " / "), v.tz));
+  tzSel.value = v.tz;
+  ({ f: $("gf"), x: $("gx") }[v.gender] || $("gm")).checked = true;
+}
+function readForm() {
+  return { name: $("name").value.trim(), y: +by.value, m: +bm.value, d: +bd.value, hh: +th.value, mm: +tm.value,
+           unk: tunk.checked, tz: tzSel.value, gender: $("gf").checked ? "f" : $("gx").checked ? "x" : "m" };
+}
+
+const grade = s => s >= 80 ? ["g4","Excellent"] : s >= 65 ? ["g3","Good"] : s >= 50 ? ["g2","Fair"] : ["g1","Take care"];
+const chip = (ch, label, el) => `<div class="ch ${EL[el].cls}"><b>${ch}</b><span>${label}</span></div>`;
+
+function render(v, isSample) {
+  if (!v.tz) v.tz = LOCAL_TZ;
+  const saju = calcSaju(v);
+  const an = analyze(saju);
+  const f = fortune({ name: v.name, gender: v.gender }, saju, an, TODAY);
+  const cats = [["biz","Work & Career"],["money","Money"],["rel","Relationships"],["health","Health"]];
+  const nm = esc(v.name);
+
+  const pillar = (pos, p, me) => {
+    if (!p) return `<div class="pillar"><span class="pos">${pos}</span><div class="ch empty"><b>?</b><span>Unknown</span></div><div class="ch empty"><b>?</b><span>Unknown</span></div><span class="tg"></span></div>`;
+    const tgName = me ? "You (Day Master)" : TG[tenGod(an.dm, p.s)].n;
+    return `<div class="pillar${me ? " me" : ""}"><span class="pos">${pos}</span>${chip(ST[p.s], STN[p.s], ST_EL[p.s])}${chip(BR[p.b], `${BRN[p.b]} · ${EL[BR_EL[p.b]].n}`, BR_EL[p.b])}<span class="tg">${tgName}</span></div>`;
+  };
+  const maxC = Math.max(...an.counts, 1);
+  const w = dailyWord(v, f);
+  const toneWord = w.tone === "cheer" ? "Encouragement" : "Comfort";
+  const dateObj = new Date(TODAY.y, TODAY.m - 1, TODAY.d);
+  const dateStr = dateObj.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  const mon = dateObj.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
+
+  $("result").innerHTML = `
+    ${isSample ? `<span class="sample">This is a sample reading. Enter your own details to see yours.</span>` : ""}
+    <section class="panel today">
+      <div class="seal" aria-hidden="true">${TODAY.d}<small>${mon}</small></div>
+      <div class="today-text">
+        <span class="today-date">${dateStr}</span>
+        <span class="today-sub">A ${STN[f.tS]} ${BRN[f.tB]} day · ${nm}'s ${f.tg.n} day</span>
+      </div>
+    </section>
+    <section class="panel summary">
+      <div class="summary-head">
+        <h2>Today at a glance</h2>
+        <span class="score-big"><b>${f.total}</b>/ 100 · ${grade(f.total)[1]}</span>
+      </div>
+      <div class="lines">${f.lines.map(l => `<p>${l}</p>`).join("")}</div>
+    </section>
+    <div class="cats">
+      ${cats.map(([k, label]) => { const g = grade(f.score[k]); return `
+        <section class="cat">
+          <div class="cat-head"><h3>${label}</h3><span class="pill ${g[0]}">${g[1]}</span></div>
+          <div class="bar" role="img" aria-label="${label} ${f.score[k]} out of 100"><i style="width:${f.score[k]}%"></i></div>
+          <span class="num">${f.score[k]} / 100</span>
+          ${f.text[k].map(t => `<p>${t}</p>`).join("")}
+        </section>`; }).join("")}
+    </div>
+    <section class="word">
+      <span class="eyebrow">Today's quote · ${toneWord}</span>
+      <blockquote>${w.text}</blockquote>
+      <p class="who">${w.who}</p>
+      <p class="why">A little ${toneWord.toLowerCase()} for ${nm} on a ${f.tg.n} day. ${w.why}</p>
+    </section>
+    <section class="panel chart">
+      <h2>${nm}'s Four Pillars</h2>
+      <div class="pillars">
+        ${pillar("Hour", saju.hour)}${pillar("Day", saju.day, true)}${pillar("Month", saju.month)}${pillar("Year", saju.year)}
+      </div>
+      <div class="elements">
+        ${an.counts.map((c, i) => `<div class="el-row ${EL[i].cls}"><span class="t">${EL[i].n}</span><span class="b"><i style="width:${c / maxC * 100}%"></i></span><span class="n">${c}</span></div>`).join("")}
+      </div>
+      <p class="chart-note">Your chart leans ${an.strong ? "strong" : "gentle"}, so it welcomes ${an.favRel.map(r => GROUPS[r]).join(", ").replace(/, ([^,]*)$/, " and $1")} energy.${v.unk ? " Because your birth time is unknown, the Hour pillar is left out of this reading." : ""}</p>
+    </section>`;
+}
+
+$("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = readForm();
+  if (!v.name) { $("err").textContent = "Enter your name to see your reading."; $("name").focus(); return; }
+  if (new Date(Date.UTC(v.y, v.m - 1, v.d)) > new Date(Date.UTC(TODAY.y, TODAY.m - 1, TODAY.d))) { $("err").textContent = "That birth date is in the future. Check the date and try again."; return; }
+  $("err").textContent = "";
+  try { localStorage.setItem("saju-input-en", JSON.stringify(v)); } catch (_) {}
+  render(v, false);
+  if (window.matchMedia("(max-width: 860px)").matches) $("result").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+let saved = null;
+try { saved = JSON.parse(localStorage.getItem("saju-input-en")); } catch (_) {}
+if (saved && saved.name) { if (!saved.tz) saved.tz = LOCAL_TZ; setForm(saved); render(saved, false); }
+else { setForm({ ...SAMPLE, tz: SAMPLE.tz }); render(SAMPLE, true); }
+</script>
+</body>
+</html>
