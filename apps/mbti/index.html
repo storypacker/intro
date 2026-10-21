@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="28개 질문으로 16가지 성격 유형 중 나의 MBTI를 알아보는 무료 간이 검사. 네 가지 선호의 강도와 유형별 강점까지 약 5분이면 확인할 수 있어요.">
+<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+<style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>MBTI 성격 유형 검사 | MBTI 나침반</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;900&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow reading column. The four axis colors are the only color on the page, and each one always means its axis. */
+:root {
+  --bg: #F1F4F2;
+  --surface: #FFFFFF;
+  --ink: #17202A;
+  --muted: #5B6670;
+  --line: #D3DAD6;
+  --ei: #2C6C8C;
+  --sn: #A87A22;
+  --tf: #BC4F3A;
+  --jp: #477443;
+  --display: 'Hahmlet', 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
+  --body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161B; --surface: #192027; --ink: #E7ECE9; --muted: #98A3AC; --line: #2B343C;
+    --ei: #6AAFD0; --sn: #D9AE5E; --tf: #E8846E; --jp: #8DBE83;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161B; --surface: #192027; --ink: #E7ECE9; --muted: #98A3AC; --line: #2B343C;
+  --ei: #6AAFD0; --sn: #D9AE5E; --tf: #E8846E; --jp: #8DBE83;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--ei); outline-offset: 3px; border-radius: 4px; }
+
+/* top bar */
+.home { display:inline-block; font-size:14px; color:var(--muted); text-decoration:none; margin-bottom:-24px; }
+.home:hover { color:var(--ink); }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; }
+.mark { display: grid; grid-template-columns: repeat(2, 7px); gap: 2px; }
+.mark i { width: 7px; height: 7px; border-radius: 1px; display: block; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.bar-meta { color: var(--muted); font-size: 13px; }
+
+.eyebrow {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.display {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(40px, 9vw, 68px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 8px 0 0;
+  text-wrap: balance;
+}
+.lead { margin: 20px 0 0; max-width: 60ch; color: var(--ink); }
+.lead + .lead { margin-top: 12px; }
+.muted { color: var(--muted); }
+
+/* axes on intro */
+.axes { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+.axis-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 6px;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.axis-q { grid-column: 1 / -1; font-size: 13px; color: var(--muted); }
+.side { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.side.b { flex-direction: row-reverse; text-align: right; }
+.ltr {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--c);
+  flex: none;
+  width: 1.1em;
+  text-align: center;
+}
+.side b { display: block; font-weight: 700; font-size: 15px; line-height: 1.4; }
+.side small { display: block; font-size: 13px; color: var(--muted); line-height: 1.45; }
+.vs { width: 28px; height: 2px; background: var(--c); opacity: 0.6; border-radius: 1px; }
+
+.note {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 62ch;
+}
+
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.btn {
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
+  transition: background .15s, color .15s, transform .1s;
+}
+.btn.primary { background: var(--ink); color: var(--bg); padding: 15px 40px; font-size: 17px; }
+.btn.primary:hover { transform: translateY(-1px); }
+.btn.ghost:hover { background: var(--surface); }
+.link {
+  border: 0; background: none; padding: 6px 0;
+  color: var(--muted); font-size: 14px;
+}
+.link:hover { color: var(--ink); }
+.link:disabled { opacity: 0.35; cursor: default; }
+
+/* quiz */
+.quiz { display: flex; flex-direction: column; gap: 28px; }
+.progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; display: flex; }
+.progress-fill { height: 100%; background: var(--ink); border-radius: 3px; transition: width .25s ease; }
+.quiz-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.qcount { font-size: 14px; color: var(--muted); }
+.qcount b { color: var(--ink); font-weight: 500; }
+.qtext {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(24px, 5.2vw, 34px);
+  line-height: 1.42;
+  letter-spacing: -0.01em;
+  margin: 0;
+  min-height: 3em;
+  text-wrap: balance;
+}
+.qtext.enter { animation: rise .22s ease both; }
+@keyframes rise { from { opacity: .2; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.scale {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  justify-items: center;
+  padding-block: 8px;
+}
+.dot {
+  border: 2px solid var(--ink);
+  background: transparent;
+  border-radius: 50%;
+  padding: 0;
+  transition: background .12s, transform .12s;
+}
+.dot[data-v="1"], .dot[data-v="5"] { width: 58px; height: 58px; }
+.dot[data-v="2"], .dot[data-v="4"] { width: 44px; height: 44px; }
+.dot[data-v="3"] { width: 32px; height: 32px; }
+.dot:hover { transform: scale(1.06); background: color-mix(in srgb, var(--ink) 10%, transparent); }
+.dot.on { background: var(--ink); }
+.scale-labels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: -14px;
+}
+.scale-labels span:nth-child(2) { text-align: center; }
+.scale-labels span:nth-child(3) { text-align: right; }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+
+/* result */
+.result { display: flex; flex-direction: column; gap: 36px; }
+.type-code {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(76px, 22vw, 150px);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  display: flex;
+  gap: 0.02em;
+  margin-top: 6px;
+}
+.type-code span { animation: drop .45s cubic-bezier(.2,.8,.2,1) both; }
+.type-code span:nth-child(2) { animation-delay: .07s; }
+.type-code span:nth-child(3) { animation-delay: .14s; }
+.type-code span:nth-child(4) { animation-delay: .21s; }
+@keyframes drop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+.nick { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 4.6vw, 30px); margin: 10px 0 0; line-height: 1.3; }
+
+.detail { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 28px; align-items: start; }
+.figure {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph {
+  width: 100%; height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 14%, transparent) 1px, transparent 1.2px);
+  background-size: 14px 14px;
+}
+.ph span {
+  display: grid; place-items: center;
+  font-family: var(--display); font-weight: 900;
+  font-size: clamp(40px, 9vw, 64px);
+}
+.detail-text { min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+.detail-text p { margin: 0; max-width: 60ch; }
+.lists { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.lists h4 { margin: 0 0 6px; font-size: 13px; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+.lists ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.55; }
+
+.sec {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 0 14px;
+}
+.bars { display: flex; flex-direction: column; gap: 22px; }
+.barrow { display: grid; grid-template-columns: 58px minmax(0, 1fr) 58px; gap: 12px; align-items: center; }
+.barrow .end { display: flex; flex-direction: column; line-height: 1.2; }
+.barrow .end.r { text-align: right; }
+.barrow .end b { font-family: var(--display); font-weight: 900; font-size: 22px; }
+.barrow .end small { font-size: 12px; color: var(--muted); }
+.barrow .end.win b { color: var(--c); }
+.barrow .end.lose b { color: var(--muted); opacity: .55; }
+.track { position: relative; height: 12px; background: var(--line); border-radius: 6px; }
+.track .mid { position: absolute; left: 50%; top: -5px; bottom: -5px; width: 1.5px; background: var(--muted); opacity: .5; }
+.track .fill { position: absolute; top: 0; bottom: 0; background: var(--c); border-radius: 6px; }
+.barnote { grid-column: 2 / 3; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; margin-top: -6px; }
+.barnote .pct { color: var(--ink); }
+
+.toast { font-size: 14px; color: var(--muted); }
+.copybox { width: 100%; min-height: 110px; font: 13px/1.5 var(--mono); padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+
+.type-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.tcell {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 12px 6px 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  transition: border-color .12s;
+}
+.tcell:hover { border-color: var(--ink); }
+.tcell b { font-family: var(--mono); font-weight: 500; font-size: 15px; letter-spacing: 0.06em; }
+.tcell small { font-size: 11.5px; color: var(--muted); line-height: 1.35; text-align: center; }
+.tcell.mine { border: 2px solid var(--ink); }
+.tcell.open { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.tcell.open small { color: var(--bg); opacity: .75; }
+.grid-legend { font-size: 13px; color: var(--muted); margin: -4px 0 12px; }
+
+.browse {
+  margin-top: 16px;
+  padding: 22px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.browse-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.browse-head h4 { margin: 0; font-family: var(--display); font-size: 24px; font-weight: 900; }
+.browse-head h4 span { font-weight: 700; font-size: 18px; margin-left: 8px; }
+.browse .detail { grid-template-columns: minmax(0, 180px) minmax(0, 1fr); }
+
+.foot { border-top: 1px solid var(--line); padding-top: 16px; }
+
+@media (max-width: 600px) {
+  .detail, .browse .detail { grid-template-columns: 1fr; }
+  .figure { max-width: 320px; }
+  .lists { grid-template-columns: 1fr; }
+  .side { gap: 8px; }
+  .ltr { font-size: 28px; }
+  .dot[data-v="1"], .dot[data-v="5"] { width: 50px; height: 50px; }
+  .dot[data-v="2"], .dot[data-v="4"] { width: 38px; height: 38px; }
+  .dot[data-v="3"] { width: 28px; height: 28px; }
+  .browse { padding: 16px; }
+  .barrow { grid-template-columns: 46px minmax(0, 1fr) 46px; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="home" href="../../index.html">← 스토리패커 홈</a>
+  <header class="bar">
+    <span class="brand"><span class="mark" aria-hidden="true"><i style="background:var(--ei)"></i><i style="background:var(--sn)"></i><i style="background:var(--tf)"></i><i style="background:var(--jp)"></i></span>MBTI 나침반</span>
+    <span class="bar-meta mono" id="barMeta">28문항 · 약 5분</span>
+  </header>
+
+  <!-- INTRO -->
+  <section id="intro" class="screen" style="display:flex;flex-direction:column;gap:32px">
+    <div>
+      <p class="eyebrow">MBTI 성격 유형 검사 · 28문항 · 약 5분</p>
+      <h1 class="display">나는 어떤 유형의<br>사람일까?</h1>
+      <p class="lead">MBTI(Myers-Briggs Type Indicator)는 심리학자 칼 융의 심리 유형 이론을 바탕으로 캐서린 브릭스와 이사벨 브릭스 마이어스 모녀가 만든 성격 유형 지표입니다. 사람마다 더 편하게 느끼는 방식이 있다고 보고, 네 가지 선호의 조합으로 16가지 유형을 나눕니다.</p>
+      <p class="lead muted">각 축에서 어느 쪽이 더 편한지를 보는 것이지, 어느 쪽이 더 낫다는 뜻은 아닙니다.</p>
+    </div>
+    <div class="axes" id="axesIntro"></div>
+    <div class="cta-row">
+      <button class="btn primary" id="startBtn" type="button">시작</button>
+      <button class="btn ghost" id="lastBtn" type="button" hidden></button>
+    </div>
+    <p class="note">이 검사는 MBTI의 원리를 참고해 만든 간이 자가 진단으로, 공식 MBTI® 검사를 대신하지 않습니다. 정확한 결과가 필요하다면 공인 전문가를 통한 정식 검사를 받아 보세요.</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="screen quiz" hidden>
+    <div class="progress" aria-hidden="true"><div class="progress-fill" id="pFill" style="width:0%"></div></div>
+    <div class="quiz-meta">
+      <span class="qcount mono" id="qCount"><b>01</b> / 28</span>
+      <button class="link" id="backBtn" type="button">← 이전 문항</button>
+    </div>
+    <p class="qtext" id="qText" aria-live="polite"></p>
+    <div>
+      <div class="scale" id="scale" role="group" aria-label="응답 선택"></div>
+      <div class="scale-labels" aria-hidden="true"><span>그렇지 않다</span><span>보통이다</span><span>그렇다</span></div>
+    </div>
+    <p class="hint">오래 고민하지 말고 평소의 나에 가까운 쪽을 고르세요. 키보드 1–5로도 답할 수 있어요.</p>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="screen result" hidden>
+    <div>
+      <p class="eyebrow">당신의 유형</p>
+      <div class="type-code" id="rCode" aria-live="polite"></div>
+      <h2 class="nick" id="rNick"></h2>
+    </div>
+    <div id="rDetail"></div>
+    <div>
+      <h3 class="sec">네 가지 선호의 강도</h3>
+      <div class="bars" id="rBars"></div>
+    </div>
+    <div class="cta-row">
+      <button class="btn primary" id="retryBtn" type="button">다시 검사하기</button>
+      <button class="btn ghost" id="copyBtn" type="button">결과 복사</button>
+      <span class="toast" id="toast" role="status"></span>
+    </div>
+    <div id="copyWrap" hidden><textarea class="copybox" id="copyBox" readonly aria-label="복사할 결과"></textarea></div>
+    <div>
+      <h3 class="sec">16가지 유형 둘러보기</h3>
+      <p class="grid-legend">유형을 누르면 설명을 볼 수 있어요. 굵은 테두리가 내 유형입니다.</p>
+      <div class="type-grid" id="tGrid"></div>
+      <div class="browse" id="browse" hidden></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="note">MBTI®는 The Myers &amp; Briggs Foundation의 등록 상표입니다. 이 페이지는 해당 재단과 관련이 없는 비공식 자가 진단 도구입니다.</p>
+  </footer>
+</div>
+
+<script>
+const AXES = [
+  { k:'EI', a:'E', b:'I', aName:'외향', bName:'내향', q:'에너지는 어디에서 얻나요?', aDesc:'사람들과의 교류, 바깥 활동', bDesc:'혼자만의 시간, 내면의 생각', c:'var(--ei)' },
+  { k:'SN', a:'S', b:'N', aName:'감각', bName:'직관', q:'정보를 어떻게 받아들이나요?', aDesc:'구체적인 사실과 경험', bDesc:'패턴과 가능성, 의미', c:'var(--sn)' },
+  { k:'TF', a:'T', b:'F', aName:'사고', bName:'감정', q:'결정은 무엇을 기준으로 하나요?', aDesc:'논리와 원칙, 일관성', bDesc:'사람과 관계, 가치', c:'var(--tf)' },
+  { k:'JP', a:'J', b:'P', aName:'판단', bName:'인식', q:'생활은 어떤 방식이 편한가요?', aDesc:'계획하고 정리하며 마무리', bDesc:'유연하게 열어 두고 적응', c:'var(--jp)' },
+];
+const LETTER_COLOR = { E:'var(--ei)', I:'var(--ei)', S:'var(--sn)', N:'var(--sn)', T:'var(--tf)', F:'var(--tf)', J:'var(--jp)', P:'var(--jp)' };
+
+// d = 그렇다고 답할수록 기우는 쪽
+const BANK = {
+  EI: [
+    ['처음 보는 사람이 많은 자리에 다녀오면 오히려 기운이 난다.', 'E'],
+    ['주말에 혼자만의 시간을 충분히 보내야 다음 주를 버틸 힘이 생긴다.', 'I'],
+    ['생각을 말로 꺼내 이야기하면서 정리하는 편이다.', 'E'],
+    ['대화에 끼기 전에 머릿속으로 할 말을 충분히 다듬는다.', 'I'],
+    ['모임에서 먼저 말을 거는 일이 어렵지 않다.', 'E'],
+    ['넓은 인맥보다 소수의 깊은 관계가 편하다.', 'I'],
+    ['며칠 조용히 지내면 사람들을 만나고 싶어 근질거린다.', 'E'],
+  ],
+  SN: [
+    ['새 기기를 쓸 때 설명서를 순서대로 따라가는 것이 편하다.', 'S'],
+    ['대화하다 보면 엉뚱한 연상으로 화제가 자주 튄다.', 'N'],
+    ['막연한 예감보다 직접 확인한 사실과 경험을 더 믿는다.', 'S'],
+    ['‘만약 이렇게 된다면?’ 하고 가능성을 상상하는 게 즐겁다.', 'N'],
+    ['구체적인 숫자와 예시가 있어야 이해가 잘 된다.', 'S'],
+    ['세부 사항보다 전체 흐름과 숨은 의미가 먼저 눈에 들어온다.', 'N'],
+    ['검증된 방법이 있다면 굳이 새로운 방식을 시도하지 않는다.', 'S'],
+  ],
+  TF: [
+    ['결정을 내릴 때 마음보다 논리적인 근거를 먼저 따진다.', 'T'],
+    ['상대가 상처받을까 봐 하고 싶은 말을 돌려서 할 때가 많다.', 'F'],
+    ['친구가 고민을 털어놓으면 해결책부터 떠오른다.', 'T'],
+    ['옳고 그름보다 그 결정이 사람들에게 어떤 영향을 줄지가 먼저 마음에 걸린다.', 'F'],
+    ['내용이 맞다면 비판은 직설적이어도 괜찮다고 생각한다.', 'T'],
+    ['누군가 불편해 보이면 그게 신경 쓰여 일에 집중하기 어렵다.', 'F'],
+    ['공정함이란 누구에게나 같은 기준을 적용하는 것이라고 생각한다.', 'T'],
+  ],
+  JP: [
+    ['여행을 가면 일정과 동선을 미리 짜 두어야 마음이 편하다.', 'J'],
+    ['마감이 코앞에 닥쳐야 집중력이 살아난다.', 'P'],
+    ['할 일 목록을 하나씩 지워 나갈 때 만족감을 느낀다.', 'J'],
+    ['계획이 갑자기 바뀌어도 그럭저럭 즐길 수 있다.', 'P'],
+    ['정해야 할 일을 미뤄 두면 계속 찜찜하다.', 'J'],
+    ['선택지를 열어 두고 싶어서 결정을 일부러 늦출 때가 있다.', 'P'],
+    ['내 방이나 책상의 물건은 대체로 정해진 자리에 있다.', 'J'],
+  ],
+};
+const QUESTIONS = [];
+for (let i = 0; i < 7; i++) for (const ax of AXES) QUESTIONS.push({ t: BANK[ax.k][i][0], d: BANK[ax.k][i][1], ax: ax.k });
+const N = QUESTIONS.length;
+
+const TYPES = {
+  INTJ: { n:'큰 그림의 설계자', d:'장기적인 목표를 세우고 그곳까지 가는 길을 체계적으로 설계합니다. 독립적으로 생각하며, 비효율을 보면 개선 방법부터 떠올립니다. 신뢰는 말보다 능력으로 쌓인다고 믿는 편입니다.', s:['장기 계획과 전략','독립적인 판단','복잡한 문제의 구조화'], w:['다른 사람의 감정을 비효율로 여기기 쉬워요','완벽한 계획을 기다리다 시작이 늦어질 수 있어요'] },
+  INTP: { n:'끝없는 질문가', d:'원리를 이해해야 직성이 풀리는 사람입니다. 아이디어를 이리저리 뒤집어 보며 논리의 빈틈을 찾는 일을 즐깁니다. 평소엔 조용하지만 관심 있는 주제가 나오면 대화의 깊이가 달라집니다.', s:['분석력','객관적인 시선','독창적인 관점'], w:['생각에 머물러 실행이 미뤄지기 쉬워요','감정 표현이 서툴러 무심해 보일 수 있어요'] },
+  ENTJ: { n:'결단의 리더', d:'목표가 정해지면 사람과 자원을 모아 빠르게 밀고 나갑니다. 문제를 피하지 않고 정면으로 다루며, 효율적인 체계를 만드는 데 능합니다.', s:['추진력','빠른 결단','조직화와 위임'], w:['속도를 중시하다 다른 의견을 놓칠 수 있어요','쉬는 것조차 일처럼 관리하려 해요'] },
+  ENTP: { n:'아이디어 발명가', d:'새로운 가능성을 보면 가만있지 못합니다. 토론을 즐기고, 기존 방식에 "왜?"를 던지며 판을 흔드는 데서 재미를 찾습니다.', s:['순발력','창의적 발상','설득력 있는 말솜씨'], w:['시작한 일을 마무리하는 데 약할 수 있어요','장난스러운 반박이 상대에겐 공격처럼 들릴 수 있어요'] },
+  INFJ: { n:'조용한 통찰가', d:'사람과 상황에 숨은 의미를 잘 읽어 냅니다. 겉으로는 차분하지만 안에는 분명한 가치와 신념이 있고, 의미 있다고 느끼는 일에 깊이 헌신합니다.', s:['통찰력','깊은 공감','신념에서 나오는 일관성'], w:['혼자 짐을 떠안다 쉽게 지쳐요','기준이 높아 스스로에게 엄격해요'] },
+  INFP: { n:'이상을 품은 몽상가', d:'자신만의 가치와 이상을 소중히 여기고, 진심이 오가는 관계를 원합니다. 조용히 상상하고 기록하며, 마음이 움직이는 일에서는 놀라운 끈기를 보입니다.', s:['깊은 공감','풍부한 상상력','진정성'], w:['현실적인 마감과 세부 사항을 미루기 쉬워요','비판을 개인적으로 받아들이곤 해요'] },
+  ENFJ: { n:'사람을 키우는 안내자', d:'주변 사람의 가능성을 알아보고 끌어내는 데 능합니다. 모두가 함께 나아가는 분위기를 만들고, 갈등이 생기면 먼저 다리를 놓습니다.', s:['동기 부여','따뜻한 소통','팀을 하나로 모으는 힘'], w:['남을 챙기느라 내 필요를 뒤로 미뤄요','인정받지 못하면 쉽게 상처받아요'] },
+  ENFP: { n:'열정의 탐험가', d:'호기심과 에너지가 넘치고, 사람과 아이디어 사이의 연결을 잘 찾아냅니다. 새로운 시작 앞에서 가장 빛나며 주변 사람까지 들뜨게 만듭니다.', s:['열정','친화력','아이디어를 잇는 감각'], w:['관심이 여러 곳으로 흩어지기 쉬워요','반복적인 일에 금방 지루해해요'] },
+  ISTJ: { n:'믿음직한 관리자', d:'맡은 일은 끝까지 책임지는 사람입니다. 사실과 경험에 근거해 판단하고, 정해진 절차와 약속을 중요하게 여깁니다.', s:['책임감','꼼꼼함','한결같은 안정감'], w:['갑작스러운 변화에 경직되기 쉬워요','감정 표현이 적어 차갑다는 오해를 받기도 해요'] },
+  ISFJ: { n:'따뜻한 수호자', d:'주변 사람의 필요를 조용히 알아채고 챙깁니다. 사소한 것까지 기억하는 세심함으로 안정된 관계와 일상을 지키는 데 힘을 씁니다.', s:['배려','성실함','세심한 관찰력'], w:['거절을 어려워해 일이 쌓이기 쉬워요','낯선 변화를 부담스러워해요'] },
+  ESTJ: { n:'체계의 운영자', d:'일이 굴러가게 만드는 사람입니다. 역할과 규칙을 분명히 하고, 계획대로 실행되도록 관리합니다. 말한 것은 지키는 것을 중요하게 여깁니다.', s:['실행력','조직 관리','명확한 의사소통'], w:['내 방식을 강요하는 것처럼 보일 수 있어요','감정적인 신호를 늦게 알아채요'] },
+  ESFJ: { n:'모두를 챙기는 호스트', d:'사람들이 편안하고 소속감을 느끼도록 세심하게 신경 씁니다. 모임을 꾸리고 분위기를 살피는 데 능하며, 공동체의 조화를 소중히 여깁니다.', s:['친절함','협동심','실용적인 도움'], w:['다른 사람의 평가에 민감해요','갈등을 피하려다 문제를 키울 수 있어요'] },
+  ISTP: { n:'손재주 장인', d:'직접 만지고 고쳐 보며 이해하는 실전형입니다. 위기 상황에서도 침착하고, 필요한 만큼만 말하고 움직입니다. 자유롭게 일할 수 있는 환경을 좋아합니다.', s:['문제 해결력','침착함','실용적인 기술'], w:['장기 계획에는 관심이 적어요','속마음을 잘 드러내지 않아요'] },
+  ISFP: { n:'감성 예술가', d:'지금 이 순간의 아름다움과 감각을 소중히 여깁니다. 겸손하고 부드럽지만 자기만의 취향과 가치는 분명하며, 말보다 행동과 작품으로 마음을 표현합니다.', s:['미적 감각','유연함','따뜻한 수용력'], w:['갈등 상황을 피해 숨어 버리곤 해요','먼 미래 계획을 세우기 어려워해요'] },
+  ESTP: { n:'현장의 해결사', d:'생각보다 행동이 먼저 나가는 실전파입니다. 상황 판단이 빠르고 도전을 즐기며, 문제가 터진 현장에서 가장 쓸모 있는 사람이 됩니다.', s:['순발력','현실 감각','협상력'], w:['결과를 충분히 따지지 않고 뛰어들 때가 있어요','이론적이고 반복적인 일에 쉽게 싫증 내요'] },
+  ESFP: { n:'무대 위의 엔터테이너', d:'어디서든 분위기를 밝히는 사람입니다. 즐거움을 나누는 것을 좋아하고, 사람들의 반응을 잘 읽으며 평범한 순간을 특별하게 만듭니다.', s:['친화력','긍정 에너지','감각적인 센스'], w:['장기 계획과 돈 관리에 소홀할 수 있어요','진지한 갈등을 가볍게 넘기려 해요'] },
+};
+const GRID_ORDER = ['ISTJ','ISFJ','INFJ','INTJ','ISTP','ISFP','INFP','INTP','ESTP','ESFP','ENFP','ENTP','ESTJ','ESFJ','ENFJ','ENTJ'];
+
+const $ = (id) => document.getElementById(id);
+const STORE_KEY = 'mbti-compass-last';
+let state = { screen:'intro', idx:0, answers:Array(N).fill(null), result:null };
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function show(screen){
+  state.screen = screen;
+  for (const s of ['intro','quiz','result']) $(s).hidden = s !== screen;
+  $('barMeta').textContent = screen === 'quiz' ? '응답 중' : screen === 'result' ? '검사 결과' : `${N}문항 · 약 5분`;
+  window.scrollTo({ top: 0 });
+}
+
+/* ---------- intro ---------- */
+function renderIntro(){
+  $('axesIntro').innerHTML = AXES.map(ax => `
+    <div class="axis-row" style="--c:${ax.c}">
+      <div class="axis-q">${esc(ax.q)}</div>
+      <div class="side a"><span class="ltr">${ax.a}</span><span><b>${ax.aName}</b><small>${esc(ax.aDesc)}</small></span></div>
+      <span class="vs" aria-hidden="true"></span>
+      <div class="side b"><span class="ltr">${ax.b}</span><span><b>${ax.bName}</b><small>${esc(ax.bDesc)}</small></span></div>
+    </div>`).join('');
+  let last = null;
+  try { last = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch(e) {}
+  const btn = $('lastBtn');
+  if (last && last.code && TYPES[last.code]) {
+    btn.hidden = false;
+    btn.textContent = `지난 결과 보기 · ${last.code}`;
+    btn.onclick = () => { state.result = last; renderResult(); show('result'); };
+  } else btn.hidden = true;
+}
+
+/* ---------- quiz ---------- */
+function renderScale(){
+  const labels = ['전혀 그렇지 않다','그렇지 않다','보통이다','그렇다','매우 그렇다'];
+  $('scale').innerHTML = labels.map((l,i) => `<button type="button" class="dot" data-v="${i+1}" aria-label="${l}"></button>`).join('');
+  $('scale').addEventListener('click', e => {
+    const b = e.target.closest('.dot'); if (!b) return;
+    answer(+b.dataset.v);
+  });
+}
+function renderQuestion(){
+  const q = QUESTIONS[state.idx];
+  const el = $('qText');
+  el.textContent = q.t;
+  el.classList.remove('enter'); void el.offsetWidth; el.classList.add('enter');
+  $('qCount').innerHTML = `<b>${pad(state.idx+1)}</b> / ${N}`;
+  const done = state.answers.filter(a => a !== null).length;
+  $('pFill').style.width = (done / N * 100) + '%';
+  $('backBtn').disabled = state.idx === 0;
+  const cur = state.answers[state.idx];
+  document.querySelectorAll('.dot').forEach(d => {
+    const on = +d.dataset.v === cur;
+    d.classList.toggle('on', on);
+    d.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+let locked = false;
+function answer(v){
+  if (locked || state.screen !== 'quiz') return;
+  state.answers[state.idx] = v;
+  renderQuestion();
+  locked = true;
+  setTimeout(() => {
+    locked = false;
+    if (state.idx < N - 1) { state.idx++; renderQuestion(); }
+    else finish();
+  }, 170);
+}
+function back(){
+  if (state.idx > 0) { state.idx--; renderQuestion(); }
+}
+
+/* ---------- scoring ---------- */
+function score(answers){
+  const axes = AXES.map(ax => {
+    let s = 0, max = 0;
+    QUESTIONS.forEach((q,i) => {
+      if (q.ax !== ax.k) return;
+      max += 2;
+      const v = (answers[i] ?? 3) - 3;
+      s += q.d === ax.a ? v : -v;
+    });
+    const pctA = Math.round((s + max) / (2 * max) * 100);
+    const letter = s > 0 ? ax.a : s < 0 ? ax.b : ax.b;
+    return { k: ax.k, pctA, letter };
+  });
+  return { code: axes.map(a => a.letter).join(''), axes };
+}
+function finish(){
+  state.result = score(state.answers);
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state.result)); } catch(e) {}
+  renderResult();
+  show('result');
+}
+
+/* ---------- result ---------- */
+function makeFigure(code){
+  const wrap = document.createElement('div');
+  wrap.className = 'figure';
+  const ph = document.createElement('div');
+  ph.className = 'ph';
+  ph.setAttribute('aria-hidden','true');
+  ph.innerHTML = code.split('').map(l => `<span style="color:${LETTER_COLOR[l]}">${l}</span>`).join('');
+  wrap.appendChild(ph);
+  const img = new Image();
+  img.alt = `${code} ${TYPES[code].n} 일러스트`;
+  img.onload = () => wrap.replaceChildren(img);
+  img.src = `img/${code}.jpg`;
+  return wrap;
+}
+function detailNode(code){
+  const t = TYPES[code];
+  const box = document.createElement('div');
+  box.className = 'detail';
+  box.appendChild(makeFigure(code));
+  const text = document.createElement('div');
+  text.className = 'detail-text';
+  text.innerHTML = `<p>${esc(t.d)}</p>
+    <div class="lists">
+      <div><h4>강점</h4><ul>${t.s.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div><h4>주의할 점</h4><ul>${t.w.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+    </div>`;
+  box.appendChild(text);
+  return box;
+}
+function renderResult(){
+  const r = state.result;
+  const t = TYPES[r.code];
+  $('rCode').innerHTML = r.code.split('').map(l => `<span style="color:${LETTER_COLOR[l]}">${l}</span>`).join('');
+  $('rCode').setAttribute('aria-label', r.code);
+  $('rNick').textContent = t.n;
+  $('rDetail').replaceChildren(detailNode(r.code));
+
+  $('rBars').innerHTML = r.axes.map(a => {
+    const ax = AXES.find(x => x.k === a.k);
+    const pA = a.pctA, pB = 100 - pA;
+    const winA = a.letter === ax.a;
+    const strength = Math.max(pA, pB);
+    // fill from center toward the winning side
+    const fillStyle = pA >= 50
+      ? `left:${100 - pA}%;right:50%`
+      : `left:50%;right:${pA}%`;
+    const note = strength <= 57 ? '두 성향이 비슷해요' : strength <= 75 ? '뚜렷한 편이에요' : '아주 뚜렷해요';
+    return `<div style="--c:${ax.c}">
+      <div class="barrow">
+        <div class="end ${winA ? 'win' : 'lose'}"><b>${ax.a}</b><small>${ax.aName}</small></div>
+        <div class="track" role="img" aria-label="${ax.aName} ${pA}%, ${ax.bName} ${pB}%">
+          <span class="mid"></span><span class="fill" style="${fillStyle}"></span>
+        </div>
+        <div class="end r ${winA ? 'lose' : 'win'}"><b>${ax.b}</b><small>${ax.bName}</small></div>
+        <div class="barnote"><span class="mono ${winA ? 'pct' : ''}">${pA}%</span><span>${note}</span><span class="mono ${winA ? '' : 'pct'}">${pB}%</span></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  $('tGrid').innerHTML = GRID_ORDER.map(c =>
+    `<button type="button" class="tcell${c === r.code ? ' mine' : ''}" data-code="${c}" aria-expanded="false"><b>${c}</b><small>${esc(TYPES[c].n)}</small></button>`
+  ).join('');
+  $('browse').hidden = true;
+  $('toast').textContent = '';
+  $('copyWrap').hidden = true;
+}
+function openBrowse(code){
+  const box = $('browse');
+  const already = !box.hidden && box.dataset.code === code;
+  document.querySelectorAll('.tcell').forEach(b => {
+    const on = !already && b.dataset.code === code;
+    b.classList.toggle('open', on);
+    b.setAttribute('aria-expanded', on ? 'true' : 'false');
+  });
+  if (already) { box.hidden = true; box.dataset.code = ''; return; }
+  box.dataset.code = code;
+  const head = document.createElement('div');
+  head.className = 'browse-head';
+  const isMine = state.result && state.result.code === code;
+  head.innerHTML = `<h4>${code}<span>${esc(TYPES[code].n)}</span></h4>${isMine ? '<span class="eyebrow">내 유형</span>' : ''}`;
+  box.replaceChildren(head, detailNode(code));
+  box.hidden = false;
+  box.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+}
+function resultText(){
+  const r = state.result;
+  const lines = r.axes.map(a => {
+    const ax = AXES.find(x => x.k === a.k);
+    return `${ax.a} ${a.pctA}% · ${ax.b} ${100 - a.pctA}%`;
+  });
+  return `나의 MBTI 간이 검사 결과: ${r.code} (${TYPES[r.code].n})\n${lines.join('\n')}`;
+}
+function copyResult(){
+  const text = resultText();
+  const fallback = () => {
+    $('copyWrap').hidden = false;
+    const box = $('copyBox');
+    box.value = text; box.focus(); box.select();
+    $('toast').textContent = '아래 내용을 선택해 복사하세요.';
+  };
+  try {
+    navigator.clipboard.writeText(text).then(() => { $('toast').textContent = '결과를 복사했어요.'; }, fallback);
+  } catch(e) { fallback(); }
+}
+
+/* ---------- wiring ---------- */
+function startQuiz(){
+  state.idx = 0;
+  state.answers = Array(N).fill(null);
+  show('quiz');
+  renderQuestion();
+}
+$('startBtn').addEventListener('click', startQuiz);
+$('backBtn').addEventListener('click', back);
+$('retryBtn').addEventListener('click', () => { renderIntro(); show('intro'); });
+$('copyBtn').addEventListener('click', copyResult);
+$('tGrid').addEventListener('click', e => {
+  const b = e.target.closest('.tcell'); if (b) openBrowse(b.dataset.code);
+});
+document.addEventListener('keydown', e => {
+  if (state.screen !== 'quiz' || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (/^[1-5]$/.test(e.key)) { e.preventDefault(); answer(+e.key); }
+  else if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); back(); }
+});
+
+function start(saved){
+  renderScale();
+  renderIntro();
+  if (saved && saved.answers && saved.answers.length === N) {
+    state = Object.assign(state, saved);
+    if (state.screen === 'quiz') { show('quiz'); renderQuestion(); return; }
+    if (state.screen === 'result' && state.result) { renderResult(); show('result'); return; }
+  }
+  show('intro');
+}
+window.claude?.hot?.snapshot?.(() => ({ screen: state.screen, idx: state.idx, answers: state.answers, result: state.result }));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+</body>
+</html>
