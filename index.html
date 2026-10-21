@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
-     crossorigin="anonymous"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="작가 겸 신사업·AI·로보틱스·스토리텔링 마케팅 컨설턴트 박희선의 스토리패커(Storypacker)">
@@ -198,6 +196,22 @@ a.app:hover{border-color:var(--accent);transform:translateY(-2px)}
 .player-bar a{color:#fff;opacity:.8}
 .player-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-size:22px;cursor:pointer}
 
+/* course */
+.course{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:44px;align-items:center;text-decoration:none;color:inherit}
+.course-thumb{position:relative;display:block;border-radius:8px;overflow:hidden;max-width:100%}
+.course-thumb img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;transition:transform .4s}
+.course:hover .course-thumb img{transform:scale(1.02)}
+.course-thumb .live{position:absolute;left:14px;top:14px;font:600 12px var(--body);color:#fff;background:var(--mark);padding:4px 12px;border-radius:999px}
+.course-body{display:flex;flex-direction:column;gap:14px;min-width:0}
+.platform{display:flex;align-items:center;gap:10px;font:500 12px var(--mono);letter-spacing:.06em;color:var(--muted)}
+.platform img{width:44px;height:auto;border-radius:6px;display:block}
+.course h3{font-family:var(--display);font-size:clamp(22px,2.6vw,28px);line-height:1.4;margin:0;text-wrap:balance}
+.course p{margin:0;color:var(--muted);font-size:15px}
+.course ul{margin:0;padding-left:18px;font-size:15px}
+.course li{margin:3px 0}
+.course .btn{align-self:flex-start;margin-top:6px}
+@media (max-width:860px){.course{grid-template-columns:1fr;gap:22px}}
+
 /* quote */
 .quote-box{container-type:inline-size;min-width:0}
 .quote{font-family:var(--display);font-size:clamp(15px,4.3cqi,32px);line-height:1.55;margin:0}
@@ -231,7 +245,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
   <div class="wrap">
     <a class="brand" href="#top"><img src="img/logo-badge.png" alt="" width="160" height="160">스토리패커 <span>(Storypacker)</span></a>
     <nav aria-label="주요 메뉴">
-      <a href="#about">소개</a><a href="#services">컨설팅</a><a href="#process">진행 방식</a><a href="#books">저서</a><a href="#apps">앱</a><a href="#contact">문의</a><a href="#shorts">Shorts</a>
+      <a href="#about">소개</a><a href="#services">컨설팅</a><a href="#process">진행 방식</a><a href="#books">저서</a><a href="#course">강의</a><a href="#apps">앱</a><a href="#contact">문의</a><a href="#shorts">Shorts</a>
     </nav>
   </div>
 </header>
@@ -386,6 +400,32 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
           </div>
         </article>
       </div>
+    </div>
+  </section>
+
+  <section id="course">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Online Class</div>
+        <h2>온라인 강의</h2>
+      </div>
+      <a class="course" href="https://class101.net/ko/products/6937db1230491051703fc64a?utm_campaign=pdp_share&amp;utm_content=share_feature&amp;utm_medium=referral&amp;utm_source=link_share_share&amp;utm_term=6937db1230491051703fc64a" target="_blank" rel="noopener">
+        <span class="course-thumb">
+          <img src="img/class-thumb.webp" alt="AI시대, 스토리텔링 기획과 마케팅으로 살아남기 강의 대표 이미지" width="1200" height="675" loading="lazy">
+          <span class="live">수강 신청 중</span>
+        </span>
+        <span class="course-body">
+          <span class="platform"><img src="img/class101-logo.png" alt="CLASS101" width="240" height="190">CLASS101 온라인 강좌</span>
+          <h3>AI시대, 고객의 마음을 사로잡는 스토리텔링 기획과 마케팅 실전 AtoZ</h3>
+          <p>『일 잘하는 마케터는 스토리를 만든다』의 저자가 직접 진행하는 온라인 강의입니다. AI가 콘텐츠를 쏟아내는 시대에 고객이 기억하고 선택하는 브랜드 이야기를 기획하고, 마케팅으로 연결하는 과정을 처음부터 끝까지 다룹니다.</p>
+          <ul>
+            <li>고객의 마음을 움직이는 스토리텔링의 원리</li>
+            <li>브랜드 · 상품 이야기를 기획하는 실전 방법</li>
+            <li>AI를 활용해 스토리를 마케팅 콘텐츠로 만드는 법</li>
+          </ul>
+          <span class="btn primary">Class101에서 강의 보기 ↗</span>
+        </span>
+      </a>
     </div>
   </section>
 
