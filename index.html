@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
-     crossorigin="anonymous"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="작가 겸 신사업·AI·로보틱스·스토리텔링 마케팅 컨설턴트 박희선의 스토리패커(Storypacker)">
@@ -459,6 +457,15 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
           <p>생년월일시와 MBTI를 넣으면 오늘의 일진에 견주어 사업·금전·대인관계·건강 운의 흐름과 오늘의 명언을 알려 드려요.</p>
           <span class="go">앱 열기 →</span>
         </a>
+        <a class="app" href="apps/saju-en/index.html" lang="en">
+          <div class="app-top">
+            <div class="app-seal" aria-hidden="true"><span class="todayGzEn">日辰</span><small>ENGLISH</small></div>
+            <span class="app-status">Open now</span>
+          </div>
+          <h3>Daily Fortune &amp; Quote</h3>
+          <p>Enter your birth details to get today's fortune for work, money, relationships and health, plus a quote to carry you through the day. Based on Saju, the Korean Four Pillars of Destiny.</p>
+          <span class="go">Open app →</span>
+        </a>
         <div class="app soon">
           <div class="app-top">
             <div class="app-seal" aria-hidden="true">+<small>NEXT</small></div>
@@ -527,6 +534,7 @@ function sel(el){var r=document.createRange();r.selectNodeContents(el);var s=get
   var days=Math.round((Date.UTC(t.getUTCFullYear(),t.getUTCMonth(),t.getUTCDate())-Date.UTC(1900,0,1))/86400000);
   var i=((10+days)%60+60)%60, el=document.getElementById("todayGz");
   if(el) el.textContent=ST[i%10]+BR[i%12];
+  document.querySelectorAll(".todayGzEn").forEach(function(e){e.textContent=ST[i%10]+BR[i%12];});
 })();
 
 /* ---- YouTube Shorts: data/shorts.txt 에서 카테고리별 목록을 읽어 옵니다 ---- */
