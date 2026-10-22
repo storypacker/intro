@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
-     crossorigin="anonymous"></script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Today's fortune for work, money, relationships and health, plus a quote for the day, based on Korean Saju (the Four Pillars of Destiny).">
-<link rel="icon" type="image/png" href="../../img/logo-badge.png">
-<style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Daily Fortune &amp; Quote</title>
+<meta name="description" content="Get your daily fortune score, readings for work, money, relationships and health, and an uplifting quote, based on Korean Saju (Four Pillars of Destiny).">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
+     crossorigin="anonymous"></script>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -56,8 +55,6 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
   display: flex; flex-direction: column; gap: 28px;
 }
 header { display: flex; flex-direction: column; gap: 6px; }
-.home { align-self: flex-start; font-size: .9rem; color: var(--muted); text-decoration: none; margin-bottom: 6px; }
-.home:hover { color: var(--fg); }
 header h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 5vw, 2.7rem); line-height: 1.1; color: var(--ink); text-wrap: balance; letter-spacing: -0.01em; }
 header p { margin: 0; color: var(--muted); max-width: 62ch; }
 
@@ -180,11 +177,16 @@ select:disabled { opacity: .45; }
 footer { font-size: .82rem; color: var(--muted); text-align: center; }
 @media (prefers-reduced-motion: reduce) { .bar i, .seg label { transition: none; } }
 </style>
+
+<style>
+.ad-slot { display: flex; flex-direction: column; gap: 8px; min-height: 140px; padding-top: 20px; border-top: 1px solid var(--line); }
+.ad-slot .ad-label { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.ad-slot .adsbygoogle { width: 100%; min-height: 100px; }
+</style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <a class="home" href="../../index.html">← Storypacker Home</a>
     <h1>Daily Fortune &amp; Quote</h1>
     <p>Enter your birth details to get today's fortune score, a reading for work, money, relationships and health, and a quote picked to carry you through the day. Based on Saju, the Korean Four Pillars of Destiny.</p>
   </header>
@@ -231,6 +233,20 @@ footer { font-size: .82rem; color: var(--muted); text-align: center; }
 
     <main class="result" id="result" aria-live="polite"></main>
   </div>
+
+  <aside class="ad-slot" aria-label="Advertisement">
+    <span class="ad-label">Advertisement</span>
+    <!-- 스토리패커 수평형 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5017353982200290"
+         data-ad-slot="9844864640"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </aside>
 
   <footer>A reading based on the principles of Korean Saju (the Four Pillars of Destiny), for reflection and fun. Trust your own judgment for important decisions.</footer>
 </div>
