@@ -1,14 +1,18 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
-     crossorigin="anonymous"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="28개 질문으로 16가지 성격 유형 중 나의 MBTI를 알아보는 무료 간이 검사. 네 가지 선호의 강도와 유형별 강점까지 약 5분이면 확인할 수 있어요.">
-<link rel="icon" type="image/png" href="../../img/logo-badge.png">
-<style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>MBTI 성격 유형 검사 | MBTI 나침반</title>
+<title>MBTI 나침반</title>
+<meta name="description" content="28개 질문으로 알아보는 MBTI 간이 성격 유형 검사. 네 가지 선호의 강도와 16가지 유형 설명을 확인해 보세요.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
+     crossorigin="anonymous" onerror="var a=document.getElementById('adSlot');if(a)a.hidden=true;"></script>
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;900&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -65,8 +69,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--ei); outline-offset: 3px; border-radius: 4px; }
 
 /* top bar */
-.home { display:inline-block; font-size:14px; color:var(--muted); text-decoration:none; margin-bottom:-24px; }
-.home:hover { color:var(--ink); }
 .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; }
 .mark { display: grid; grid-template-columns: repeat(2, 7px); gap: 2px; }
@@ -304,6 +306,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .browse .detail { grid-template-columns: minmax(0, 180px) minmax(0, 1fr); }
 
 .foot { border-top: 1px solid var(--line); padding-top: 16px; }
+/* ad slot */
+.ad-slot { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--line); padding-top: 12px; min-width: 0; }
+.ad-label { font-size: 11px; letter-spacing: 0.08em; color: var(--muted); }
+.ad-slot ins { width: 100%; min-height: 90px; }
+
 
 @media (max-width: 600px) {
   .detail, .browse .detail { grid-template-columns: 1fr; }
@@ -323,8 +330,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 </style>
 </head>
 <body>
+
 <div class="page">
-  <a class="home" href="../../index.html">← 스토리패커 홈</a>
   <header class="bar">
     <span class="brand"><span class="mark" aria-hidden="true"><i style="background:var(--ei)"></i><i style="background:var(--sn)"></i><i style="background:var(--tf)"></i><i style="background:var(--jp)"></i></span>MBTI 나침반</span>
     <span class="bar-meta mono" id="barMeta">28문항 · 약 5분</span>
@@ -333,7 +340,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   <!-- INTRO -->
   <section id="intro" class="screen" style="display:flex;flex-direction:column;gap:32px">
     <div>
-      <p class="eyebrow">MBTI 성격 유형 검사 · 28문항 · 약 5분</p>
+      <p class="eyebrow">성격 유형 간이 검사</p>
       <h1 class="display">나는 어떤 유형의<br>사람일까?</h1>
       <p class="lead">MBTI(Myers-Briggs Type Indicator)는 심리학자 칼 융의 심리 유형 이론을 바탕으로 캐서린 브릭스와 이사벨 브릭스 마이어스 모녀가 만든 성격 유형 지표입니다. 사람마다 더 편하게 느끼는 방식이 있다고 보고, 네 가지 선호의 조합으로 16가지 유형을 나눕니다.</p>
       <p class="lead muted">각 축에서 어느 쪽이 더 편한지를 보는 것이지, 어느 쪽이 더 낫다는 뜻은 아닙니다.</p>
@@ -386,6 +393,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <div class="browse" id="browse" hidden></div>
     </div>
   </section>
+
+  <aside class="ad-slot" id="adSlot" aria-label="광고">
+    <span class="ad-label">광고</span>
+    <!-- 스토리패커 수평형 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5017353982200290"
+         data-ad-slot="9844864640"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </aside>
 
   <footer class="foot">
     <p class="note">MBTI®는 The Myers &amp; Briggs Foundation의 등록 상표입니다. 이 페이지는 해당 재단과 관련이 없는 비공식 자가 진단 도구입니다.</p>
@@ -700,5 +721,6 @@ function start(saved){
 window.claude?.hot?.snapshot?.(() => ({ screen: state.screen, idx: state.idx, answers: state.answers, result: state.result }));
 window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
 </script>
+
 </body>
 </html>
