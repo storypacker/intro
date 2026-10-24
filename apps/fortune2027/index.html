@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2027년(정미년) 신년운세</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@600;900&display=swap">
+<style>
+/* Layout: 한 장의 두루마리 — 낙관(印)이 찍힌 머리, 입력, 總評 · 月運 · 細目 세 단을 한 줄기로 내려 읽는다 */
+:root{
+  --paper:#ECF0EB; --surface:#F8FAF7; --ink:#1B2523; --muted:#56655F; --rule:#C7D1CB; --bar:#A3B2AC;
+  --accent:#9E2238; --accent-ink:#FFF5F2; --accent-soft:#F1DADD;
+  --wood:#2E7552; --fire:#C4492B; --earth:#9C720F; --metal:#6B7581; --water:#25407A;
+  --good:#2E7552; --warn:#B0602A;
+  --f-display:'Hahmlet','Noto Serif KR','Apple SD Gothic Neo',serif;
+  --f-hanja:'Noto Serif KR','Hahmlet','Batang',serif;
+  --f-body:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111816; --surface:#18211F; --ink:#E1E8E3; --muted:#97A6A0; --rule:#2C3935; --bar:#4C5F59;
+    --accent:#E2667B; --accent-ink:#1C0C10; --accent-soft:#3B1F26;
+    --wood:#64BB8D; --fire:#EF7D5E; --earth:#D9AE4C; --metal:#B3BCC6; --water:#89A5E2;
+    --good:#64BB8D; --warn:#E59D5E; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111816; --surface:#18211F; --ink:#E1E8E3; --muted:#97A6A0; --rule:#2C3935; --bar:#4C5F59;
+  --accent:#E2667B; --accent-ink:#1C0C10; --accent-soft:#3B1F26;
+  --wood:#64BB8D; --fire:#EF7D5E; --earth:#D9AE4C; --metal:#B3BCC6; --water:#89A5E2;
+  --good:#64BB8D; --warn:#E59D5E; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:940px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:36px 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3}
+p{margin:0}
+.el-0{color:var(--wood)}.el-1{color:var(--fire)}.el-2{color:var(--earth)}.el-3{color:var(--metal)}.el-4{color:var(--water)}
+.bg-0{background:var(--wood)}.bg-1{background:var(--fire)}.bg-2{background:var(--earth)}.bg-3{background:var(--metal)}.bg-4{background:var(--water)}
+
+/* masthead */
+.mast{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.mast .eyebrow{font-size:12.5px;letter-spacing:.14em;color:var(--muted);font-weight:500}
+.mast h1{font-size:clamp(1.8rem,5.4vw,2.9rem);font-weight:800;letter-spacing:-.01em;margin-top:6px}
+.mast .lede{color:var(--muted);margin-top:6px}
+.seal{flex:none;width:96px;height:96px;border-radius:6px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-hanja);font-weight:900;font-size:2.05rem;line-height:1.02;writing-mode:vertical-rl;box-shadow:inset 0 0 0 4px var(--accent),inset 0 0 0 6px var(--accent-ink);transform:rotate(-3deg)}
+
+/* form */
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:20px}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px 16px;align-items:end}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field>label,.field>.lbl{font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:.04em}
+input[type=text],input[type=date],select{height:44px;width:100%;border:1px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--ink);padding:0 12px;font:inherit;font-size:15px}
+.seg{display:flex;height:44px;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--paper)}
+.seg label{flex:1;display:grid;place-items:center;cursor:pointer;font-size:15px;color:var(--muted)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg input:checked+span{color:var(--ink);font-weight:600}
+.seg label:has(input:checked){background:var(--accent-soft)}
+.seg label:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:-2px}
+button.go{height:44px;border:0;border-radius:6px;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:600;font-size:15.5px;cursor:pointer;letter-spacing:.02em}
+button.go:hover{filter:brightness(1.08)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.formnote{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
+.err{grid-column:1/-1;color:var(--warn);font-size:13.5px;font-weight:500}
+
+/* section heads */
+.sec{display:flex;flex-direction:column;gap:22px}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-top:2px solid var(--ink);padding-top:14px;flex-wrap:wrap}
+.sec-han{font-family:var(--f-hanja);font-weight:900;font-size:1.55rem;color:var(--accent);letter-spacing:.06em}
+.sec-head h2{font-size:1.35rem;font-weight:700}
+.sec-head .aside{margin-left:auto;font-size:13px;color:var(--muted)}
+.flag{align-self:flex-start;font-size:13px;color:var(--accent);border:1px dashed var(--accent);border-radius:999px;padding:3px 12px}
+
+/* summary */
+.sum-grid{display:grid;grid-template-columns:250px minmax(0,1fr);gap:20px}
+.scorecard{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.ring{position:relative;width:150px;height:150px}
+.ring svg{width:100%;height:100%;display:block}
+.ring .num{position:absolute;inset:0;display:grid;place-content:center;font-family:var(--f-display);font-weight:800;font-size:2.6rem;line-height:1;font-variant-numeric:tabular-nums}
+.ring .num small{display:block;font-family:var(--f-body);font-size:12px;font-weight:500;color:var(--muted);margin-top:6px;letter-spacing:.08em}
+.grade{font-family:var(--f-hanja);font-weight:900;font-size:1.25rem;color:var(--accent)}
+.kw{font-size:14px;color:var(--muted)}
+.kw b{color:var(--ink);font-weight:600}
+.chart-side{display:flex;flex-direction:column;gap:16px;min-width:0}
+.pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.pl{display:grid;gap:4px;text-align:center;padding:10px 4px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:8px}
+.pl.me{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.pl .cap{font-size:12px;color:var(--muted);letter-spacing:.06em}
+.pl .god{font-size:11.5px;color:var(--muted);min-height:1.5em}
+.pl .ch{font-family:var(--f-hanja);font-weight:900;font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.15}
+.pl .rd{font-size:12px;color:var(--muted)}
+.pl .unk{color:var(--rule)}
+.elems{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.elx{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.elx .top{display:flex;justify-content:space-between;align-items:baseline}
+.elx .h{font-family:var(--f-hanja);font-weight:900;font-size:1.05rem}
+.elx .n{font-variant-numeric:tabular-nums;color:var(--muted)}
+.elx .track{height:6px;border-radius:3px;background:var(--rule);overflow:hidden}
+.elx .track i{display:block;height:100%;border-radius:3px}
+.story{display:flex;flex-direction:column;gap:14px;max-width:68ch;font-size:15.5px}
+.story p:first-child{font-family:var(--f-display);font-size:1.12rem;font-weight:500;line-height:1.65}
+.lucky{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.lk{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.lk .k{font-size:12px;color:var(--muted);letter-spacing:.06em}
+.lk .v{font-weight:600}
+
+/* months */
+.mchart{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:26px 14px 12px 14px;overflow-x:auto}
+.plot{position:relative;height:150px;margin-left:24px;min-width:300px}
+.plot .gl{position:absolute;left:0;right:0;border-top:1px dashed var(--rule)}
+.plot .gl span{position:absolute;left:-24px;top:-9px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cols{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;align-items:end}
+.col{height:100%;display:flex;align-items:flex-end;justify-content:center}
+.bar{position:relative;width:min(26px,80%);border-radius:4px 4px 0 0;background:var(--bar)}
+.bar.best{background:var(--accent)}
+.bar.low{background:var(--warn)}
+.bar .v{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;padding-bottom:2px}
+.mlabels{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;margin-left:24px;min-width:300px;padding-top:6px;border-top:1px solid var(--ink);font-size:12px;color:var(--muted);text-align:center}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:10px;margin-left:24px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.mc{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.mc .row{display:flex;align-items:baseline;gap:8px}
+.mc .mo{font-family:var(--f-display);font-weight:800;font-size:1.35rem}
+.mc .gz{font-family:var(--f-hanja);font-weight:700;font-size:1rem}
+.pill{margin-left:auto;font-size:12px;font-weight:600;border-radius:999px;padding:1px 10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lv-good{color:var(--good);border:1px solid var(--good)}
+.lv-mid{color:var(--muted);border:1px solid var(--rule)}
+.lv-low{color:var(--warn);border:1px solid var(--warn)}
+.mc .tg{font-size:13px;font-weight:600;color:var(--accent)}
+.mc .tg span{color:var(--muted);font-weight:400}
+.mc p{font-size:14px}
+.mc .note{font-size:13px;color:var(--muted)}
+
+/* items */
+.igrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.it{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.it .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.it h3{font-size:1.15rem;font-weight:700}
+.it .star{font-size:12px;color:var(--muted);border:1px solid var(--rule);border-radius:4px;padding:0 6px}
+.it .sc{margin-left:auto;font-family:var(--f-display);font-weight:800;font-size:1.5rem;font-variant-numeric:tabular-nums}
+.it .sc small{font-family:var(--f-body);font-size:12px;font-weight:500;color:var(--muted)}
+.meter{height:6px;border-radius:3px;background:var(--rule);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:3px}
+.meter i.good{background:var(--good)}.meter i.mid{background:var(--bar)}.meter i.low{background:var(--warn)}
+.it p{font-size:14.5px}
+.it .adv{font-size:14px;padding-left:12px;border-left:2px solid var(--accent)}
+.it .when{font-size:13px;color:var(--muted)}
+.ad-slot{display:flex;flex-direction:column;gap:6px;min-height:120px}
+.ad-slot .ad-label{font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.ad-slot ins{width:100%;min-height:100px}
+footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;max-width:72ch}
+
+@media (max-width:720px){
+  .sum-grid{grid-template-columns:minmax(0,1fr)}
+  .igrid{grid-template-columns:minmax(0,1fr)}
+  .seal{width:76px;height:76px;font-size:1.6rem}
+  .elems{gap:6px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .meter i,.elx .track i,.bar{transition:height .5s ease,width .5s ease}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+.home{align-self:flex-start;font-size:14px;color:var(--muted);text-decoration:none;margin-bottom:-24px}
+.home:hover{color:var(--ink)}</style>
+<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+</head>
+<body>
+
+<div class="wrap">
+  <a class="home" href="../../index.html">← 스토리패커 홈</a>
+  <header class="mast">
+    <div>
+      <div class="eyebrow">2027 · 丁未年 · 붉은 양의 해</div>
+      <h1>2027년(정미년) 신년운세</h1>
+      <p class="lede">이름과 생년월일시로 사주를 세우고, 2027년 한 해의 흐름을 풀어 드립니다.</p>
+    </div>
+    <div class="seal" aria-hidden="true">丁未</div>
+  </header>
+
+  <section class="panel" aria-label="정보 입력">
+    <form id="f" novalidate>
+      <div class="field">
+        <label for="name">이름</label>
+        <input id="name" type="text" maxlength="12" autocomplete="name" placeholder="홍길동">
+      </div>
+      <div class="field">
+        <span class="lbl" id="glbl">성별</span>
+        <div class="seg" role="radiogroup" aria-labelledby="glbl">
+          <label><input type="radio" name="gender" id="g-f" value="여"><span>여성</span></label>
+          <label><input type="radio" name="gender" id="g-m" value="남"><span>남성</span></label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="birth">생년월일 (양력)</label>
+        <input id="birth" type="date" min="1920-01-01" max="2026-12-31">
+      </div>
+      <div class="field">
+        <label for="hour">태어난 시</label>
+        <select id="hour"></select>
+      </div>
+      <button class="go" type="submit">2027년 운세 보기</button>
+      <p class="err" id="err" hidden></p>
+      <p class="formnote">양력 기준으로 계산합니다. 음력 생일은 양력으로 바꿔 입력하세요. 성별은 애정운의 기준이 되는 별(재성·관성)을 정하는 데 쓰입니다.</p>
+    </form>
+  </section>
+
+  <div id="result" class="wrap-inner" style="display:flex;flex-direction:column;gap:48px"></div>
+
+  <footer>명리학의 기본 원리(일간, 오행, 십성, 절기, 띠의 합·충)를 바탕으로 자동 풀이한 운세입니다. 절기는 계산식으로 구해 경계일에 태어난 경우 하루 정도 차이가 날 수 있습니다. 재미와 참고로 즐겨 주세요.</footer>
+
+  <aside class="ad-slot" aria-label="광고">
+    <span class="ad-label">광고</span>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
+         crossorigin="anonymous"></script>
+    <!-- 스토리패커 수평형 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5017353982200290"
+         data-ad-slot="9844864640"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </aside>
+</div>
+
+<script>
+(function(){
+const STEM=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const STEM_KO=['갑','을','병','정','무','기','경','신','임','계'];
+const BR=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const BR_KO=['자','축','인','묘','진','사','오','미','신','유','술','해'];
+const ANIMAL=['쥐','소','호랑이','토끼','용','뱀','말','양','원숭이','닭','개','돼지'];
+const EL_KO=['나무','불','흙','쇠','물'], EL_H=['木','火','土','金','水'];
+const BR_EL=[4,2,0,0,2,1,1,2,3,3,2,4];
+const BR_MAIN=[9,5,0,1,4,2,3,5,6,7,4,8];
+const HOURS=[['자시','23:30~01:29'],['축시','01:30~03:29'],['인시','03:30~05:29'],['묘시','05:30~07:29'],['진시','07:30~09:29'],['사시','09:30~11:29'],['오시','11:30~13:29'],['미시','13:30~15:29'],['신시','15:30~17:29'],['유시','17:30~19:29'],['술시','19:30~21:29'],['해시','21:30~23:29']];
+const elS=s=>Math.floor(s/2);
+const elx=e=>`${EL_KO[e]}(${EL_H[e]})`;
+
+const DM={
+ 0:['큰 나무','곧게 위로 뻗는 기질이라 원칙과 추진력이 강하고, 자연스럽게 앞장서는 자리를 맡습니다.'],
+ 1:['풀과 덩굴','상황에 맞춰 유연하게 뻗어 나가는 생명력이 있어 친화력과 적응력이 뛰어납니다.'],
+ 2:['한낮의 태양','밝고 숨김없는 성격으로 주변을 환하게 비추며, 표현력과 열정이 큽니다.'],
+ 3:['등불과 촛불','은은하지만 쉽게 꺼지지 않는 불이라 섬세한 집중력과 따뜻한 배려가 장점입니다.'],
+ 4:['큰 산','묵직하고 믿음직한 중심이 되어 포용력이 크고 쉽게 흔들리지 않습니다.'],
+ 5:['기름진 논밭','사람과 일을 길러 내는 땅이라 현실 감각이 좋고 꼼꼼하게 챙깁니다.'],
+ 6:['바위와 무쇠','결단력과 의리가 강하고, 맺고 끊음이 분명합니다.'],
+ 7:['다듬어진 보석','예리한 감각과 높은 기준을 지녀 완성도와 품격을 중요하게 여깁니다.'],
+ 8:['큰 강과 바다','넓게 흐르는 지혜를 지녀 판이 크고 상황 판단이 빠릅니다.'],
+ 9:['이슬과 빗물','조용히 스며드는 지성이 있어 직관이 좋고 상대의 마음을 잘 읽습니다.']
+};
+const TGY={
+ '비견':['자립과 경쟁','나와 같은 기운이 들어와 자신감과 독립심이 커집니다. 동료와 힘을 합치면 크게 성장하지만, 몫을 두고 경쟁도 생깁니다.'],
+ '겁재':['승부와 지출','경쟁심이 강해지고 과감한 승부를 걸고 싶어집니다. 의욕은 좋지만 보증·동업·충동 지출로 재물이 새기 쉽습니다.'],
+ '식신':['재능과 여유','표현하고 만들어 내는 힘이 커집니다. 먹고사는 일이 안정되고, 취미가 일이 되는 흐름도 있습니다.'],
+ '상관':['변화와 표현','틀을 깨는 아이디어와 말솜씨가 살아납니다. 새로운 시도에는 유리하지만 윗사람이나 조직과의 마찰은 조심해야 합니다.'],
+ '편재':['기회와 확장','큰돈과 넓은 활동 무대가 열리는 기운입니다. 사업·투자 기회가 오지만 크게 벌고 크게 쓰는 흐름이라 관리가 관건입니다.'],
+ '정재':['안정된 결실','성실하게 쌓은 만큼 정확히 돌아오는 재물운입니다. 고정 수입이 늘고 살림과 자산이 단단해집니다.'],
+ '편관':['압박과 돌파','책임과 부담이 커지는 기운입니다. 버거운 과제가 오지만 이겨 내면 권한과 지위가 크게 올라갑니다.'],
+ '정관':['명예와 인정','조직에서 인정받고 자리가 올라가는 기운입니다. 승진·합격·계약처럼 공식적인 결과가 따릅니다.'],
+ '편인':['직관과 전환','특별한 공부와 기술, 영감이 들어옵니다. 생각이 깊어지는 대신 실행이 늦어지거나 고민이 많아질 수 있습니다.'],
+ '정인':['배움과 후원','문서운과 도와주는 사람이 따르는 기운입니다. 자격증·학업·계약서·부동산 문서에 좋습니다.']
+};
+const TGM={
+ '비견':['협력','뜻이 맞는 사람과 함께할 때 일이 빨라집니다. 팀으로 움직이는 일에 힘을 실어 보세요.','내 몫을 주장하다 관계가 틀어지기 쉽습니다. 고집보다 양보가 이득입니다.'],
+ '겁재':['승부','경쟁하는 자리에서 한발 앞서 갑니다. 과감하게 도전해 볼 만합니다.','돈을 빌려주거나 보증을 서는 일은 피하세요. 충동구매도 조심해야 합니다.'],
+ '식신':['창작','아이디어가 잘 풀리고 결과물이 칭찬받습니다. 먹을 복, 놀 복도 따릅니다.','편안함에 기대 일을 미루기 쉽습니다. 식습관과 체중 관리에 신경 쓰세요.'],
+ '상관':['표현','말과 글로 사람을 움직이는 힘이 큽니다. 발표·홍보·협상에 유리합니다.','말 한마디가 화를 부를 수 있습니다. 윗사람 앞에서는 한 번 더 생각하고 말하세요.'],
+ '편재':['기회','뜻밖의 수입이나 거래 기회가 들어옵니다. 사람을 넓게 만나 보세요.','들어오는 만큼 나가는 돈도 큽니다. 투기성 투자는 다음으로 미루세요.'],
+ '정재':['결실','노력한 만큼 정확히 보상받습니다. 저축과 자산 정리에 좋은 때입니다.','작은 손실에 마음이 쓰입니다. 계산은 꼼꼼히 하되 마음은 넉넉히 가지세요.'],
+ '편관':['돌파','어려운 과제를 해결해 존재감을 드러냅니다. 책임을 맡는 것이 곧 기회입니다.','업무 압박과 스트레스가 커집니다. 무리한 일정은 줄이고 건강을 챙기세요.'],
+ '정관':['인정','성과를 인정받고 좋은 평가가 따릅니다. 승진·합격 소식을 기대할 만합니다.','규정과 절차를 소홀히 하면 탈이 납니다. 서류와 약속을 꼼꼼히 확인하세요.'],
+ '편인':['통찰','새로운 분야를 배우거나 기술을 익히기에 좋습니다. 직관을 믿어도 됩니다.','생각이 많아져 결정이 늦어집니다. 혼자 끌어안지 말고 털어놓으세요.'],
+ '정인':['도움','윗사람과 귀인의 도움이 있습니다. 계약·문서·시험에 좋은 기운입니다.','남에게 기대는 마음이 커지면 실망도 커집니다. 스스로 정한 일정을 지키세요.']
+};
+const OPEN={
+ good:['기운이 고르게 받쳐 주는 달입니다.','흐름이 순조롭게 이어지는 달입니다.','일이 잘 맞물려 돌아가는 달입니다.'],
+ mid:['큰 굴곡 없이 무난하게 흘러가는 달입니다.','차분히 다지면 좋은 결과가 남는 달입니다.','서두르지 않으면 손해 볼 일이 없는 달입니다.'],
+ low:['속도를 늦추고 지키는 데 집중할 달입니다.','작은 일도 한 번 더 확인해야 하는 달입니다.','무리하지 않는 것이 가장 큰 이득인 달입니다.']
+};
+const ITEM_TXT={
+ wealth:{name:'재물운',high:['재물 흐름이 뚜렷하게 살아나는 해입니다. 수입원이 늘거나 그동안 묶여 있던 돈이 풀립니다.','들어온 돈은 바로 굴리기보다 일부를 안전한 곳에 먼저 떼어 두세요.'],mid:['들어오고 나가는 균형이 맞는 해입니다. 큰 횡재는 없어도 크게 잃을 일도 적습니다.','고정 지출을 한 번 정리하면 연말에 남는 돈이 눈에 띄게 달라집니다.'],low:['들어오는 돈보다 나가는 돈이 먼저 보이는 해입니다.','보증·동업·고위험 투자는 피하고, 현금 흐름을 지키는 데 집중하세요.']},
+ career:{name:'직업·명예운',high:['일터에서 존재감이 커지는 해입니다. 맡은 일이 늘어나는 만큼 평가와 보상도 따라옵니다.','승진이나 이직 제안이 오면 조건을 꼼꼼히 비교하되, 기회 자체는 놓치지 마세요.'],mid:['지금의 자리를 단단히 다지는 해입니다. 급격한 변화보다 꾸준함이 평가받습니다.','자격과 경력처럼 오래 남는 것을 쌓아 두면 다음 해에 크게 쓰입니다.'],low:['책임은 늘지만 인정은 더디게 오는 해입니다. 조직 내 갈등이나 업무 과부하를 조심하세요.','충동적인 퇴사나 무리한 확장보다, 버티며 실력을 증명하는 쪽이 유리합니다.']},
+ love:{name:'애정·결혼운',high:['인연의 기운이 밝게 들어오는 해입니다. 혼자라면 소개나 모임에서 좋은 사람을 만나고, 연인이 있다면 관계가 한 단계 깊어집니다.','마음이 가는 사람에게는 먼저 표현하세요. 망설임이 가장 큰 손해입니다.'],mid:['잔잔하고 안정적인 관계운입니다. 큰 사건은 없어도 신뢰가 차곡차곡 쌓입니다.','익숙함에 기대지 말고 작은 이벤트로 관계에 새 공기를 넣어 주세요.'],low:['감정이 엇갈리기 쉬운 해입니다. 말투 하나에 서운함이 커질 수 있습니다.','결론을 서두르기보다 대화의 횟수를 늘리세요. 새로운 만남은 천천히 알아가는 편이 좋습니다.']},
+ health:{name:'건강운',high:['전반적으로 기력이 좋은 해입니다. 새로운 운동을 시작하기에도 좋습니다.'],mid:['큰 병치레는 없지만 피로가 쌓이기 쉬운 해입니다.'],low:['체력 관리에 특히 신경 써야 하는 해입니다. 몸이 보내는 작은 신호도 그냥 넘기지 마세요.']},
+ study:{name:'학업·문서운',high:['배움과 문서의 기운이 강한 해입니다. 시험·자격증·계약에서 좋은 결과를 기대할 수 있습니다.','미뤄 둔 공부나 자격 취득을 올해 시작하세요. 부동산·계약 문서도 유리합니다.'],mid:['꾸준히 하면 결과가 나오는 해입니다. 벼락치기보다 일정한 습관이 힘을 발휘합니다.','목표를 작게 나눠 분기마다 점검하면 연말에 확실한 성과가 남습니다.'],low:['집중력이 흩어지기 쉬운 해입니다. 문서와 계약에서 실수가 생길 수 있습니다.','중요한 서류는 서명 전에 반드시 한 번 더 읽고, 공부는 환경부터 정리하세요.']},
+ people:{name:'대인관계운',high:['사람 복이 있는 해입니다. 뜻이 맞는 동료와 친구가 힘이 되어 줍니다.','모임과 네트워크에 적극적으로 나가 보세요. 소개받은 인연이 일로도 이어집니다.'],mid:['관계가 무난하게 유지되는 해입니다. 넓히기보다 가까운 사람을 챙기면 좋습니다.','오래 연락하지 못한 사람에게 먼저 안부를 전해 보세요.'],low:['경쟁과 비교로 마음이 지치기 쉬운 해입니다. 돈이 얽힌 부탁은 거절하는 편이 낫습니다.','모든 사람에게 맞추려 하지 말고 선을 분명히 그을수록 관계가 편해집니다.']}
+};
+const ORGAN=['간과 담, 눈, 근육과 관절','심장과 혈압, 혈액순환','위장과 소화기','폐와 호흡기, 피부','신장과 방광, 허리'];
+const CARE=['스트레칭과 숲길 걷기, 충분한 수면이 도움이 됩니다.','가벼운 유산소 운동과 정기적인 혈압 확인이 도움이 됩니다.','규칙적인 식사 시간과 과식 줄이기가 가장 좋은 보약입니다.','실내 습도 관리와 깊은 호흡 운동이 도움이 됩니다.','물을 충분히 마시고 하체 근력 운동을 꾸준히 하세요.'];
+const LUCK_COLOR=['초록·청록','빨강·자주','노랑·황토','흰색·은색','검정·남색'];
+const LUCK_NUM=['3, 8','2, 7','5, 10','4, 9','1, 6'];
+const LUCK_DIR=['동쪽','남쪽','중앙 (가까운 곳)','서쪽','북쪽'];
+
+function hash(str){let h=2166136261;for(const c of str){h^=c.codePointAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+// 절기(節) 날짜 근사 계산 — 1900~2099
+const C21=[5.4055,3.87,5.63,4.81,5.52,5.678,7.108,7.5,7.646,8.318,7.438,7.18];
+const C20=[6.11,4.6295,6.3826,5.59,6.318,6.5,7.928,8.35,8.44,9.098,8.218,7.9];
+function termDay(y,mi){const c=y>=2000?C21[mi]:C20[mi];const Y=y>=2000?y-2000:y-1900;const L=mi<2?Math.floor((Y-1)/4):Math.floor(Y/4);return Math.floor(Y*0.2422+c)-L}
+const TERM_BR=[1,2,3,4,5,6,7,8,9,10,11,0];
+function jdn(y,m,d){const a=Math.floor((14-m)/12),yy=y+4800-a,mm=m+12*a-3;return d+Math.floor((153*mm+2)/5)+365*yy+Math.floor(yy/4)-Math.floor(yy/100)+Math.floor(yy/400)-32045}
+function pillars(y,m,d,h){
+  const lichun=termDay(y,1);
+  const sy=(m<2||(m===2&&d<lichun))?y-1:y;
+  const ys=((sy-4)%10+10)%10, yb=((sy-4)%12+12)%12;
+  const td=termDay(y,m-1);
+  const mb=d>=td?TERM_BR[m-1]:(m===1?0:TERM_BR[m-2]);
+  const ms=(((ys%5)*2+2)+((mb-2+12)%12))%10;
+  const di=((jdn(y,m,d)+49)%60+60)%60;
+  const ds=di%10, db=di%12;
+  const hs=h>=0?((ds%5)*2+h)%10:-1;
+  return {sy,ys,yb,ms,mb,ds,db,hs,hb:h};
+}
+function tenGod(ds,ts){const rel=(elS(ts)-elS(ds)+5)%5;const same=(ds%2)===(ts%2);return [['비견','겁재'],['식신','상관'],['편재','정재'],['편관','정관'],['편인','정인']][rel][same?0:1]}
+// 未(7)와의 관계
+function relMi(b){if(b===1)return '충';if(b===6)return '육합';if(b===11||b===3)return '삼합';if(b===10)return '형';if(b===0)return '원진';if(b===7)return '동일';return null}
+function relPair(a,b){
+  if(Math.abs(a-b)===6)return '충';
+  const H=[[0,1],[2,11],[3,10],[4,9],[5,8],[6,7]];if(H.some(p=>(p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a)))return '육합';
+  if(a!==b&&a%4===b%4)return '삼합';
+  const W=[[0,7],[1,6],[2,9],[3,8],[4,11],[5,10]];if(W.some(p=>(p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a)))return '원진';
+  const X=[[2,5],[5,8],[2,8],[1,10],[10,7],[1,7],[0,3]];if(X.some(p=>(p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a)))return '형';
+  return null;
+}
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,Math.round(v)));
+const lvl=s=>s>=75?'good':s>=60?'mid':'low';
+const LV_KO={good:'좋음',mid:'보통',low:'조심'};
+
+function compute(inp){
+  const {name,gender,y,m,d,h}=inp;
+  const P=pillars(y,m,d,h);
+  const D=elS(P.ds);
+  const chars=[{e:elS(P.ys)},{e:BR_EL[P.yb]},{e:elS(P.ms)},{e:BR_EL[P.mb],w:2},{e:D},{e:BR_EL[P.db]}];
+  if(h>=0){chars.push({e:elS(P.hs)},{e:BR_EL[P.hb]})}
+  const cnt=[0,0,0,0,0], wc=[0,0,0,0,0];
+  chars.forEach(c=>{cnt[c.e]++;wc[c.e]+=(c.w||1)});
+  const total=wc.reduce((a,b)=>a+b,0);
+  const strong=(wc[D]+wc[(D+4)%5])/total>=0.5;
+  const favList=strong?[(D+2)%5,(D+1)%5,(D+3)%5]:[(D+4)%5,D];
+  const fav=e=>favList.includes(e);
+  let luckyEl=favList[0];favList.forEach(e=>{if(cnt[e]<cnt[luckyEl])luckyEl=e});
+  const R=rng(hash(name+'|'+gender+'|'+y+'-'+m+'-'+d+'|'+h));
+  const nz=a=>(R()*2-1)*a;
+  const pick=arr=>arr[Math.floor(R()*arr.length)];
+
+  // 2027 丁未
+  const tgS=tenGod(P.ds,3), tgB=tenGod(P.ds,5);
+  const yRel=relMi(P.yb), dRel=relMi(P.db);
+  const samjae=[11,3,7].includes(P.yb);
+  let yearScore=62+(fav(1)?9:-6)+(fav(2)?9:-6);
+  yearScore+=({'충':-5,'육합':5,'삼합':4,'형':-3,'원진':-3}[yRel]||0);
+  yearScore+=({'충':-3,'육합':3,'삼합':2,'형':-2,'원진':-2}[dRel]||0);
+  if(samjae)yearScore-=2;
+  yearScore=clamp(yearScore+nz(3),42,94);
+
+  // 월별
+  const ITEM_BY_REL=['대인관계','재능·표현','재물','직업·명예','학업·문서'];
+  const months=[];
+  for(let k=1;k<=12;k++){
+    const mp=pillars(2027,k,15,-1);
+    const sEl=elS(mp.ms), bEl=BR_EL[mp.mb];
+    const rd=relPair(mp.mb,P.db), ry=relPair(mp.mb,P.yb);
+    let s=60+(fav(sEl)?8:-5)+(fav(bEl)?8:-5)+(yearScore-62)*0.3;
+    s+=({'충':-6,'육합':4,'삼합':3,'형':-3,'원진':-2}[rd]||0);
+    s+=({'충':-3,'육합':2,'삼합':1}[ry]||0);
+    s=clamp(s+nz(4),38,96);
+    const tg=tenGod(P.ds,mp.ms), tgb=tenGod(P.ds,BR_MAIN[mp.mb]);
+    const L=lvl(s);
+    const parts=[pick(OPEN[L]),TGM[tg][fav(sEl)?1:2]];
+    const RN={'충':'일지와 충이 들어 이사·이직·여행 같은 변동이 생기기 쉽습니다.','육합':'일지와 합이 들어 반가운 인연이나 협력 제안이 들어옵니다.','삼합':'같은 뜻을 가진 사람들과 힘이 모입니다.','형':'사소한 말실수나 서류 문제를 조심하세요.','원진':'가까운 사이에 괜한 서운함이 생기기 쉽습니다.'};
+    let note=rd&&RN[rd]?RN[rd]:'';
+    if(k===7)note=(note?note+' ':'')+'한 해의 기운(丁未)이 그대로 겹치는 달이라 올해의 성격이 가장 진하게 드러납니다.';
+    months.push({k,ms:mp.ms,mb:mp.mb,sEl,bEl,s,L,tg,tgb,kw:TGM[tg][0],text:parts.join(' '),note,focus:ITEM_BY_REL[(sEl-D+5)%5]});
+  }
+  const sorted=[...months].sort((a,b)=>b.s-a.s);
+  const best=sorted.slice(0,3).map(x=>x.k).sort((a,b)=>a-b);
+  const worst=sorted.slice(-2).map(x=>x.k).sort((a,b)=>a-b);
+  months.forEach(x=>{x.best=best.includes(x.k);x.worst=worst.includes(x.k)});
+
+  // 세부 항목
+  const pres=e=>(e===1?1.3:0)+(e===2?1:0)+(e===0?0.3:0);
+  const monthsFor=e=>months.filter(x=>x.sEl===e||x.bEl===e).sort((a,b)=>b.s-a.s).slice(0,2).map(x=>x.k).sort((a,b)=>a-b);
+  function itemScore(e,extra){const p=pres(e);return clamp(60+(fav(e)?10:-2)*p+(fav(e)?3:-1)+(yearScore-62)*0.25+nz(5)+(extra||0),36,95)}
+  function mech(e,star){
+    if(pres(e)>=1){return `올해 들어오는 ${elx(e)} 기운이 당신에게는 ${star}에 해당해 이 분야가 직접 움직입니다. `+(fav(e)?'원국에 필요한 기운이라 반갑게 작용합니다.':'다만 원국에서 이미 넉넉하거나 부담이 되는 기운이라, 지나치면 탈이 납니다.')}
+    return `정미년의 불과 흙 기운은 ${star}과 직접 닿지 않아, 이 분야는 달마다 들어오는 기운에 따라 움직입니다.`;
+  }
+  const items=[];
+  const mk=(key,e,star,extra,extraText)=>{
+    const s=itemScore(e,extra),L=lvl(s),T=ITEM_TXT[key];
+    items.push({key,name:T.name,star,s,L,text:T[L==='good'?'high':L][0]+' '+mech(e,star)+(extraText?' '+extraText:''),adv:T[L==='good'?'high':L][1],when:monthsFor(e)});
+  };
+  mk('wealth',(D+2)%5,'재성(재물의 별)');
+  mk('career',(D+3)%5,'관성(직업과 명예의 별)');
+  const loveEl=gender==='남'?(D+2)%5:(D+3)%5;
+  const loveStar=gender==='남'?'재성(아내·연인의 별)':'관성(남편·연인의 별)';
+  const DREL={'충':['배우자 자리인 일지와 未가 충을 이뤄 관계에 변동수가 있습니다. 이별보다는 이사·결혼 같은 큰 변화로 풀릴 수도 있습니다.',-5],'육합':['배우자 자리인 일지와 未가 합을 이뤄 연인·배우자와의 사이가 한층 가까워집니다.',6],'삼합':['일지와 未가 삼합으로 묶여 함께하는 일이 늘어납니다.',3],'형':['일지와 未가 형으로 걸려 사소한 다툼이 커지지 않게 조심하세요.',-3],'원진':['일지와 未가 원진이라 이유 없는 서운함이 쌓이기 쉽습니다.',-3]};
+  mk('love',loveEl,loveStar,dRel&&DREL[dRel]?DREL[dRel][1]:0,dRel&&DREL[dRel]?DREL[dRel][0]:'');
+  // 건강
+  {
+    let weak=0;for(let e=1;e<5;e++)if(cnt[e]<cnt[weak])weak=e;
+    let s=64+(fav(1)?4:-4)+(fav(2)?4:-4)+(cnt[1]+cnt[2]>=4?-6:0)+(yearScore-62)*0.2+nz(5);
+    s=clamp(s,40,92);const L=lvl(s);
+    let yn='';
+    if(D===3)yn='올해의 불(火)은 쇠 일간을 누르는 기운이라 과로와 스트레스가 호흡기나 피부로 드러나기 쉽습니다.';
+    else if(D===4)yn='올해의 흙(土)이 물을 막는 형국이라 신장·방광과 허리 컨디션에 신경 쓰세요.';
+    else if(cnt[1]+cnt[2]>=3)yn='원국에 불과 흙이 이미 많은데 올해 더해지니, 여름철 더위와 소화 부담에 특히 주의하세요.';
+    else yn='불과 흙이 강한 해라 한여름의 열과 과식으로 인한 소화 부담을 조심하세요.';
+    items.push({key:'health',name:'건강운',star:'오행의 균형',s,L,text:ITEM_TXT.health[L==='good'?'high':L][0]+` 원국에서 가장 약한 기운은 ${elx(weak)} 기운으로, ${ORGAN[weak]} 쪽이 상대적으로 약할 수 있습니다. `+yn,adv:CARE[weak],when:months.filter(x=>x.L==='good').slice(0,0).map(x=>x.k)});
+  }
+  mk('study',(D+4)%5,'인성(학문과 문서의 별)');
+  mk('people',D,'비겁(동료와 형제의 별)');
+
+  // 띠 이야기
+  const an=ANIMAL[P.yb];
+  let ttext;
+  const SAMJAE='다만 2025년부터 이어진 삼재의 마지막 해, 날삼재입니다. 나가는 삼재라 묵은 일을 정리하고 마무리를 잘하면 오히려 홀가분하게 풀립니다.';
+  switch(yRel){
+    case '충':ttext=`${an}띠에게 양의 해는 정면으로 부딪히는 충(沖)의 해입니다. 이사·이직·환경 변화가 생기기 쉬우니, 변화를 피하기보다 미리 계획해 내 쪽에서 먼저 움직이는 편이 낫습니다.`;break;
+    case '육합':ttext=`${an}띠는 양과 육합(六合)을 이루는 사이라, 올해는 주변의 협조를 얻기 쉽고 막혔던 일이 부드럽게 풀립니다.`;break;
+    case '삼합':ttext=`${an}띠는 해(亥)·묘(卯)·미(未)로 묶이는 삼합(三合)의 띠라, 뜻을 함께할 사람이 모이는 해입니다. `+SAMJAE;break;
+    case '동일':ttext='자신의 띠가 돌아오는 해입니다. 존재감이 커지는 만큼 시선도 많이 받으니 말과 행동을 단정히 하세요. '+SAMJAE;break;
+    case '형':ttext=`${an}띠는 축(丑)·술(戌)·미(未) 삼형(三刑)이 걸리는 해라, 서류나 법적인 문제, 사소한 말다툼을 조심해야 합니다.`;break;
+    case '원진':ttext=`${an}띠와 양띠는 원진(怨嗔)의 관계라 이유 없이 서운한 감정이 생기기 쉽습니다. 가까운 사람일수록 말을 아끼고 오해는 빨리 푸세요.`;break;
+    default:ttext=`${an}띠에게 정미년은 띠끼리 부딪힘이 없는 평온한 해입니다. 띠보다 사주 원국의 흐름이 운을 좌우합니다.`;
+  }
+  if(P.sy!==y)ttext=`입춘 전에 태어나 ${P.sy}년의 ${an}띠를 따릅니다. `+ttext;
+
+  const nf=(fav(1)?1:0)+(fav(2)?1:0);
+  const favText=nf===2?'두 기운 모두 당신에게 필요한 쪽으로 작용해, 한 해 전체가 순풍에 가깝습니다.':nf===1?(fav(1)?'천간의 불은 돕고 지지의 흙은 부담이 되는 구조라, 잘 풀리는 분야와 조심할 분야가 분명하게 갈립니다.':'지지의 흙은 돕고 천간의 불은 부담이 되는 구조라, 겉보다 속이 실한 해입니다. 드러나는 성과보다 쌓이는 실력을 보세요.'):'올해의 기운은 당신에게 다소 버거운 쪽으로 흐릅니다. 확장보다 내실, 속도보다 방향을 챙기면 무난히 넘어갑니다.';
+  const story=[
+    `${name}님은 ${STEM[P.ds]}${EL_H[D]} 일간, 곧 ‘${DM[P.ds][0]}’의 기운을 타고났습니다. ${DM[P.ds][1]}`,
+    (strong?'사주에 나를 돕는 기운이 넉넉해 힘이 있는 편(신강)입니다. 에너지를 바깥으로 쓰는 해에 성과가 커집니다.':'나를 돕는 기운이 다소 적은 편(신약)이라, 무리하게 판을 키우기보다 도움을 받으며 실력을 쌓을 때 운이 열립니다.')+(h<0?' 태어난 시를 몰라 시주를 빼고 풀이했습니다.':''),
+    `2027년 정미년(丁未年)은 붉은 양의 해로, 불(火)과 흙(土)의 기운이 강하게 들어옵니다. 천간 丁은 당신에게 ${tgS}, 지지 未는 ${tgB}${/[재]$/.test(tgB)?'로':'으로'} 작용합니다. ${TGY[tgS][1]} ${favText}`,
+    ttext,
+    `한 해 중 ${best.join('·')}월에 가장 힘이 실리고, ${worst.join('·')}월은 속도를 늦추고 점검하는 것이 좋습니다.`
+  ];
+  const grade=yearScore>=80?'大吉 · 대길':yearScore>=70?'吉 · 길':yearScore>=60?'平 · 평':'愼 · 신중';
+  return {inp,P,D,cnt,strong,yearScore,grade,tgS,tgB,months,items,story,luckyEl,best,worst};
+}
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function render(r,isSample){
+  const P=r.P;
+  const cols=[
+    {cap:'時柱 · 시',s:P.hs,b:P.hb},
+    {cap:'日柱 · 일',s:P.ds,b:P.db,me:true},
+    {cap:'月柱 · 월',s:P.ms,b:P.mb},
+    {cap:'年柱 · 연',s:P.ys,b:P.yb}
+  ];
+  const pl=cols.map(c=>{
+    if(c.s<0)return `<div class="pl"><span class="cap">${c.cap}</span><span class="god">&nbsp;</span><span class="ch unk">?</span><span class="ch unk">?</span><span class="rd">시 모름</span></div>`;
+    const god=c.me?'일간 (나)':tenGod(P.ds,c.s);
+    return `<div class="pl${c.me?' me':''}"><span class="cap">${c.cap}</span><span class="god">${god}</span><span class="ch el-${elS(c.s)}">${STEM[c.s]}</span><span class="ch el-${BR_EL[c.b]}">${BR[c.b]}</span><span class="rd">${STEM_KO[c.s]}${BR_KO[c.b]}</span></div>`;
+  }).join('');
+  const maxC=Math.max(4,...r.cnt);
+  const el=r.cnt.map((n,e)=>`<div class="elx"><div class="top"><span class="h el-${e}">${EL_H[e]}</span><span class="n">${n}</span></div><div class="track"><i class="bg-${e}" style="width:${n/maxC*100}%"></i></div><span style="color:var(--muted);font-size:12px">${EL_KO[e]}</span></div>`).join('');
+  const C=2*Math.PI*52;
+  const bars=r.months.map(m=>`<div class="col"><div class="bar${m.best?' best':m.worst?' low':''}" style="height:${m.s}%" title="${m.k}월 ${m.s}점"><span class="v">${m.s}</span></div></div>`).join('');
+  const mcards=r.months.map(m=>`<article class="mc">
+    <div class="row"><span class="mo">${m.k}월</span><span class="gz"><span class="el-${m.sEl}">${STEM[m.ms]}</span><span class="el-${m.bEl}">${BR[m.mb]}</span></span><span class="pill lv-${m.L}">${LV_KO[m.L]} ${m.s}</span></div>
+    <div class="tg">${m.tg} · ${m.kw} <span>· 주목: ${m.focus}</span></div>
+    <p>${m.text}</p>${m.note?`<p class="note">${m.note}</p>`:''}
+  </article>`).join('');
+  const items=r.items.map(it=>`<article class="it">
+    <div class="row"><h3>${it.name}</h3><span class="star">${it.star}</span><span class="sc">${it.s}<small> /100</small></span></div>
+    <div class="meter" role="img" aria-label="${it.name} ${it.s}점"><i class="${it.L}" style="width:${it.s}%"></i></div>
+    <p>${it.text}</p>
+    <p class="adv">${it.adv}</p>
+    ${it.when&&it.when.length?`<p class="when">이 기운이 들어오는 달 · ${it.when.join('월, ')}월</p>`:''}
+  </article>`).join('');
+  const nm=esc(r.inp.name);
+  document.getElementById('result').innerHTML=`
+  <section class="sec" id="sum">
+    <div class="sec-head"><span class="sec-han">總評</span><h2>${nm}님의 2027년 총평</h2><span class="aside">${r.inp.y}.${String(r.inp.m).padStart(2,'0')}.${String(r.inp.d).padStart(2,'0')} · ${r.inp.h>=0?HOURS[r.inp.h][0]:'시 모름'} · ${r.inp.gender}</span></div>
+    ${isSample?'<span class="flag">예시 결과입니다. 위에 본인 정보를 입력해 보세요.</span>':''}
+    <div class="sum-grid">
+      <div class="panel scorecard">
+        <div class="ring" role="img" aria-label="2027년 종합 점수 ${r.yearScore}점">
+          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--rule)" stroke-width="8"/><circle cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(C*r.yearScore/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 60 60)"/></svg>
+          <div class="num">${r.yearScore}<small>종합 점수</small></div>
+        </div>
+        <div class="grade">${r.grade}</div>
+        <div class="kw">올해의 키워드<br><b>${TGY[r.tgS][0]}</b> · <b>${TGY[r.tgB][0]}</b></div>
+      </div>
+      <div class="chart-side">
+        <div class="pillars">${pl}</div>
+        <div class="elems" aria-label="오행 분포">${el}</div>
+      </div>
+    </div>
+    <div class="story">${r.story.map(p=>`<p>${p}</p>`).join('')}</div>
+    <div class="lucky">
+      <div class="lk"><span class="k">행운의 기운</span><span class="v el-${r.luckyEl}">${elx(r.luckyEl)}</span></div>
+      <div class="lk"><span class="k">행운의 색</span><span class="v">${LUCK_COLOR[r.luckyEl]}</span></div>
+      <div class="lk"><span class="k">행운의 숫자</span><span class="v">${LUCK_NUM[r.luckyEl]}</span></div>
+      <div class="lk"><span class="k">좋은 방향</span><span class="v">${LUCK_DIR[r.luckyEl]}</span></div>
+      <div class="lk"><span class="k">기회의 달</span><span class="v">${r.best.join(', ')}월</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="months">
+    <div class="sec-head"><span class="sec-han">月運</span><h2>월별 운세</h2><span class="aside">절기 기준 월건 · 양력 달 표기</span></div>
+    <div class="mchart">
+      <div class="plot">
+        <div class="gl" style="bottom:75%"><span>75</span></div>
+        <div class="gl" style="bottom:50%"><span>50</span></div>
+        <div class="gl" style="bottom:25%"><span>25</span></div>
+        <div class="cols">${bars}</div>
+      </div>
+      <div class="mlabels">${r.months.map(m=>`<span>${m.k}월</span>`).join('')}</div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>기회의 달</span><span><i style="background:var(--warn)"></i>조심할 달</span><span><i style="background:var(--bar)"></i>그 밖의 달</span></div>
+    </div>
+    <div class="mgrid">${mcards}</div>
+  </section>
+
+  <section class="sec" id="items">
+    <div class="sec-head"><span class="sec-han">細目</span><h2>항목별 운세</h2></div>
+    <div class="igrid">${items}</div>
+  </section>`;
+}
+
+// ---------- form ----------
+const hourSel=document.getElementById('hour');
+hourSel.innerHTML='<option value="-1">모름</option>'+HOURS.map((x,i)=>`<option value="${i}">${x[0]} (${x[1]})</option>`).join('');
+const SAMPLE={name:'김서연',gender:'여',birth:'1990-05-15',h:4};
+function fill(v){
+  document.getElementById('name').value=v.name;
+  document.getElementById(v.gender==='남'?'g-m':'g-f').checked=true;
+  document.getElementById('birth').value=v.birth;
+  hourSel.value=String(v.h);
+}
+function readForm(){
+  const name=document.getElementById('name').value.trim();
+  const g=document.querySelector('input[name=gender]:checked');
+  const birth=document.getElementById('birth').value;
+  const h=parseInt(hourSel.value,10);
+  if(!name)return {err:'이름을 입력하세요.'};
+  if(!g)return {err:'성별을 선택하세요.'};
+  const mt=/^(\d{4})-(\d{2})-(\d{2})$/.exec(birth);
+  if(!mt)return {err:'생년월일을 입력하세요.'};
+  const y=+mt[1],m=+mt[2],d=+mt[3];
+  if(y<1920||y>2026)return {err:'1920년부터 2026년 사이의 생년월일을 입력하세요.'};
+  return {name,gender:g.value,y,m,d,h,birth};
+}
+let saved=null;
+try{saved=JSON.parse(localStorage.getItem('fortune2027')||'null')}catch(e){}
+fill(saved&&saved.name?saved:SAMPLE);
+(function(){const v=readForm();if(!v.err)render(compute(v),!saved)})();
+
+document.getElementById('f').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=readForm(), err=document.getElementById('err');
+  if(v.err){err.textContent=v.err;err.hidden=false;return}
+  err.hidden=true;
+  try{localStorage.setItem('fortune2027',JSON.stringify({name:v.name,gender:v.gender,birth:v.birth,h:v.h}))}catch(e){}
+  render(compute(v),false);
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('sum').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+});
+})();
+</script>
+
+</body>
+</html>
