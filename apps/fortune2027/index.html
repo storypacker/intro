@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>2027년(정미년) 신년운세</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@600;900&display=swap">
@@ -163,15 +164,11 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);padd
   .meter i,.elx .track i,.bar{transition:height .5s ease,width .5s ease}
 }
 </style>
-<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}
-.home{align-self:flex-start;font-size:14px;color:var(--muted);text-decoration:none;margin-bottom:-24px}
-.home:hover{color:var(--ink)}</style>
-<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+<style>body{margin:0}</style>
 </head>
 <body>
 
 <div class="wrap">
-  <a class="home" href="../../index.html">← 스토리패커 홈</a>
   <header class="mast">
     <div>
       <div class="eyebrow">2027 · 丁未年 · 붉은 양의 해</div>
@@ -202,7 +199,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);padd
         <label for="hour">태어난 시</label>
         <select id="hour"></select>
       </div>
-      <button class="go" type="submit">2027년 운세 보기</button>
+      <button class="go" id="go" type="button">2027년 운세 보기</button>
       <p class="err" id="err" hidden></p>
       <p class="formnote">양력 기준으로 계산합니다. 음력 생일은 양력으로 바꿔 입력하세요. 성별은 애정운의 기준이 되는 별(재성·관성)을 정하는 데 쓰입니다.</p>
     </form>
@@ -556,8 +553,7 @@ try{saved=JSON.parse(localStorage.getItem('fortune2027')||'null')}catch(e){}
 fill(saved&&saved.name?saved:SAMPLE);
 (function(){const v=readForm();if(!v.err)render(compute(v),!saved)})();
 
-document.getElementById('f').addEventListener('submit',e=>{
-  e.preventDefault();
+function run(){
   const v=readForm(), err=document.getElementById('err');
   if(v.err){err.textContent=v.err;err.hidden=false;return}
   err.hidden=true;
@@ -565,7 +561,11 @@ document.getElementById('f').addEventListener('submit',e=>{
   render(compute(v),false);
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('sum').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
-});
+}
+const form=document.getElementById('f');
+document.getElementById('go').addEventListener('click',run);
+form.addEventListener('submit',e=>{e.preventDefault();run()});
+form.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();run()}});
 })();
 </script>
 
