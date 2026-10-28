@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Daily Fortune &amp; Quote</title>
 <meta name="description" content="Get your daily fortune score, readings for work, money, relationships and health, and an uplifting quote, based on Korean Saju (Four Pillars of Destiny).">
+<link rel="canonical" href="https://www.storypacker.com/apps/saju-en/index.html">
+<meta property="og:title" content="Daily Fortune &amp; Quote">
+<meta property="og:description" content="Your daily fortune score and a quote for today, based on Korean Saju.">
+<meta property="og:url" content="https://www.storypacker.com/apps/saju-en/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Storypacker">
+<meta property="og:image" content="https://www.storypacker.com/apps/saju-en/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Daily Fortune &amp; Quote app icon with a full moon, mountains and plum blossoms">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Daily Fortune &amp; Quote">
+<meta name="twitter:description" content="Your daily fortune score and a quote for today, based on Korean Saju.">
+<meta name="twitter:image" content="https://www.storypacker.com/apps/saju-en/og-image.jpg">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
      crossorigin="anonymous"></script>
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -54,7 +68,27 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
   padding-block: 36px 56px;
   display: flex; flex-direction: column; gap: 28px;
 }
-header { display: flex; flex-direction: column; gap: 6px; }
+header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px 24px; }
+.head-text { display: flex; flex-direction: column; gap: 6px; flex: 1 1 420px; min-width: 0; }
+.share { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 6px; }
+.share-label { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
+.share a, .share button {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; box-sizing: border-box;
+  font: inherit; font-size: .8rem; font-weight: 500; line-height: 1;
+  padding: 6px 11px; border-radius: 999px; cursor: pointer; text-decoration: none;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  transition: border-color .2s, background .2s;
+}
+.share a:hover, .share button:hover { border-color: var(--ink); }
+.share a:focus-visible, .share button:focus-visible, .credit:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.share-toast {
+  position: absolute; top: calc(100% + 6px); right: 0; z-index: 5; margin: 0;
+  max-width: min(300px, calc(100vw - 32px)); padding: 7px 11px; border-radius: 8px;
+  font-size: .8rem; line-height: 1.45; background: var(--ink); color: var(--on-ink);
+  overflow-wrap: anywhere; user-select: text;
+}
+.share-toast:empty { display: none; }
+@media (max-width: 720px) { .share { justify-content: flex-start; } .share-toast { right: auto; left: 0; } }
 header h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 5vw, 2.7rem); line-height: 1.1; color: var(--ink); text-wrap: balance; letter-spacing: -0.01em; }
 header p { margin: 0; color: var(--muted); max-width: 62ch; }
 
@@ -174,7 +208,10 @@ select:disabled { opacity: .45; }
 .word .who::before { content: "— "; }
 .word .why { margin: 0; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--on-ink) 22%, transparent); font-size: .98rem; opacity: .9; }
 
-footer { font-size: .82rem; color: var(--muted); text-align: center; }
+footer { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: .82rem; color: var(--muted); text-align: center; }
+footer p { margin: 0; }
+.credit { font-size: .78rem; color: var(--muted); text-decoration: none; letter-spacing: .02em; }
+.credit:hover { color: var(--fg); text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) { .bar i, .seg label { transition: none; } }
 </style>
 
@@ -187,8 +224,19 @@ footer { font-size: .82rem; color: var(--muted); text-align: center; }
 <body>
 <div class="wrap">
   <header>
+    <div class="head-text">
     <h1>Daily Fortune &amp; Quote</h1>
     <p>Enter your birth details to get today's fortune score, a reading for work, money, relationships and health, and a quote picked to carry you through the day. Based on Saju, the Korean Four Pillars of Destiny.</p>
+    </div>
+    <nav class="share" aria-label="Share this app">
+      <span class="share-label">Share</span>
+      <a data-share="whatsapp" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+      <a data-share="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a data-share="facebook" href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+      <a data-share="x" href="https://x.com/" target="_blank" rel="noopener">X</a>
+      <button type="button" id="copy-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>Copy link</button>
+      <p class="share-toast" id="share-toast" role="status" aria-live="polite"></p>
+    </nav>
   </header>
 
   <div class="layout">
@@ -248,7 +296,10 @@ footer { font-size: .82rem; color: var(--muted); text-align: center; }
     </script>
   </aside>
 
-  <footer>A reading based on the principles of Korean Saju (the Four Pillars of Destiny), for reflection and fun. Trust your own judgment for important decisions.</footer>
+  <footer>
+    <p>A reading based on the principles of Korean Saju (the Four Pillars of Destiny), for reflection and fun. Trust your own judgment for important decisions.</p>
+    <a class="credit" href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a>
+  </footer>
 </div>
 
 <script>
@@ -724,6 +775,48 @@ let saved = null;
 try { saved = JSON.parse(localStorage.getItem("saju-input-en")); } catch (_) {}
 if (saved && saved.name) { if (!saved.tz) saved.tz = LOCAL_TZ; setForm(saved); render(saved, false); }
 else { setForm({ ...SAMPLE, tz: SAMPLE.tz }); render(SAMPLE, true); }
+
+/* ---------- Share ---------- */
+const SHARE_URL = "https://www.storypacker.com/apps/saju-en/index.html";
+const SHARE_TEXT = "Daily Fortune & Quote: get your fortune score and a quote for today, based on Korean Saju.";
+const U = encodeURIComponent(SHARE_URL), T = encodeURIComponent(SHARE_TEXT);
+const SHARE_LINKS = {
+  whatsapp: `https://wa.me/?text=${T}%20${U}`,
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${U}`,
+  x: `https://x.com/intent/tweet?text=${T}&url=${U}`
+};
+document.querySelectorAll("[data-share]").forEach(a => { if (SHARE_LINKS[a.dataset.share]) a.href = SHARE_LINKS[a.dataset.share]; });
+
+const toastEl = $("share-toast");
+let toastTimer = null;
+function shareToast(msg, showUrl) {
+  toastEl.textContent = msg;
+  if (showUrl) { const s = document.createElement("span"); s.textContent = " " + SHARE_URL; toastEl.appendChild(s); }
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toastEl.textContent = ""; }, showUrl ? 9000 : 3200);
+}
+function copyLink() {
+  const fallback = () => {
+    try {
+      const t = document.createElement("textarea");
+      t.value = SHARE_URL; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+      document.body.appendChild(t); t.select();
+      const ok = document.execCommand("copy"); t.remove(); return ok;
+    } catch (_) { return false; }
+  };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(SHARE_URL).then(() => true, fallback);
+  } catch (_) {}
+  return Promise.resolve(fallback());
+}
+$("copy-link").addEventListener("click", () => {
+  copyLink().then(ok => ok ? shareToast("Link copied.") : shareToast("Copy this link:", true));
+});
+document.querySelector('[data-share="instagram"]').addEventListener("click", () => {
+  copyLink().then(ok => ok
+    ? shareToast("Link copied. Paste it into your Instagram story, post or DM.")
+    : shareToast("Copy this link for Instagram:", true));
+});
 </script>
 </body>
 </html>
