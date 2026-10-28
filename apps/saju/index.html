@@ -4,6 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="태어난 날의 네 기둥과 MBTI를 오늘의 일진에 견주어 하루 운의 흐름과 오늘의 명언을 알려 드려요.">
+<link rel="canonical" href="https://www.storypacker.com/apps/saju/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="오늘의 사주 일진과 명언">
+<meta property="og:description" content="내 사주와 MBTI로 보는 오늘의 운세와 명언">
+<meta property="og:url" content="https://www.storypacker.com/apps/saju/index.html">
+<meta property="og:site_name" content="스토리팩커 Storypacker">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://www.storypacker.com/apps/saju/share-wide.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="오늘의 사주 일진과 명언">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="오늘의 사주 일진과 명언">
+<meta name="twitter:description" content="내 사주와 MBTI로 보는 오늘의 운세와 명언">
+<meta name="twitter:image" content="https://www.storypacker.com/apps/saju/share-wide.jpg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Kakao JavaScript SDK (카카오톡 공유) -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.4/kakao.min.js" crossorigin="anonymous"></script>
+<script>
+  try { if (window.Kakao && !Kakao.isInitialized()) Kakao.init("5105b1554266f3f2d8a94fde88730931"); } catch (e) {}
+</script>
 
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
@@ -53,9 +76,31 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
   padding-block: 36px 56px;
   display: flex; flex-direction: column; gap: 28px;
 }
-header { display: flex; flex-direction: column; gap: 4px; }
+header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px 20px; flex-wrap: wrap; }
+.head-text { display: flex; flex-direction: column; gap: 4px; flex: 1 1 360px; min-width: 0; }
+.share { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex: 0 1 auto; }
+.share-label { font-size: .75rem; color: var(--muted); letter-spacing: .06em; }
+.share-btns { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.sbtn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: inherit; font-size: .8rem; line-height: 1; text-decoration: none; white-space: nowrap;
+  padding: 7px 11px; border-radius: 999px; cursor: pointer;
+  background: var(--surface); color: var(--fg); border: 1px solid var(--line);
+  transition: border-color .2s, background .2s;
+}
+.sbtn:hover { border-color: var(--ink); }
+.sbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.sbtn svg { width: 13px; height: 13px; flex: none; }
+.sbtn.copy { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.share-toast { font-size: .78rem; color: var(--muted); min-height: 1.2em; text-align: right; max-width: 320px; word-break: keep-all; }
+.share-url { width: 100%; max-width: 320px; font: inherit; font-size: .78rem; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+@media (max-width: 560px) {
+  .share { order: -1; width: 100%; }
+  .share-label { display: none; }
+  .sbtn { padding: 6px 9px; font-size: .76rem; }
+}
 header h1 { margin: 0; font-family: var(--font-display); font-weight: 900; font-size: clamp(1.8rem, 4.5vw, 2.4rem); color: var(--ink); text-wrap: balance; }
-header p { margin: 0; color: var(--muted); }
+header p { margin: 0; color: var(--muted); word-break: keep-all; }
 
 .layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
 @media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); } }
@@ -174,6 +219,9 @@ select:disabled { opacity: .45; }
 .mbti-tag { display: inline-block; font-weight: 600; padding: 1px 8px; margin-right: 4px; border-radius: 6px; background: color-mix(in srgb, var(--on-ink) 16%, transparent); }
 
 footer { font-size: .82rem; color: var(--muted); text-align: center; }
+.credit { margin: -16px 0 0; text-align: center; font-size: .78rem; }
+.credit a { color: var(--muted); text-decoration: none; letter-spacing: .02em; }
+.credit a:hover { color: var(--ink); text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) { .bar i, .seg label { transition: none; } }
 
 /* 기본 리셋 */
@@ -197,8 +245,23 @@ img { max-width: 100%; }
 <body>
 <div class="wrap">
   <header>
-    <h1>오늘의 사주 일진과 명언</h1>
-    <p>태어난 날의 네 기둥과 당신의 MBTI를 오늘의 일진에 견주어 하루 운의 흐름을 풀어드리고 조언해 드려요.</p>
+    <div class="head-text">
+      <h1>오늘의 사주 일진과 명언</h1>
+      <p>태어난 날의 네 기둥과 당신의 MBTI를 오늘의 일진에 견주어 하루 운의 흐름을 풀어드리고 조언해 드려요.</p>
+    </div>
+    <div class="share" aria-label="공유하기">
+      <span class="share-label">공유하기</span>
+      <div class="share-btns">
+        <button type="button" class="sbtn" id="sh-kakao">카카오톡</button>
+        <button type="button" class="sbtn" id="sh-insta">인스타그램</button>
+        <a class="sbtn" id="sh-fb" target="_blank" rel="noopener">페이스북</a>
+        <a class="sbtn" id="sh-x" target="_blank" rel="noopener">X</a>
+        <a class="sbtn" id="sh-band" target="_blank" rel="noopener">밴드</a>
+        <button type="button" class="sbtn copy" id="sh-copy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6.5 9.5l3-3"/><path d="M7.5 4.5l1-1a2.5 2.5 0 013.5 3.5l-1 1"/><path d="M8.5 11.5l-1 1A2.5 2.5 0 014 9l1-1"/></svg>링크 복사</button>
+      </div>
+      <input class="share-url" id="sh-url" readonly hidden aria-label="공유 링크">
+      <span class="share-toast" id="sh-toast" role="status"></span>
+    </div>
   </header>
 
   <div class="layout">
@@ -264,6 +327,7 @@ img { max-width: 100%; }
   <!-- ===== 광고 영역 끝 ===== -->
 
   <footer>사주 명리의 원리를 바탕으로 한 참고용 풀이예요. 중요한 결정은 스스로의 판단을 믿으세요.</footer>
+  <p class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
 </div>
 
 <script>
@@ -697,6 +761,56 @@ $("form").addEventListener("submit", e => {
   render(v, false);
   if (window.matchMedia("(max-width: 860px)").matches) $("result").scrollIntoView({ behavior: "smooth", block: "start" });
 });
+
+
+/* ---------- 공유 ---------- */
+(function () {
+  const URL_ = "https://www.storypacker.com/apps/saju/index.html";
+  const TITLE = "오늘의 사주 일진과 명언";
+  const TEXT = "내 사주와 MBTI로 보는 오늘의 운세와 명언";
+  const u = encodeURIComponent(URL_), t = encodeURIComponent(TITLE + " - " + TEXT);
+  $("sh-fb").href = "https://www.facebook.com/sharer/sharer.php?u=" + u;
+  $("sh-x").href = "https://twitter.com/intent/tweet?url=" + u + "&text=" + t;
+  $("sh-band").href = "https://band.us/plus/share?route=" + u + "&body=" + t + "%0A" + u;
+  const toastEl = $("sh-toast"), urlEl = $("sh-url");
+  let timer;
+  const say = msg => { toastEl.textContent = msg; clearTimeout(timer); timer = setTimeout(() => { toastEl.textContent = ""; }, 4000); };
+  const showManual = () => { urlEl.value = URL_; urlEl.hidden = false; urlEl.focus(); urlEl.select(); say("자동 복사가 안 돼요. 위 주소를 길게 눌러 복사해 주세요."); };
+  function copy(after) {
+    try {
+      navigator.clipboard.writeText(URL_).then(() => { urlEl.hidden = true; say(after); }, showManual);
+    } catch (_) { showManual(); }
+  }
+  async function nativeShare(fallbackMsg) {
+    if (navigator.share) {
+      try { await navigator.share({ title: TITLE, text: TEXT, url: URL_ }); return; }
+      catch (e) { if (e && e.name === "AbortError") return; }
+    }
+    copy(fallbackMsg);
+  }
+  $("sh-copy").addEventListener("click", () => copy("링크를 복사했어요."));
+  $("sh-kakao").addEventListener("click", () => {
+    try {
+      if (window.Kakao && Kakao.isInitialized() && Kakao.Share) {
+        Kakao.Share.sendDefault({
+          objectType: "feed",
+          content: {
+            title: TITLE,
+            description: TEXT,
+            imageUrl: "https://www.storypacker.com/apps/saju/share-square.jpg",
+            imageWidth: 800,
+            imageHeight: 800,
+            link: { mobileWebUrl: URL_, webUrl: URL_ }
+          },
+          buttons: [{ title: "오늘 운세 보기", link: { mobileWebUrl: URL_, webUrl: URL_ } }]
+        });
+        return;
+      }
+    } catch (e) {}
+    nativeShare("링크를 복사했어요. 카카오톡 대화방에 붙여 넣어 보내세요.");
+  });
+  $("sh-insta").addEventListener("click", () => nativeShare("링크를 복사했어요. 인스타그램 DM이나 스토리 링크에 붙여 넣으세요."));
+})();
 
 let saved = null;
 try { saved = JSON.parse(localStorage.getItem("saju-input")); } catch (_) {}
