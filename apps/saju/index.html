@@ -22,11 +22,11 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
+<!-- 웹사이트 표시 ('다른 앱으로 공유' 메뉴를 켭니다) -->
+<script>window.SP_SITE = true;</script>
+
 <!-- Kakao JavaScript SDK (카카오톡 공유) -->
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.4/kakao.min.js" crossorigin="anonymous"></script>
-<script>
-  try { if (window.Kakao && !Kakao.isInitialized()) Kakao.init("5105b1554266f3f2d8a94fde88730931"); } catch (e) {}
-</script>
 
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
@@ -76,28 +76,51 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
   padding-block: 36px 56px;
   display: flex; flex-direction: column; gap: 28px;
 }
-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px 20px; flex-wrap: wrap; }
-.head-text { display: flex; flex-direction: column; gap: 4px; flex: 1 1 360px; min-width: 0; }
-.share { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex: 0 1 auto; }
-.share-label { font-size: .75rem; color: var(--muted); letter-spacing: .06em; }
-.share-btns { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
-.sbtn {
-  display: inline-flex; align-items: center; gap: 5px;
-  font: inherit; font-size: .8rem; line-height: 1; text-decoration: none; white-space: nowrap;
-  padding: 7px 11px; border-radius: 999px; cursor: pointer;
-  background: var(--surface); color: var(--fg); border: 1px solid var(--line);
-  transition: border-color .2s, background .2s;
+header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.head-text { display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto; min-width: 0; }
+
+/* 공유 */
+.share { position: relative; flex: none; margin-top: 6px; }
+.share-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: inherit; font-size: .82rem; font-weight: 500; line-height: 1.2; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 6px 12px 6px 10px;
 }
-.sbtn:hover { border-color: var(--ink); }
-.sbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.sbtn svg { width: 13px; height: 13px; flex: none; }
-.sbtn.copy { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
-.share-toast { font-size: .78rem; color: var(--muted); min-height: 1.2em; text-align: right; max-width: 320px; word-break: keep-all; }
-.share-url { width: 100%; max-width: 320px; font: inherit; font-size: .78rem; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
-@media (max-width: 560px) {
-  .share { order: -1; width: 100%; }
-  .share-label { display: none; }
-  .sbtn { padding: 6px 9px; font-size: .76rem; }
+.share-btn:hover, .share-btn[aria-expanded="true"] { border-color: var(--ink); }
+.share-btn svg { width: 15px; height: 15px; }
+.share-menu {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 20;
+  width: 212px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--fg) 16%, transparent);
+  padding: 6px; display: flex; flex-direction: column;
+}
+.share-menu .item {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; border: 0; background: none; text-align: left; cursor: pointer;
+  padding: 9px 10px; border-radius: 8px;
+  font: inherit; font-size: .9rem; color: var(--fg); text-decoration: none; line-height: 1.3;
+}
+.share-menu .item:hover, .share-menu .item:focus-visible { background: var(--bg); outline: none; }
+.share-menu .chip {
+  width: 26px; height: 26px; border-radius: 7px; flex: none;
+  display: grid; place-items: center;
+  font: 700 12px/1 var(--font-body); color: #fff;
+}
+.share-menu .chip svg { width: 15px; height: 15px; }
+.share-menu[hidden], .share-menu [hidden], .snack[hidden] { display: none !important; }
+.share-menu hr { border: 0; border-top: 1px solid var(--line); margin: 4px 6px; }
+.share-url { display: flex; flex-direction: column; gap: 6px; padding: 6px 8px 8px; }
+.share-url small { font-size: .75rem; color: var(--muted); line-height: 1.4; }
+.share-url input { width: 100%; box-sizing: border-box; font: .75rem/1.4 var(--font-body); padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+.snack {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  max-width: calc(100% - 32px); z-index: 30;
+  background: var(--ink); color: var(--on-ink);
+  padding: 10px 16px; border-radius: 10px;
+  font-size: .9rem; line-height: 1.45; text-align: center; word-break: keep-all;
 }
 header h1 { margin: 0; font-family: var(--font-display); font-weight: 900; font-size: clamp(1.8rem, 4.5vw, 2.4rem); color: var(--ink); text-wrap: balance; }
 header p { margin: 0; color: var(--muted); word-break: keep-all; }
@@ -249,18 +272,24 @@ img { max-width: 100%; }
       <h1>오늘의 사주 일진과 명언</h1>
       <p>태어난 날의 네 기둥과 당신의 MBTI를 오늘의 일진에 견주어 하루 운의 흐름을 풀어드리고 조언해 드려요.</p>
     </div>
-    <div class="share" aria-label="공유하기">
-      <span class="share-label">공유하기</span>
-      <div class="share-btns">
-        <button type="button" class="sbtn" id="sh-kakao">카카오톡</button>
-        <button type="button" class="sbtn" id="sh-insta">인스타그램</button>
-        <a class="sbtn" id="sh-fb" target="_blank" rel="noopener">페이스북</a>
-        <a class="sbtn" id="sh-x" target="_blank" rel="noopener">X</a>
-        <a class="sbtn" id="sh-band" target="_blank" rel="noopener">밴드</a>
-        <button type="button" class="sbtn copy" id="sh-copy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6.5 9.5l3-3"/><path d="M7.5 4.5l1-1a2.5 2.5 0 013.5 3.5l-1 1"/><path d="M8.5 11.5l-1 1A2.5 2.5 0 014 9l1-1"/></svg>링크 복사</button>
+    <div class="share">
+      <button class="share-btn" id="shareBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="shareMenu">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="3.5" r="2"/><circle cx="4" cy="8" r="2"/><circle cx="12" cy="12.5" r="2"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5"/></svg>
+        공유
+      </button>
+      <div class="share-menu" id="shareMenu" role="menu" hidden>
+        <button class="item" type="button" role="menuitem" data-share="kakao"><span class="chip" style="background:#F2C200;color:#2A2100">K</span>카카오톡</button>
+        <button class="item" type="button" role="menuitem" data-share="instagram"><span class="chip" style="background:#C2407A">IG</span>인스타그램</button>
+        <a class="item" role="menuitem" data-share="facebook" target="_blank" rel="noopener" href="#"><span class="chip" style="background:#2F5FC4">f</span>페이스북</a>
+        <a class="item" role="menuitem" data-share="x" target="_blank" rel="noopener" href="#"><span class="chip" style="background:#1F2328">X</span>X (트위터)</a>
+        <button class="item" type="button" role="menuitem" data-share="native" id="nativeShare" hidden><span class="chip" style="background:var(--muted)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 10V2M5 5l3-3 3 3M3 9v4h10V9"/></svg></span>다른 앱으로 공유</button>
+        <hr>
+        <button class="item" type="button" role="menuitem" data-share="copy"><span class="chip" style="background:var(--ink);color:var(--on-ink)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5l3-3M7 4.5l1.2-1.2a2.8 2.8 0 014 4L11 8.5M9 11.5l-1.2 1.2a2.8 2.8 0 01-4-4L5 7.5"/></svg></span>링크 복사</button>
+        <div class="share-url" id="shareUrlBox" hidden>
+          <small>아래 주소를 길게 누르거나 선택해서 복사하세요.</small>
+          <input id="shareUrlInput" type="text" readonly aria-label="공유 주소">
+        </div>
       </div>
-      <input class="share-url" id="sh-url" readonly hidden aria-label="공유 링크">
-      <span class="share-toast" id="sh-toast" role="status"></span>
     </div>
   </header>
 
@@ -329,6 +358,8 @@ img { max-width: 100%; }
   <footer>사주 명리의 원리를 바탕으로 한 참고용 풀이예요. 중요한 결정은 스스로의 판단을 믿으세요.</footer>
   <p class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
 </div>
+
+<div class="snack" id="snack" role="status" aria-live="polite" hidden></div>
 
 <script>
 const ST = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
@@ -764,53 +795,92 @@ $("form").addEventListener("submit", e => {
 
 
 /* ---------- 공유 ---------- */
-(function () {
-  const URL_ = "https://www.storypacker.com/apps/saju/index.html";
-  const TITLE = "오늘의 사주 일진과 명언";
-  const TEXT = "내 사주와 MBTI로 보는 오늘의 운세와 명언";
-  const u = encodeURIComponent(URL_), t = encodeURIComponent(TITLE + " - " + TEXT);
-  $("sh-fb").href = "https://www.facebook.com/sharer/sharer.php?u=" + u;
-  $("sh-x").href = "https://twitter.com/intent/tweet?url=" + u + "&text=" + t;
-  $("sh-band").href = "https://band.us/plus/share?route=" + u + "&body=" + t + "%0A" + u;
-  const toastEl = $("sh-toast"), urlEl = $("sh-url");
-  let timer;
-  const say = msg => { toastEl.textContent = msg; clearTimeout(timer); timer = setTimeout(() => { toastEl.textContent = ""; }, 4000); };
-  const showManual = () => { urlEl.value = URL_; urlEl.hidden = false; urlEl.focus(); urlEl.select(); say("자동 복사가 안 돼요. 위 주소를 길게 눌러 복사해 주세요."); };
-  function copy(after) {
-    try {
-      navigator.clipboard.writeText(URL_).then(() => { urlEl.hidden = true; say(after); }, showManual);
-    } catch (_) { showManual(); }
-  }
-  async function nativeShare(fallbackMsg) {
-    if (navigator.share) {
-      try { await navigator.share({ title: TITLE, text: TEXT, url: URL_ }); return; }
-      catch (e) { if (e && e.name === "AbortError") return; }
-    }
-    copy(fallbackMsg);
-  }
-  $("sh-copy").addEventListener("click", () => copy("링크를 복사했어요."));
-  $("sh-kakao").addEventListener("click", () => {
-    try {
-      if (window.Kakao && Kakao.isInitialized() && Kakao.Share) {
-        Kakao.Share.sendDefault({
-          objectType: "feed",
-          content: {
-            title: TITLE,
-            description: TEXT,
-            imageUrl: "https://www.storypacker.com/apps/saju/share-square.jpg",
-            imageWidth: 800,
-            imageHeight: 800,
-            link: { mobileWebUrl: URL_, webUrl: URL_ }
-          },
-          buttons: [{ title: "오늘 운세 보기", link: { mobileWebUrl: URL_, webUrl: URL_ } }]
-        });
-        return;
-      }
-    } catch (e) {}
-    nativeShare("링크를 복사했어요. 카카오톡 대화방에 붙여 넣어 보내세요.");
-  });
-  $("sh-insta").addEventListener("click", () => nativeShare("링크를 복사했어요. 인스타그램 DM이나 스토리 링크에 붙여 넣으세요."));
-})();
+const SHARE_URL = "https://www.storypacker.com/apps/saju/index.html";
+const SHARE_IMG = "https://www.storypacker.com/apps/saju/share-square.jpg";
+const SHARE_TITLE = "오늘의 사주 일진과 명언";
+const SHARE_TEXT = "내 사주와 MBTI로 보는 오늘의 운세와 명언";
+const KAKAO_KEY = "5105b1554266f3f2d8a94fde88730931";
+const IS_SITE = !!window.SP_SITE; // 웹사이트용 파일에서만 true
+const IS_PHONE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ||
+  (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent)); // iPadOS 포함
+
+let snackTimer;
+function snack(msg) {
+  const el = $("snack");
+  el.textContent = msg; el.hidden = false;
+  clearTimeout(snackTimer);
+  snackTimer = setTimeout(() => { el.hidden = true; }, 3200);
+}
+function showUrlBox() {
+  const box = $("shareUrlBox"), inp = $("shareUrlInput");
+  box.hidden = false; inp.value = SHARE_URL; inp.focus(); inp.select();
+}
+function copyLink(okMsg) {
+  const ok = () => { snack(okMsg); closeShare(); };
+  try { navigator.clipboard.writeText(SHARE_URL).then(ok, showUrlBox); }
+  catch (e) { showUrlBox(); }
+}
+let kakaoReady = false;
+function initKakao() {
+  try {
+    if (window.Kakao && !Kakao.isInitialized()) Kakao.init(KAKAO_KEY);
+    kakaoReady = !!(window.Kakao && Kakao.isInitialized() && Kakao.Share);
+  } catch (e) { kakaoReady = false; }
+}
+function shareKakao() {
+  initKakao();
+  const fallbackMsg = "링크를 복사했어요. 카카오톡 대화방에 붙여 넣으세요.";
+  if (!kakaoReady) { copyLink(fallbackMsg); return; }
+  try {
+    Kakao.Share.sendDefault({
+      objectType: "feed",
+      content: {
+        title: SHARE_TITLE,
+        description: SHARE_TEXT,
+        imageUrl: SHARE_IMG,
+        imageWidth: 800, imageHeight: 800,
+        link: { mobileWebUrl: SHARE_URL, webUrl: SHARE_URL }
+      },
+      buttons: [{ title: "오늘 운세 보기", link: { mobileWebUrl: SHARE_URL, webUrl: SHARE_URL } }]
+    });
+    closeShare();
+  } catch (e) { copyLink(fallbackMsg); }
+}
+function shareNative() {
+  navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL }).then(closeShare, () => {});
+}
+function refreshShareLinks() {
+  const u = encodeURIComponent(SHARE_URL);
+  document.querySelector('[data-share="facebook"]').href = "https://www.facebook.com/sharer/sharer.php?u=" + u;
+  document.querySelector('[data-share="x"]').href = "https://x.com/intent/post?text=" + encodeURIComponent(SHARE_TITLE + " - " + SHARE_TEXT) + "&url=" + u;
+}
+function openShare() {
+  refreshShareLinks();
+  $("shareUrlBox").hidden = true;
+  $("nativeShare").hidden = !(IS_SITE && IS_PHONE && navigator.share);
+  $("shareMenu").hidden = false;
+  $("shareBtn").setAttribute("aria-expanded", "true");
+}
+function closeShare() {
+  $("shareMenu").hidden = true;
+  $("shareBtn").setAttribute("aria-expanded", "false");
+}
+$("shareBtn").addEventListener("click", e => {
+  e.stopPropagation();
+  $("shareMenu").hidden ? openShare() : closeShare();
+});
+$("shareMenu").addEventListener("click", e => {
+  e.stopPropagation();
+  const it = e.target.closest("[data-share]"); if (!it) return;
+  const k = it.dataset.share;
+  if (k === "kakao") shareKakao();
+  else if (k === "instagram") copyLink("링크를 복사했어요. 인스타그램 스토리나 DM에 붙여 넣으세요.");
+  else if (k === "copy") copyLink("링크를 복사했어요.");
+  else if (k === "native") shareNative();
+  else setTimeout(closeShare, 0);
+});
+document.addEventListener("click", () => { if (!$("shareMenu").hidden) closeShare(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("shareMenu").hidden) { closeShare(); $("shareBtn").focus(); } });
 
 let saved = null;
 try { saved = JSON.parse(localStorage.getItem("saju-input")); } catch (_) {}
