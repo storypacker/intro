@@ -4,6 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>2027년(정미년) 신년운세</title>
+<meta name="description" content="이름과 생년월일시로 보는 나의 2027년 총평, 월별 운세, 항목별 운세">
+<link rel="canonical" href="https://www.storypacker.com/apps/fortune2027/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="스토리팩커">
+<meta property="og:title" content="2027년(정미년) 신년운세">
+<meta property="og:description" content="이름과 생년월일시로 보는 나의 2027년 총평, 월별 운세, 항목별 운세">
+<meta property="og:url" content="https://www.storypacker.com/apps/fortune2027/index.html">
+<meta property="og:image" content="https://www.storypacker.com/apps/fortune2027/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="2027년(정미년) 신년운세">
+<meta name="twitter:description" content="이름과 생년월일시로 보는 나의 2027년 총평, 월별 운세, 항목별 운세">
+<meta name="twitter:image" content="https://www.storypacker.com/apps/fortune2027/og-image.png">
+
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,6 +165,27 @@ button.go:hover{filter:brightness(1.08)}
 .it p{font-size:14.5px}
 .it .adv{font-size:14px;padding-left:12px;border-left:2px solid var(--accent)}
 .it .when{font-size:13px;color:var(--muted)}
+.wrap{position:relative}
+.share{position:absolute;top:4px;right:max(16px,env(safe-area-inset-right,0px));z-index:20}
+.share-btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px 0 11px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.share-btn:hover{border-color:var(--accent);color:var(--accent)}
+.share-btn svg{width:15px;height:15px;flex:none}
+.share-menu{position:absolute;right:0;top:calc(100% + 6px);width:220px;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.16);display:flex;flex-direction:column;gap:2px}
+.share-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:0;border-radius:6px;background:none;color:var(--ink);font:inherit;font-size:14px;text-align:left;text-decoration:none;cursor:pointer}
+.share-item:hover{background:var(--accent-soft)}
+.chip{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;line-height:1}
+.c-kakao{background:#FEE500;color:#191919}
+.c-insta{background:#D62976;color:#FFFFFF}
+.c-fb{background:#1877F2;color:#FFFFFF}
+.c-x{background:#0F1419;color:#FFFFFF;box-shadow:0 0 0 1px var(--rule)}
+.c-link{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.c-link svg{width:14px;height:14px}
+.copybox{padding:6px 4px 2px}
+.copybox input{width:100%;height:36px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--ink);padding:0 8px;font:inherit;font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:8px;font-size:14px;line-height:1.5;text-align:center;z-index:40}
+.credit{margin:-24px 0 0;text-align:center;font-size:12px;color:var(--muted)}
+.credit a{color:inherit;text-decoration:none}
+.credit a:hover{text-decoration:underline}
 .ad-slot{display:flex;flex-direction:column;gap:6px;min-height:120px}
 .ad-slot .ad-label{font-size:11px;letter-spacing:.12em;color:var(--muted)}
 .ad-slot ins{width:100%;min-height:100px}
@@ -169,6 +206,17 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);padd
 <body>
 
 <div class="wrap">
+  <div class="share">
+    <button class="share-btn" id="share-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="share-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>공유</button>
+    <div class="share-menu" id="share-menu" hidden>
+      <button type="button" class="share-item" id="sh-kakao"><span class="chip c-kakao">톡</span>카카오톡</button>
+      <button type="button" class="share-item" id="sh-insta"><span class="chip c-insta">인</span>인스타그램</button>
+      <a class="share-item" id="sh-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.storypacker.com%2Fapps%2Ffortune2027%2Findex.html" target="_blank" rel="noopener"><span class="chip c-fb">페</span>페이스북</a>
+      <a class="share-item" id="sh-x" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.storypacker.com%2Fapps%2Ffortune2027%2Findex.html" target="_blank" rel="noopener"><span class="chip c-x">X</span>X (트위터)</a>
+      <button type="button" class="share-item" id="sh-copy"><span class="chip c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span>링크 복사</button>
+      <div class="copybox" id="copybox" hidden><label for="copy-input" class="lbl" style="font-size:12px;color:var(--muted)">아래 링크를 선택해 복사하세요</label><input id="copy-input" type="text" readonly></div>
+    </div>
+  </div>
   <header class="mast">
     <div>
       <div class="eyebrow">2027 · 丁未年 · 붉은 양의 해</div>
@@ -224,6 +272,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule);padd
          (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
   </aside>
+  <p class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
 </div>
 
 <script>
@@ -566,6 +615,65 @@ const form=document.getElementById('f');
 document.getElementById('go').addEventListener('click',run);
 form.addEventListener('submit',e=>{e.preventDefault();run()});
 form.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();run()}});
+})();
+</script>
+<script>
+(function(){
+const SHARE_URL='https://www.storypacker.com/apps/fortune2027/index.html';
+const SHARE_TITLE='2027년(정미년) 신년운세';
+const SHARE_DESC='이름과 생년월일시로 보는 나의 2027년 총평, 월별 운세, 항목별 운세';
+const OG_IMAGE='https://www.storypacker.com/apps/fortune2027/og-image.png';
+const KAKAO_KEY='bc5bf232f65f8e326e93d332cf79755a';
+const onSite=/(^|\.)storypacker\.com$/.test(location.hostname);
+const $=id=>document.getElementById(id);
+const btn=$('share-btn'),menu=$('share-menu'),box=$('copybox'),inp=$('copy-input');
+
+function setOpen(o){menu.hidden=!o;btn.setAttribute('aria-expanded',String(o));if(!o)box.hidden=true}
+btn.addEventListener('click',e=>{e.stopPropagation();setOpen(menu.hidden)});
+document.addEventListener('click',e=>{if(!menu.hidden&&!menu.contains(e.target))setOpen(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden){setOpen(false);btn.focus()}});
+
+$('sh-fb').href='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(SHARE_URL);
+$('sh-x').href='https://twitter.com/intent/tweet?text='+encodeURIComponent(SHARE_TITLE+' | '+SHARE_DESC)+'&url='+encodeURIComponent(SHARE_URL);
+['sh-fb','sh-x'].forEach(id=>$(id).addEventListener('click',()=>setTimeout(()=>setOpen(false),50)));
+
+let tt;
+function toast(msg){let t=$('toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=msg;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>{t.hidden=true},3600)}
+
+function showBox(){box.hidden=false;inp.value=SHARE_URL;inp.focus();inp.select()}
+function copyLink(){
+  let p;
+  try{p=navigator.clipboard.writeText(SHARE_URL)}catch(e){p=Promise.reject(e)}
+  return p.then(()=>true,()=>{showBox();try{if(document.execCommand('copy')){box.hidden=true;return true}}catch(e){}return false});
+}
+function copyThen(msg){copyLink().then(ok=>{if(ok){setOpen(false);toast(msg)}else{toast('자동 복사가 막혀 있어요. 메뉴의 링크를 선택해 복사하세요.')}})}
+
+$('sh-copy').addEventListener('click',()=>copyThen('링크를 복사했어요.'));
+
+$('sh-insta').addEventListener('click',()=>{
+  const msg='링크를 복사했어요. 인스타그램 스토리나 DM에 붙여 넣어 공유하세요.';
+  if(onSite&&navigator.share&&/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
+    navigator.share({title:SHARE_TITLE,text:SHARE_DESC,url:SHARE_URL}).then(()=>setOpen(false),err=>{if(!err||err.name!=='AbortError')copyThen(msg)});
+  }else copyThen(msg);
+});
+
+if(onSite){
+  const s=document.createElement('script');
+  s.src='https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js';
+  s.crossOrigin='anonymous';
+  s.onload=()=>{try{if(!window.Kakao.isInitialized())window.Kakao.init(KAKAO_KEY)}catch(e){}};
+  document.head.appendChild(s);
+}
+$('sh-kakao').addEventListener('click',()=>{
+  const K=window.Kakao;
+  if(K&&K.isInitialized&&K.isInitialized()){
+    try{
+      K.Share.sendDefault({objectType:'feed',content:{title:SHARE_TITLE,description:SHARE_DESC,imageUrl:OG_IMAGE,imageWidth:1200,imageHeight:630,link:{mobileWebUrl:SHARE_URL,webUrl:SHARE_URL}},buttons:[{title:'내 운세 보기',link:{mobileWebUrl:SHARE_URL,webUrl:SHARE_URL}}]});
+      setOpen(false);return;
+    }catch(e){}
+  }
+  copyThen(onSite?'카카오톡을 불러오지 못해 링크를 복사했어요. 대화창에 붙여 넣어 주세요.':'카카오톡 바로 공유는 스토리팩커 사이트에서 동작해요. 링크를 복사했으니 대화창에 붙여 넣어 주세요.');
+});
 })();
 </script>
 
