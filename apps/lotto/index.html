@@ -22,7 +22,7 @@
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
 <!-- Kakao JavaScript SDK (카카오톡 공유) -->
-<script defer src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.9/kakao.min.js" integrity="sha384-JpLApTkB8lPskhVMhT+m5Ln8aHlnS0bsIexhaak0jOhAkMYedQoVghPfSpjNi9K1" crossorigin="anonymous"></script>
+<script defer src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -2084,13 +2084,17 @@ function toggleShare(open) {
 }
 shareBtn.addEventListener('click', e => { e.stopPropagation(); toggleShare(); });
 document.addEventListener('click', e => { if (!shareMenu.hidden && !e.target.closest('.share')) toggleShare(false); });
+// Kakao SDK v2 only creates Kakao.Share after Kakao.init(), so init first, then check Share.
 function kakaoReady() {
-  try {
-    if (!window.Kakao || !Kakao.Share) return false;
-    if (!Kakao.isInitialized()) Kakao.init(SHARE.kakaoKey);
-    return Kakao.isInitialized();
-  } catch (e) { return false; }
+  const K = window.Kakao;
+  if (!K || typeof K.init !== 'function') return null; // SDK not loaded (blocked, offline, preview)
+  try { if (!K.isInitialized()) K.init(SHARE.kakaoKey); }
+  catch (e) { console.warn('Kakao init failed', e); return null; }
+  return K.Share && typeof K.Share.sendDefault === 'function' ? K : null;
 }
+// init once on page load, as Kakao recommends (the SDK is a deferred script, so wait for it)
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', kakaoReady);
+else kakaoReady();
 async function nativeShare() {
   if (!navigator.share) return false;
   try { await navigator.share({ title: SHARE.title, text: SHARE.text, url: SHARE.url }); return true; }
@@ -2102,9 +2106,10 @@ shareMenu.addEventListener('click', async e => {
   toggleShare(false);
   if (kind === 'facebook' || kind === 'x') return; // plain links open in a new tab
   if (kind === 'kakao') {
-    if (kakaoReady()) {
+    const K = kakaoReady();
+    if (K) {
       try {
-        Kakao.Share.sendDefault({
+        K.Share.sendDefault({
           objectType: 'feed',
           content: { title: SHARE.title, description: SHARE.text, imageUrl: SHARE.image, imageWidth: 800, imageHeight: 800,
             link: { mobileWebUrl: SHARE.url, webUrl: SHARE.url } },
@@ -2113,7 +2118,10 @@ shareMenu.addEventListener('click', async e => {
         return;
       } catch (err) { console.warn('Kakao share failed', err); }
     }
-    copyText(SHARE.url, '링크를 복사했어요. 카카오톡 대화창에 붙여넣어 주세요');
+    const onSite = /(^|\.)storypacker\.com$/.test(location.hostname);
+    copyText(SHARE.url, onSite
+      ? '카카오톡을 열 수 없어 링크를 복사했어요. 카톡 대화창에 붙여넣어 주세요'
+      : '카카오톡 공유는 storypacker.com에서만 열려요. 대신 링크를 복사했어요');
   } else if (kind === 'instagram') {
     // Instagram has no web share link: use the phone's share sheet, else copy the link
     if (!(await nativeShare())) copyText(SHARE.url, '링크를 복사했어요. 인스타그램 스토리·DM에 붙여넣어 주세요');
