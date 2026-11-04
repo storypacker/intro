@@ -4,8 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>돌려돌려 룰렛</title>
-<meta name="description" content="참가자 이름과 당첨 비율을 넣고 룰렛을 돌려 당첨자를 뽑는 무료 추첨 앱.">
-<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+<meta name="description" content="이름과 비율을 넣고 휠을 돌리면 당첨자가 정해지는 룰렛이에요. 점심 내기, 커피 내기, 순서 정하기에 써 보세요.">
+<link rel="canonical" href="https://www.storypacker.com/apps/roulette/index.html">
+<!-- 공유 미리보기 (카카오톡 링크, 페이스북, X 등) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="스토리팩커 Storypacker">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="돌려돌려 룰렛 · 당첨자 뽑기">
+<meta property="og:description" content="이름과 비율을 넣고 휠을 돌리면 당첨자가 정해져요. 내기할 때 써 보세요!">
+<meta property="og:url" content="https://www.storypacker.com/apps/roulette/index.html">
+<meta property="og:image" content="https://www.storypacker.com/apps/roulette/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="돌려돌려 룰렛 · 당첨자 뽑기">
+<meta name="twitter:description" content="이름과 비율을 넣고 휠을 돌리면 당첨자가 정해져요. 내기할 때 써 보세요!">
+<meta name="twitter:image" content="https://www.storypacker.com/apps/roulette/og-image.jpg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
+<!-- Kakao JavaScript SDK (카카오톡 공유) -->
+<script defer src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
@@ -48,7 +68,11 @@ button:focus-visible,input:focus-visible{outline:3px solid #2F6BFF;outline-offse
 .brand h1{font-family:var(--font-display);font-weight:400;font-size:26px;line-height:1.1;margin:0;letter-spacing:.5px}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:2px 9px;border:2px solid var(--ink);border-radius:999px;background:var(--panel);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.icon-btn{width:42px;height:42px;flex:none;border:var(--line);border-radius:12px;background:var(--panel);box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;cursor:pointer}
+.top-actions{display:flex;align-items:center;gap:8px;flex:none}
+.share-btn{height:38px;display:inline-flex;align-items:center;gap:5px;padding:0 13px 0 10px;border:var(--line);border-radius:999px;background:var(--panel);box-shadow:3px 3px 0 var(--ink);font-size:14px;font-weight:700;cursor:pointer}
+.share-btn svg{width:17px;height:17px}
+.share-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.icon-btn{width:38px;height:38px;flex:none;border:var(--line);border-radius:12px;background:var(--panel);box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;cursor:pointer}
 .icon-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
 .icon-btn svg{width:22px;height:22px}
 
@@ -93,7 +117,33 @@ main.view{flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;
 .history li:first-child{border:2px solid var(--ink);font-weight:700}
 
 /* bottom menu */
-.menu{position:sticky;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:10px 10px 12px;background:var(--panel);border-top:var(--line);border-left:var(--line);border-right:var(--line);border-radius:18px 18px 0 0}
+.menu{position:sticky;bottom:8px;z-index:5;margin:0 8px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:10px;background:var(--panel);border:var(--line);border-radius:18px;box-shadow:var(--shadow)}
+
+/* ad + footer */
+.site-foot{display:flex;flex-direction:column;gap:10px;padding:26px 16px 0}
+.ad-box{position:relative;background:rgba(255,251,234,.75);border:1.5px solid rgba(26,26,31,.25);border-radius:12px;padding:6px 8px 8px;min-width:0;overflow:hidden}
+.ad-label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}
+.ad-box:has(ins.adsbygoogle[data-ad-status="unfilled"]){display:none}
+.ad-ph{display:none;height:90px;place-items:center;border:2px dashed rgba(26,26,31,.3);border-radius:8px;font-size:13px;color:var(--muted)}
+.ads-off .ad-ph{display:grid}
+.ads-off .ad-box ins.adsbygoogle{display:none !important}
+.copy{margin:0;padding:4px 0 20px;text-align:center;font-size:12px}
+.copy a{color:var(--muted);text-decoration:none}
+.copy a:hover{color:var(--ink);text-decoration:underline}
+
+/* share sheet */
+.share-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:4px 0 16px}
+.share-item{display:flex;flex-direction:column;align-items:center;gap:7px;padding:4px 0;border:0;background:none;color:var(--ink);text-decoration:none;font-size:11.5px;font-weight:600;white-space:nowrap;cursor:pointer}
+.share-item .ic{width:50px;height:50px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;box-shadow:2px 2px 0 var(--ink);transition:transform .08s}
+.share-item:hover .ic{transform:translate(-1px,-1px)}
+.share-item:active .ic{transform:translate(2px,2px);box-shadow:none}
+.share-item .ic svg{width:24px;height:24px}
+.ic.kakao{background:#FEE500;color:#191919}
+.ic.insta{background:linear-gradient(45deg,#FEDA75,#FA7E1E 30%,#D62976 60%,#962FBF 85%,#4F5BD5);color:#fff}
+.ic.fb{background:#1877F2;color:#fff}
+.ic.x{background:#000;color:#fff;font:700 22px/1 Arial,Helvetica,sans-serif}
+.ic.link{background:#fff;color:var(--ink)}
+.share-url .in{height:42px;font-size:13px;color:var(--muted)}
 .menu button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;padding:6px 2px;border:2px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;font-size:12.5px;font-weight:700;box-shadow:2px 2px 0 var(--ink)}
 .menu button svg{width:22px;height:22px}
 .menu button:not(:disabled):active{transform:translate(2px,2px);box-shadow:none}
@@ -202,19 +252,20 @@ main.view{flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;
 @media (prefers-reduced-motion: reduce){
   *{transition:none !important;animation:none !important}
 }
-.home{display:inline-block;margin:12px 16px 0;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}
-.home:hover{color:var(--ink)}
 </style>
 </head>
 <body>
 <div class="app">
-  <a class="home" href="../../index.html">← 스토리패커 홈</a>
   <header class="top">
     <div class="brand">
       <h1>돌려돌려 룰렛</h1>
       <div class="chips" id="chips"></div>
     </div>
-    <button type="button" class="icon-btn" id="soundBtn" aria-label="소리 끄기" title="소리 켜기/끄기"></button>
+    <div class="top-actions">
+      <button type="button" class="share-btn" id="shareBtn" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5"/><path d="M5 13v6.5h14V13"/></svg>공유</button>
+      <button type="button" class="icon-btn" id="soundBtn" aria-label="소리 끄기" title="소리 켜기/끄기"></button>
+    </div>
   </header>
 
   <main class="view" id="wheelView">
@@ -289,6 +340,24 @@ main.view{flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;
     <button type="button" id="mLoad" title="저장 불러오기">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5h6l2 2.2h9v10.8h-17z"/><path d="M12 11.5v5M9.5 14l2.5 2.5 2.5-2.5"/></svg>불러오기</button>
   </nav>
+
+  <footer class="site-foot">
+    <div class="ad-box">
+      <span class="ad-label">광고</span>
+      <!-- 스토리패커 수평형 -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5017353982200290"
+           data-ad-slot="9844864640"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+      <div class="ad-ph" aria-hidden="true">광고 영역</div>
+    </div>
+    <p class="copy"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
+  </footer>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -532,7 +601,7 @@ function confetti(){
 
 /* ---------- modal & toast ---------- */
 let modalEl = null, modalKey = null, lastFocus = null;
-function openModal({ title = '', body = '', actions = [], dismissible = true, cls = '', label = '', onOpen } = {}){
+function openModal({ title = '', body = '', actions = [], dismissible = true, cls = '', label = '', onOpen, focusSel } = {}){
   closeModal();
   lastFocus = document.activeElement;
   const bd = document.createElement('div');
@@ -565,7 +634,7 @@ function openModal({ title = '', body = '', actions = [], dismissible = true, cl
   modalEl = bd;
   requestAnimationFrame(() => bd.classList.add("open"));
   if (onOpen) onOpen(bd);
-  const first = bd.querySelector('input') || bd.querySelector('.btn.primary') || bd.querySelector('.btn');
+  const first = (focusSel && bd.querySelector(focusSel)) || bd.querySelector('input') || bd.querySelector('.btn.primary') || bd.querySelector('.btn');
   if (first && document.activeElement && !bd.contains(document.activeElement)) first.focus();
   return bd;
 }
@@ -1010,6 +1079,91 @@ mLoad.addEventListener('click', () => {
       });
     } });
 });
+
+/* ---------- share ---------- */
+const SHARE_URL = 'https://www.storypacker.com/apps/roulette/index.html';
+const SHARE_TITLE = '돌려돌려 룰렛 · 당첨자 뽑기';
+const SHARE_TEXT = '이름과 비율을 넣고 휠을 돌리면 당첨자가 정해져요. 내기할 때 써 보세요!';
+const KAKAO_KEY = '1d8af2f3cf70fcb7c030b7039cd5aacf';
+const KAKAO_IMG = 'https://www.storypacker.com/apps/roulette/kakao-share.jpg';
+
+async function copyLink(msg){
+  let ok = false;
+  try { await navigator.clipboard.writeText(SHARE_URL); ok = true; }
+  catch(e){
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = SHARE_URL; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); ta.remove();
+    } catch(e2){ ok = false; }
+  }
+  if (ok){ closeModal(); toast(msg || '링크를 복사했어요'); }
+  else {
+    const inp = modalEl && modalEl.querySelector('#shareUrl');
+    if (inp){ inp.focus(); inp.select(); }
+    toast('자동 복사가 막혀 있어요. 아래 주소를 직접 복사해 주세요');
+  }
+}
+function shareKakao(){
+  const K = window.Kakao;
+  if (K && K.Share){
+    try {
+      if (!K.isInitialized()) K.init(KAKAO_KEY);
+      const link = { mobileWebUrl: SHARE_URL, webUrl: SHARE_URL };
+      K.Share.sendDefault({
+        objectType: 'feed',
+        content: { title: SHARE_TITLE, description: SHARE_TEXT, imageUrl: KAKAO_IMG, imageWidth: 800, imageHeight: 800, link },
+        buttons: [{ title: '룰렛 돌리러 가기', link }]
+      });
+      closeModal();
+      return;
+    } catch(e){ console.warn('Kakao share failed', e); }
+  }
+  copyLink('카카오톡 공유를 열 수 없어 링크를 복사했어요. 카톡 대화창에 붙여넣어 주세요');
+}
+function shareInstagram(){
+  // Instagram has no web share link: use the phone's share sheet, otherwise copy the link
+  const fallback = () => copyLink('링크를 복사했어요. 인스타그램 스토리나 DM에 붙여넣어 주세요');
+  if (navigator.share){
+    navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL })
+      .then(closeModal)
+      .catch(err => { if (!err || err.name !== 'AbortError') fallback(); });
+  } else fallback();
+}
+function openShare(){
+  const u = encodeURIComponent(SHARE_URL);
+  const fb = `https://www.facebook.com/sharer/sharer.php?u=${u}`;
+  const x = `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TITLE + ' - ' + SHARE_TEXT)}&url=${u}`;
+  openModal({ title: '공유하기', cls: 'share',
+    body: `<p class="m-desc">친구에게 룰렛을 보내 보세요.</p>
+      <div class="share-grid">
+        <button type="button" class="share-item" data-share="kakao"><span class="ic kakao"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4C6.9 4 3 7.2 3 11.1c0 2.5 1.6 4.7 4.1 6l-.9 3.4c-.1.3.3.6.6.4l4-2.7c.4 0 .8.1 1.2.1 5.1 0 9-3.2 9-7.1S17.1 4 12 4z"/></svg></span>카카오톡</button>
+        <button type="button" class="share-item" data-share="instagram"><span class="ic insta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5h3.5l2-2.5h6l2 2.5h3.5v11h-17z"/><circle cx="12" cy="13.3" r="3.4"/></svg></span>인스타그램</button>
+        <a class="share-item" href="${fb}" target="_blank" rel="noopener" data-share="facebook"><span class="ic fb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7.5 10.5H4v9h3.5zM7.5 10.5l3.6-6.3c1.6 0 2.6 1.2 2.2 2.9l-.7 3.4h5.6c1.3 0 2.2 1.2 1.9 2.4l-1.4 5.6c-.2.9-1 1.5-1.9 1.5H7.5"/></svg></span>페이스북</a>
+        <a class="share-item" href="${x}" target="_blank" rel="noopener" data-share="x"><span class="ic x">X</span>X</a>
+        <button type="button" class="share-item" data-share="copy"><span class="ic link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg></span>링크 복사</button>
+      </div>
+      <div class="share-url"><label class="sr" for="shareUrl">공유 주소</label><input id="shareUrl" class="in" readonly value="${SHARE_URL}"></div>`,
+    actions: [{ label: '닫기' }],
+    focusSel: '.share-item',
+    onOpen: bd => {
+      bd.querySelector('.share-grid').addEventListener('click', e => {
+        const it = e.target.closest('[data-share]'); if (!it) return;
+        const k = it.dataset.share;
+        if (k === 'kakao') shareKakao();
+        else if (k === 'instagram') shareInstagram();
+        else if (k === 'copy') copyLink();
+        else setTimeout(closeModal, 100); // facebook / x open in a new tab
+      });
+      bd.querySelector('#shareUrl').addEventListener('focus', e => e.target.select());
+    } });
+}
+$('#shareBtn').addEventListener('click', openShare);
+
+/* ad slot: show a placeholder only where the AdSense script can't load (e.g. blocked) */
+window.addEventListener('load', () => setTimeout(() => {
+  if (!(window.adsbygoogle && window.adsbygoogle.loaded)) document.documentElement.classList.add('ads-off');
+}, 1500));
 
 startBtn.addEventListener('click', spin);
 $('#restoreBtn').addEventListener('click', restoreOriginal);
