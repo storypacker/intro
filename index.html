@@ -147,6 +147,10 @@ h2{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);line-height:1.3;m
 .book h3{font-family:var(--display);font-size:clamp(22px,2.6vw,28px);margin:6px 0 6px;line-height:1.35;text-wrap:balance}
 .book .sub{font-size:16px;font-weight:500;margin:0 0 14px;padding-left:12px;border-left:2px solid var(--accent)}
 .book p{margin:0;font-size:15px;color:var(--muted)}
+.book .buy{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:14px;font-size:13px;color:var(--muted)}
+.book .buy a{font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 12px;background:var(--surface)}
+.book .buy a:hover{border-color:var(--accent)}
+.app-icon{width:64px;height:64px;border-radius:14px;display:block;object-fit:cover;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 @media (max-width:760px){.book{grid-template-columns:1fr;gap:20px;padding-block:28px}.shelf{max-width:260px}}
 
 /* apps */
@@ -393,6 +397,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
             <h3>AI로봇 비즈니스와 마케팅</h3>
             <p class="sub">로봇 비즈니스의 현주소와 문제점을 진단하고 로봇이 그려낼 미래를 전망한다</p>
             <p>로봇사업본부를 이끈 현장 경험을 바탕으로, AI와 결합한 로봇 산업이 지금 어디에 와 있고 무엇이 사업화를 가로막는지 짚습니다. 로봇을 기술이 아닌 비즈니스와 마케팅의 관점에서 바라보고, 앞으로 열릴 시장과 기회를 전망합니다.</p>
+            <p class="buy">구매하기 <a href="https://product.kyobobook.co.kr/detail/S000216796391" target="_blank" rel="noopener">교보문고 ↗</a><a href="https://www.yes24.com/product/goods/147561678" target="_blank" rel="noopener">예스24 ↗</a></p>
           </div>
         </article>
         <article class="book">
@@ -402,6 +407,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
             <h3>일 잘하는 마케터는 스토리를 만든다</h3>
             <p class="sub">고객을 내 편으로 만드는 22가지 스토리텔링 법칙</p>
             <p>비슷한 제품과 카피캣이 넘쳐나는 시장에서 브랜드가 끝까지 살아남으려면 고객이 기억하고 공감하는 이야기가 필요합니다. 마케터가 실무에서 바로 쓸 수 있는 스토리텔링 원칙 22가지를 사례와 함께 정리했습니다.</p>
+            <p class="buy">구매하기 <a href="https://product.kyobobook.co.kr/detail/S000213227557" target="_blank" rel="noopener">교보문고 ↗</a><a href="https://www.yes24.com/product/goods/126436584" target="_blank" rel="noopener">예스24 ↗</a></p>
           </div>
         </article>
       </div>
@@ -497,6 +503,24 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
           <h3>나의 연애/결혼 점수는 몇점?</h3>
           <p>결혼정보회사가 회원 등급을 매길 때 보는 학력·직업·자산·외모·성향·결혼관을 객관식으로 답하면, 결혼 적령기 동성 중 내 위치를 100점 만점으로 알려 드려요. 7개 영역 세부 평가와 개선 포인트까지 확인할 수 있어요.</p>
           <span class="go">내 점수 알아보기 →</span>
+        </a>
+        <a class="app" href="apps/roulette/index.html">
+          <div class="app-top">
+            <img class="app-icon" src="img/roulette-icon.webp" alt="돌려돌려 룰렛 당첨자 뽑기" width="192" height="192">
+            <span class="app-status">바로 이용</span>
+          </div>
+          <h3>돌려돌려 룰렛 · 당첨자 뽑기</h3>
+          <p>참가자 이름과 당첨 비율을 넣고 룰렛을 돌려 당첨자를 뽑아요. 경품 추첨, 순서 정하기, 오늘의 메뉴 고르기까지 쓸 수 있고, 당첨자를 빼고 다시 돌리거나 자주 쓰는 참가자 세트를 저장해 둘 수도 있어요.</p>
+          <span class="go">룰렛 돌리러 가기 →</span>
+        </a>
+        <a class="app" href="apps/lotto/index.html">
+          <div class="app-top">
+            <img class="app-icon" src="img/lotto-icon.webp" alt="로또 6/45 번호 추출기 Lucky Slot" width="192" height="192">
+            <span class="app-status">바로 이용</span>
+          </div>
+          <h3>로또 6/45 번호 추출기</h3>
+          <p>슬롯머신 레버를 당기듯 시작 버튼을 눌러 행운의 로또 번호 6개를 뽑아요. 꼭 넣고 싶은 숫자를 고정할 수 있고, 지난 회차 당첨번호와 번호별 출현 횟수를 보며 내가 뽑은 번호와 맞춰 볼 수도 있어요.</p>
+          <span class="go">번호 뽑으러 가기 →</span>
         </a>
         <div class="app soon">
           <div class="app-top">
