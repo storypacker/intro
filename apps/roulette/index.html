@@ -1104,11 +1104,22 @@ async function copyLink(msg){
     toast('자동 복사가 막혀 있어요. 아래 주소를 직접 복사해 주세요');
   }
 }
-function shareKakao(){
+// Kakao SDK v2 only creates Kakao.Share after Kakao.init(), so init first, then check Share.
+function kakaoReady(){
   const K = window.Kakao;
-  if (K && K.Share){
+  if (!K || typeof K.init !== 'function') return null; // SDK not loaded (blocked, offline, preview)
+  try { if (!K.isInitialized()) K.init(KAKAO_KEY); }
+  catch(e){ console.warn('Kakao init failed', e); return null; }
+  return K.Share && typeof K.Share.sendDefault === 'function' ? K : null;
+}
+// init once on page load, as Kakao recommends (the SDK is a deferred script, so wait for it)
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', kakaoReady);
+else kakaoReady();
+
+function shareKakao(){
+  const K = kakaoReady();
+  if (K){
     try {
-      if (!K.isInitialized()) K.init(KAKAO_KEY);
       const link = { mobileWebUrl: SHARE_URL, webUrl: SHARE_URL };
       K.Share.sendDefault({
         objectType: 'feed',
@@ -1119,7 +1130,10 @@ function shareKakao(){
       return;
     } catch(e){ console.warn('Kakao share failed', e); }
   }
-  copyLink('카카오톡 공유를 열 수 없어 링크를 복사했어요. 카톡 대화창에 붙여넣어 주세요');
+  const onSite = /(^|\.)storypacker\.com$/.test(location.hostname);
+  copyLink(onSite
+    ? '카카오톡을 열 수 없어 링크를 복사했어요. 카톡 대화창에 붙여넣어 주세요'
+    : '카카오톡 공유는 storypacker.com에서만 열려요. 대신 링크를 복사했어요');
 }
 function shareInstagram(){
   // Instagram has no web share link: use the phone's share sheet, otherwise copy the link
