@@ -3,9 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>로또 6/45 슬롯머신</title>
-<meta name="description" content="슬롯머신처럼 돌려 로또 6/45 번호 6개를 뽑고, 지난 회차 당첨번호와 번호별 출현 횟수를 확인하는 앱.">
-<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+<title>로또 6/45 번호 추출기 | Lucky Slot</title>
+<meta name="description" content="슬롯머신을 돌려 뽑는 로또 6/45 행운의 번호! 특정 숫자 고정, 역대 회차 당첨번호와 번호별 출현 통계까지 한 번에.">
+<link rel="canonical" href="https://www.storypacker.com/apps/lotto/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="스토리팩커 Storypacker">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://www.storypacker.com/apps/lotto/index.html">
+<meta property="og:title" content="로또 6/45 번호 추출기 · Lucky Slot">
+<meta property="og:description" content="슬롯머신을 돌려 뽑는 로또 6/45 행운의 번호! 특정 숫자 고정, 역대 회차 당첨번호까지 한 번에.">
+<meta property="og:image" content="https://www.storypacker.com/apps/lotto/og-image-wide.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="로또 6/45 번호 추출기 · Lucky Slot">
+<meta name="twitter:description" content="슬롯머신을 돌려 뽑는 로또 6/45 행운의 번호! 특정 숫자 고정, 역대 회차 당첨번호까지 한 번에.">
+<meta name="twitter:image" content="https://www.storypacker.com/apps/lotto/og-image-wide.jpg">
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
+<!-- Kakao JavaScript SDK (카카오톡 공유) -->
+<script defer src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.9/kakao.min.js" integrity="sha384-JpLApTkB8lPskhVMhT+m5Ln8aHlnS0bsIexhaak0jOhAkMYedQoVghPfSpjNi9K1" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -254,10 +271,37 @@ button:disabled{cursor:not-allowed}
 .srow .bar i.top{background:linear-gradient(90deg,#ff5a6e,#ffd0a0)}
 .srow > span:last-child{font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
 .hint{font-size:12px;color:var(--muted);margin:12px 0 0}
+/* ---------- share ---------- */
+.share{position:relative}
+.share-btn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px}
+.share-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:45;min-width:196px;padding:6px;display:grid;gap:2px;border-radius:16px;
+  background:#250b14;border:1px solid var(--line);box-shadow:0 18px 44px rgba(0,0,0,.65);animation:menuin .16s ease-out;transform-origin:top right}
+@keyframes menuin{from{opacity:0;transform:scale(.94) translateY(-4px)}}
+.share-menu button,.share-menu a{display:flex;align-items:center;gap:11px;width:100%;padding:8px 10px;border:0;border-radius:10px;background:none;
+  color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;text-align:left}
+.share-menu button:hover,.share-menu a:hover,.share-menu button:focus-visible,.share-menu a:focus-visible{background:rgba(245,197,66,.13);outline:none}
+.si{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;font-style:normal;font-weight:900;font-size:15px;color:#fff;font-family:Arial,sans-serif}
+.si.kakao{background:#fee500}
+.si.insta{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%)}
+.si.fb{background:#1877f2;font-size:18px}
+.si.xt{background:#000;box-shadow:inset 0 0 0 1px #555}
+.si.link{background:#6a545b}
+
+/* ---------- ad + credit ---------- */
+.ad-slot{margin-top:30px;text-align:center}
+.ad-slot ins[data-ad-status="unfilled"]{display:none !important}
+.credit{margin:18px 0 0;text-align:center;font-size:12px}
+.credit a{color:var(--muted);text-decoration:none;opacity:.85}
+.credit a:hover{color:#ffd77a;text-decoration:underline}
+
 [hidden]{display:none !important}
-.home{display:inline-block;margin-bottom:10px;font-size:13px;color:var(--muted);text-decoration:none}
-.home:hover{color:var(--gold-hi)}
-@media (max-width:520px){.brand small,.hb-long{display:none}.brand{font-size:18px}#histBtn{font-size:13px;padding:8px 12px}}
+@media (max-width:520px){
+  .brand small,.hb-long,.sb-label{display:none}
+  .brand{font-size:17px}
+  #histBtn{font-size:13px;padding:8px 11px}
+  .tb-actions{gap:6px}
+  .share-btn{width:40px;padding:0;justify-content:center}
+}
 @media (prefers-reduced-motion:reduce){.beam,.flash{display:none}}
 </style>
 </head>
@@ -266,12 +310,23 @@ button:disabled{cursor:not-allowed}
 <div class="flash" id="flash" aria-hidden="true"></div>
 
 <div class="wrap">
-  <a class="home" href="../../index.html">← 스토리패커 홈</a>
   <header class="topbar">
     <div class="brand">🎰 LUCKY SLOT <small>로또 6/45 번호 추출기</small></div>
     <div class="tb-actions">
       <button class="ghost" id="histBtn" type="button">📜 지난 회차<span class="hb-long"> 당첨번호</span></button>
       <button class="ghost icon-btn" id="soundBtn" type="button" aria-label="소리 끄기">🔊</button>
+      <div class="share">
+        <button class="ghost share-btn" id="shareBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="shareMenu" aria-label="공유하기">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"/></g></svg><span class="sb-label">공유</span>
+        </button>
+        <div class="share-menu" id="shareMenu" role="menu" hidden>
+          <button role="menuitem" type="button" data-share="kakao"><i class="si kakao"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#3a1d1d" d="M12 3.6c-5 0-9 3.1-9 7 0 2.5 1.7 4.7 4.2 5.9l-.9 3.4c-.1.3.3.6.6.4l4-2.7c.4 0 .7.1 1.1.1 5 0 9-3.1 9-7s-4-7.1-9-7.1z"/></svg></i>카카오톡</button>
+          <button role="menuitem" type="button" data-share="instagram"><i class="si insta"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.2" cy="6.8" r="1.2" fill="#fff"/></svg></i>인스타그램</button>
+          <a role="menuitem" data-share="facebook" id="shFb" href="#" target="_blank" rel="noopener"><i class="si fb">f</i>페이스북</a>
+          <a role="menuitem" data-share="x" id="shX" href="#" target="_blank" rel="noopener"><i class="si xt">X</i>X (트위터)</a>
+          <button role="menuitem" type="button" data-share="copy"><i class="si link"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></g></svg></i>링크 복사</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -345,6 +400,13 @@ button:disabled{cursor:not-allowed}
     </div>
     <p class="note" id="srcNote"></p>
   </section>
+
+  <aside class="ad-slot" aria-label="광고">
+    <!-- 스토리패커 수평형 -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5017353982200290" data-ad-slot="9844864640" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </aside>
+  <footer class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></footer>
 </div>
 
 <!-- result popup -->
@@ -1663,9 +1725,16 @@ function toast(msg) {
   const el = $('#toast'); el.textContent = msg; el.classList.add('show');
   clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 1800);
 }
-async function copyText(txt) {
-  try { await navigator.clipboard.writeText(txt); toast('복사했어요 ✨'); }
-  catch (e) { toast('이 화면에서는 복사가 막혀 있어요'); }
+async function copyText(txt, okMsg = '복사했어요 ✨') {
+  try { await navigator.clipboard.writeText(txt); toast(okMsg); return true; } catch (e) {}
+  try { // fallback for older / restricted browsers
+    const ta = document.createElement('textarea');
+    ta.value = txt; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+    document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove();
+    if (ok) { toast(okMsg); return true; }
+  } catch (e) {}
+  toast('복사가 막혀 있어요: ' + (txt.length > 60 ? txt.slice(0, 60) + '…' : txt));
+  return false;
 }
 
 /* ================= AUDIO ================= */
@@ -1991,7 +2060,67 @@ function closeModal(m, silent) {
 document.querySelectorAll('.backdrop').forEach(m => {
   m.addEventListener('click', e => { if (e.target === m || e.target.closest('[data-close]')) closeModal(m); });
 });
-addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.backdrop.open').forEach(m => closeModal(m)); });
+addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (!shareMenu.hidden) { toggleShare(false); shareBtn.focus(); return; }
+  document.querySelectorAll('.backdrop.open').forEach(m => closeModal(m));
+});
+
+/* ================= SHARE ================= */
+const SHARE = {
+  url: 'https://www.storypacker.com/apps/lotto/index.html',
+  title: '로또 6/45 번호 추출기 · Lucky Slot',
+  text: '슬롯머신을 돌려 뽑는 로또 6/45 행운의 번호! 🎰 특정 숫자 고정, 역대 당첨번호까지 한 번에.',
+  image: 'https://www.storypacker.com/apps/lotto/og-image.jpg',
+  kakaoKey: 'ce4b8ab719b0f69c6408e714366f9d93'
+};
+const shareBtn = $('#shareBtn'), shareMenu = $('#shareMenu'), enc = encodeURIComponent;
+$('#shFb').href = `https://www.facebook.com/sharer/sharer.php?u=${enc(SHARE.url)}`;
+$('#shX').href = `https://twitter.com/intent/tweet?text=${enc(SHARE.text)}&url=${enc(SHARE.url)}`;
+function toggleShare(open) {
+  if (open === undefined) open = shareMenu.hidden;
+  shareMenu.hidden = !open; shareBtn.setAttribute('aria-expanded', String(open));
+  if (open) setTimeout(() => shareMenu.querySelector('[data-share]').focus(), 20);
+}
+shareBtn.addEventListener('click', e => { e.stopPropagation(); toggleShare(); });
+document.addEventListener('click', e => { if (!shareMenu.hidden && !e.target.closest('.share')) toggleShare(false); });
+function kakaoReady() {
+  try {
+    if (!window.Kakao || !Kakao.Share) return false;
+    if (!Kakao.isInitialized()) Kakao.init(SHARE.kakaoKey);
+    return Kakao.isInitialized();
+  } catch (e) { return false; }
+}
+async function nativeShare() {
+  if (!navigator.share) return false;
+  try { await navigator.share({ title: SHARE.title, text: SHARE.text, url: SHARE.url }); return true; }
+  catch (e) { return e && e.name === 'AbortError'; } // user cancelled = handled
+}
+shareMenu.addEventListener('click', async e => {
+  const it = e.target.closest('[data-share]'); if (!it) return;
+  const kind = it.dataset.share;
+  toggleShare(false);
+  if (kind === 'facebook' || kind === 'x') return; // plain links open in a new tab
+  if (kind === 'kakao') {
+    if (kakaoReady()) {
+      try {
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: { title: SHARE.title, description: SHARE.text, imageUrl: SHARE.image, imageWidth: 800, imageHeight: 800,
+            link: { mobileWebUrl: SHARE.url, webUrl: SHARE.url } },
+          buttons: [{ title: '번호 뽑으러 가기', link: { mobileWebUrl: SHARE.url, webUrl: SHARE.url } }]
+        });
+        return;
+      } catch (err) { console.warn('Kakao share failed', err); }
+    }
+    copyText(SHARE.url, '링크를 복사했어요. 카카오톡 대화창에 붙여넣어 주세요');
+  } else if (kind === 'instagram') {
+    // Instagram has no web share link: use the phone's share sheet, else copy the link
+    if (!(await nativeShare())) copyText(SHARE.url, '링크를 복사했어요. 인스타그램 스토리·DM에 붙여넣어 주세요');
+  } else if (kind === 'copy') {
+    copyText(SHARE.url, '링크를 복사했어요 🔗');
+  }
+});
 
 let shown = null;
 function openResult(g) {
