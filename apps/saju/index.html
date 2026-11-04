@@ -242,6 +242,17 @@ select:disabled { opacity: .45; }
 .mbti-tag { display: inline-block; font-weight: 600; padding: 1px 8px; margin-right: 4px; border-radius: 6px; background: color-mix(in srgb, var(--on-ink) 16%, transparent); }
 
 footer { font-size: .82rem; color: var(--muted); text-align: center; }
+.more-apps { display: flex; justify-content: center; }
+.more-apps a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  font-size: .95rem; font-weight: 500; text-decoration: none;
+  transition: border-color .2s, background .2s;
+}
+.more-apps a:hover { border-color: var(--ink); }
+.more-apps a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.more-apps svg { width: 16px; height: 16px; flex: none; }
 .credit { margin: -16px 0 0; text-align: center; font-size: .78rem; }
 .credit a { color: var(--muted); text-decoration: none; letter-spacing: .02em; }
 .credit a:hover { color: var(--ink); text-decoration: underline; }
@@ -356,6 +367,12 @@ img { max-width: 100%; }
   <!-- ===== 광고 영역 끝 ===== -->
 
   <footer>사주 명리의 원리를 바탕으로 한 참고용 풀이예요. 중요한 결정은 스스로의 판단을 믿으세요.</footer>
+  <nav class="more-apps" aria-label="다른 앱">
+    <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
+      다른 앱도 보러가기
+    </a>
+  </nav>
   <p class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
 </div>
 
