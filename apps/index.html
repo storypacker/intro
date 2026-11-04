@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>스토리패커 앱 모음</title>
+<meta name="description" content="스토리패커(Storypacker)가 만든 운세·심리 테스트·뽑기 게임 앱을 한곳에 모았습니다.">
+<link rel="icon" type="image/png" href="../img/logo-badge.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
+     crossorigin="anonymous"></script>
+<style>
+/* Layout: 홈페이지와 같은 색·서체, 상단 막대 + 제목 + 분류 필터 + 앱 카드 격자 */
+:root{
+  --bg:#EDF0F2; --surface:#F8F9FA; --ink:#14181F; --muted:#5A6270; --line:#C9CFD6;
+  --accent:#2F44C8; --accent-soft:#DDE2FA; --mark:#E2603F; --shelf:#FFFFFF;
+  --display:"Gowun Batang","Noto Serif KR",serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10131A; --surface:#171B24; --ink:#E7EAF0; --muted:#98A0AE; --line:#2C3340;
+  --accent:#8C9BFF; --accent-soft:#232A4A; --mark:#F08A6C; --shelf:#F2F3F5; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10131A; --surface:#171B24; --ink:#E7EAF0; --muted:#98A0AE; --line:#2C3340;
+  --accent:#8C9BFF; --accent-soft:#232A4A; --mark:#F08A6C; --shelf:#F2F3F5; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;word-break:keep-all}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.top{border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{font-family:var(--display);font-weight:700;font-size:18px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand img{width:40px;height:40px;display:block}
+.brand span{color:var(--accent)}
+.home{font-size:14px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.home:hover{color:var(--ink)}
+main .wrap{padding-block:48px 72px;display:flex;flex-direction:column;gap:28px}
+h1{font-family:var(--display);font-size:clamp(28px,4vw,40px);line-height:1.3;margin:8px 0 6px;text-wrap:balance}
+.lede{margin:0;color:var(--muted);max-width:40em}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font:500 14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 16px;cursor:pointer}
+.filters button:hover{border-color:var(--accent)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.filters b{font-family:var(--mono);font-weight:500;font-size:12px;margin-left:6px;opacity:.7}
+.apps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.app{display:flex;flex-direction:column;gap:14px;padding:24px;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-decoration:none;color:inherit;min-width:0;transition:border-color .2s,transform .2s}
+a.app:hover{border-color:var(--accent);transform:translateY(-2px)}
+.app-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.app-seal{width:64px;height:64px;border-radius:10px;border:2px solid var(--mark);color:var(--mark);display:grid;place-items:center;text-align:center;font-family:var(--display);font-weight:700;font-size:20px;line-height:1.05;transform:rotate(-3deg)}
+.app-seal small{display:block;font-size:10px;letter-spacing:.12em;margin-top:2px}
+.app-status{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.app h3{font-family:var(--display);font-size:21px;margin:0;line-height:1.35}
+.app p{margin:0;font-size:14px;color:var(--muted)}
+.app .go{margin-top:auto;font-weight:600;font-size:14px;color:var(--accent)}
+.app-icon{width:64px;height:64px;border-radius:14px;display:block;object-fit:cover;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.mbti-seal{font-family:var(--mono);font-size:15px;letter-spacing:.04em;border-color:var(--accent);color:var(--accent)}
+.mbti-seal small{font-size:8px;letter-spacing:.04em}
+.app.soon{background:transparent;border-style:dashed}
+.app.soon .app-seal{border-color:var(--line);color:var(--muted)}
+.app.soon .app-status{background:transparent;border:1px solid var(--line);color:var(--muted)}
+@media (max-width:860px){.apps{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.apps{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding-block:24px;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+footer a{text-decoration:none}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><img src="../img/logo-badge.png" alt="" width="160" height="160">스토리패커 <span>(Storypacker)</span></a>
+    <a class="home" href="../index.html">← 홈페이지로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Apps · 9</div>
+      <h1>스토리패커가 만든 작은 앱들</h1>
+      <p class="lede">운세와 궁합, 성격 테스트, 추첨 게임까지 스토리패커가 만든 앱을 한곳에 모았어요. 설치 없이 바로 쓸 수 있어요.</p>
+    </div>
+    <div class="filters" role="group" aria-label="앱 분류">
+      <button type="button" data-f="all" aria-pressed="true">전체<b>9</b></button>
+      <button type="button" data-f="fortune" aria-pressed="false">운세·궁합<b>4</b></button>
+      <button type="button" data-f="test" aria-pressed="false">심리 테스트<b>2</b></button>
+      <button type="button" data-f="game" aria-pressed="false">뽑기·게임<b>3</b></button>
+    </div>
+    <div class="apps" id="appGrid">
+        <a class="app" data-cat="fortune" href="saju/index.html">
+          <div class="app-top">
+            <div class="app-seal" aria-hidden="true"><span id="todayGz">日辰</span><small>TODAY</small></div>
+            <span class="app-status">바로 이용</span>
+          </div>
+          <h3>오늘의 사주 일진과 명언</h3>
+          <p>생년월일시와 MBTI를 넣으면 오늘의 일진에 견주어 사업·금전·대인관계·건강 운의 흐름과 오늘의 명언을 알려 드려요.</p>
+          <span class="go">앱 열기 →</span>
+        </a>
+        <a class="app" data-cat="fortune" href="saju-en/index.html" lang="en">
+          <div class="app-top">
+            <div class="app-seal" aria-hidden="true"><span class="todayGzEn">日辰</span><small>ENGLISH</small></div>
+            <span class="app-status">Open now</span>
+          </div>
+          <h3>Daily Fortune &amp; Quote</h3>
+          <p>Enter your birth details to get today's fortune for work, money, relationships and health, plus a quote to carry you through the day. Based on Saju, the Korean Four Pillars of Destiny.</p>
+          <span class="go">Open app →</span>
+        </a>
+        <a class="app" data-cat="test" href="mbti/index.html">
+          <div class="app-top">
+            <div class="app-seal mbti-seal" aria-hidden="true">MBTI<small>16 TYPES</small></div>
+            <span class="app-status">무료 · 약 5분</span>
+          </div>
+          <h3>MBTI 성격 유형 검사</h3>
+          <p>나는 어떤 유형의 사람일까? 28개 질문에 답하면 16가지 성격 유형 중 나의 MBTI를 찾아 드려요. 외향·내향, 감각·직관, 사고·감정, 판단·인식 네 가지 성향의 강도와 유형별 강점, 주의할 점까지 한 번에 확인할 수 있어요.</p>
+          <span class="go">검사 시작하기 →</span>
+        </a>
+        <a class="app" data-cat="fortune" href="fortune2027/index.html">
+          <div class="app-top">
+            <div class="app-seal" aria-hidden="true">丁未<small>2027</small></div>
+            <span class="app-status">바로 이용</span>
+          </div>
+          <h3>2027년(정미년) 신년운세</h3>
+          <p>이름과 생년월일시로 사주를 세워 붉은 양의 해, 2027년 한 해의 흐름을 풀어 드려요. 종합 점수와 총평, 1월부터 12월까지의 월별 운세, 재물·직업·애정·건강·학업·대인관계 항목별 운세를 한 번에 볼 수 있어요.</p>
+          <span class="go">2027년 운세 보기 →</span>
+        </a>
+        <a class="app" data-cat="test" href="love-score/index.html">
+          <div class="app-top">
+            <div class="app-seal" aria-hidden="true">100<small>SCORE</small></div>
+            <span class="app-status">약 3~4분</span>
+          </div>
+          <h3>나의 연애/결혼 점수는 몇점?</h3>
+          <p>결혼정보회사가 회원 등급을 매길 때 보는 학력·직업·자산·외모·성향·결혼관을 객관식으로 답하면, 결혼 적령기 동성 중 내 위치를 100점 만점으로 알려 드려요. 7개 영역 세부 평가와 개선 포인트까지 확인할 수 있어요.</p>
+          <span class="go">내 점수 알아보기 →</span>
+        </a>
+        <a class="app" data-cat="game" href="roulette/index.html">
+          <div class="app-top">
+            <img class="app-icon" src="../img/roulette-icon.webp" alt="돌려돌려 룰렛 당첨자 뽑기" width="192" height="192">
+            <span class="app-status">바로 이용</span>
+          </div>
+          <h3>돌려돌려 룰렛 · 당첨자 뽑기</h3>
+          <p>참가자 이름과 당첨 비율을 넣고 룰렛을 돌려 당첨자를 뽑아요. 경품 추첨, 순서 정하기, 오늘의 메뉴 고르기까지 쓸 수 있고, 당첨자를 빼고 다시 돌리거나 자주 쓰는 참가자 세트를 저장해 둘 수도 있어요.</p>
+          <span class="go">룰렛 돌리러 가기 →</span>
+        </a>
+        <a class="app" data-cat="game" href="lotto/index.html">
+          <div class="app-top">
+            <img class="app-icon" src="../img/lotto-icon.webp" alt="로또 6/45 번호 추출기 Lucky Slot" width="192" height="192">
+            <span class="app-status">바로 이용</span>
+          </div>
+          <h3>로또 6/45 번호 추출기</h3>
+          <p>슬롯머신 레버를 당기듯 시작 버튼을 눌러 행운의 로또 번호 6개를 뽑아요. 꼭 넣고 싶은 숫자를 고정할 수 있고, 지난 회차 당첨번호와 번호별 출현 횟수를 보며 내가 뽑은 번호와 맞춰 볼 수도 있어요.</p>
+          <span class="go">번호 뽑으러 가기 →</span>
+        </a>
+        <a class="app" data-cat="fortune" href="compat/index.html">
+          <div class="app-top">
+            <img class="app-icon" src="../img/compat-icon.webp" alt="나와 연인·친구·상사 궁합 보기" width="192" height="192">
+            <span class="app-status">바로 이용</span>
+          </div>
+          <h3>나와 연인/친구/상사 궁합 보기</h3>
+          <p>두 사람의 생년월일시와 MBTI를 넣으면 사주와 성격 유형으로 궁합을 100점 만점으로 풀어 드려요. 연인·배우자, 친구, 직장 상사, 동료·동업자 중 관계를 골라 띠·일간·오행 궁합과 관계 처방까지 볼 수 있어요.</p>
+          <span class="go">궁합 보러 가기 →</span>
+        </a>
+        <a class="app" data-cat="game" href="ladder/index.html">
+          <div class="app-top">
+            <img class="app-icon" src="../img/ladder-icon.webp" alt="동물 사다리타기" width="192" height="192">
+            <span class="app-status">바로 이용</span>
+          </div>
+          <h3>동물 사다리타기</h3>
+          <p>2~12명이 사자·토끼·여우 같은 귀여운 동물 캐릭터를 골라 사다리를 타요. 당첨과 꽝, 1등과 2등처럼 결과를 정하면 한 명씩 내려가며 결과를 보여 주고, 판마다 누적 기록도 쌓여요.</p>
+          <span class="go">사다리 타러 가기 →</span>
+        </a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 스토리패커 (Storypacker) · 박희선</span><a href="../index.html#contact">문의 storypacker@gmail.com</a></div>
+</footer>
+
+<script>
+(function(){
+  var ST="甲乙丙丁戊己庚辛壬癸", BR="子丑寅卯辰巳午未申酉戌亥";
+  var t=new Date(Date.now()+9*3600000);
+  var days=Math.round((Date.UTC(t.getUTCFullYear(),t.getUTCMonth(),t.getUTCDate())-Date.UTC(1900,0,1))/86400000);
+  var i=((10+days)%60+60)%60, el=document.getElementById("todayGz");
+  if(el) el.textContent=ST[i%10]+BR[i%12];
+  document.querySelectorAll(".todayGzEn").forEach(function(e){e.textContent=ST[i%10]+BR[i%12];});
+})();
+(function(){
+  var btns=document.querySelectorAll('.filters button'), cards=document.querySelectorAll('#appGrid .app');
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.dataset.f;
+      btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      cards.forEach(function(c){c.hidden=!(f==='all'||c.dataset.cat===f);});
+    });
+  });
+})();
+</script>
+</body>
+</html>
