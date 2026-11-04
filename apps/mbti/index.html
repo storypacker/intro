@@ -326,9 +326,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .browse .detail { grid-template-columns: minmax(0, 180px) minmax(0, 1fr); }
 
 .foot { border-top: 1px solid var(--line); padding-top: 16px; }
-.credit { margin: 0; font-size: 12px; color: var(--muted); }
-.credit a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
-.credit a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.more-apps { display: flex; justify-content: center; }
+.more-apps a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  font-size: .95rem; font-weight: 500; line-height: 1.6; text-decoration: none;
+  transition: border-color .2s, background .2s;
+}
+.more-apps a:hover { border-color: var(--ink); }
+.more-apps a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.more-apps svg { width: 16px; height: 16px; flex: none; }
+.credit { margin: -24px 0 0; text-align: center; font-size: .78rem; }
+.credit a { color: var(--muted); text-decoration: none; letter-spacing: .02em; }
+.credit a:hover { color: var(--ink); text-decoration: underline; }
 
 /* share */
 .bar-right { display: flex; align-items: center; gap: 12px; }
@@ -495,6 +506,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
          (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
   </aside>
+
+  <nav class="more-apps" aria-label="다른 앱">
+    <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
+      다른 앱도 보러가기
+    </a>
+  </nav>
 
   <p class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
 </div>
