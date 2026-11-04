@@ -4,8 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>동물 사다리타기</title>
-<meta name="description" content="2~12명이 귀여운 동물 캐릭터를 골라 사다리를 타는 무료 사다리타기 게임.">
-<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+<meta name="description" content="2~12명이 귀여운 동물 친구를 골라 사다리를 타요. 누가 무엇에 당첨될까요?">
+<link rel="canonical" href="https://www.storypacker.com/apps/compat/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="스토리팩커 Storypacker">
+<meta property="og:title" content="동물 사다리타기">
+<meta property="og:description" content="2~12명이 귀여운 동물 친구를 골라 사다리를 타요. 누가 무엇에 당첨될까요?">
+<meta property="og:url" content="https://www.storypacker.com/apps/compat/index.html">
+<meta property="og:image" content="https://www.storypacker.com/apps/compat/share.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="동물 사다리타기">
+<meta name="twitter:description" content="2~12명이 귀여운 동물 친구를 골라 사다리를 타요. 누가 무엇에 당첨될까요?">
+<meta name="twitter:image" content="https://www.storypacker.com/apps/compat/share.jpg">
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.4/kakao.min.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
@@ -49,14 +62,39 @@ button:disabled{cursor:not-allowed}
 .top .faces img{width:44px;height:44px;margin-right:-10px;filter:drop-shadow(0 2px 2px rgba(59,47,41,.15))}
 .top h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,4vw,38px);margin:0 0 0 14px;line-height:1.1;text-wrap:balance}
 .top p{margin:0;color:var(--muted);flex-basis:100%}
-@media (min-width:720px){.top p{flex-basis:auto;margin-left:auto}}
+@media (max-width:420px){.top .faces img:nth-child(n+4){display:none}}
+@media (max-width:520px){.top{position:relative;padding-right:80px}.top .share{position:absolute;right:0;top:6px}}
+
+/* 공유 */
+.share{margin-left:auto;position:relative}
+.share-btn{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px 5px 10px;display:inline-flex;align-items:center;gap:5px;font-family:var(--display);font-size:14px;color:var(--ink);box-shadow:0 2px 0 var(--line)}
+.share-btn:hover{border-color:var(--rail)}
+.share-btn svg{width:16px;height:16px}
+.share-menu{position:absolute;right:0;top:calc(100% + 8px);width:210px;background:var(--surface);border-radius:18px;padding:8px;box-shadow:0 2px 0 var(--line),0 14px 40px rgba(59,47,41,.18);z-index:30;display:flex;flex-direction:column;gap:2px;animation:rise .18s ease-out}
+.share-menu a,.share-menu button{display:flex;align-items:center;gap:10px;width:100%;border:none;background:none;border-radius:12px;padding:7px 8px;text-decoration:none;color:var(--ink);font-size:15px;text-align:left}
+.share-menu a:hover,.share-menu button:hover{background:var(--soft)}
+.ico{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;color:#fff}
+.ico svg{width:18px;height:18px}
+.ico.kakao{background:#FEE500;color:#191919}
+.ico.insta{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)}
+.ico.fb{background:#1877F2;font-family:Arial,sans-serif;font-size:19px}
+.ico.x{background:#111;font-family:Arial,sans-serif}
+.ico.link{background:var(--soft);color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:15px;z-index:40;max-width:calc(100% - 32px);text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+/* 광고 & 출처 */
+.ad-wrap{display:flex;flex-direction:column;gap:4px}
+.ad-label{font-size:11px;color:var(--muted);letter-spacing:.05em}
+.ad-slot{min-height:100px;width:100%;overflow:hidden}
+ins.adsbygoogle[data-ad-status="unfilled"]{display:none !important}
+.credit{text-align:center;font-size:12px;color:var(--muted);margin-top:-6px}
+.credit a{color:inherit;text-decoration:none}
+.credit a:hover{text-decoration:underline}
 
 .panel{background:var(--surface);border-radius:22px;padding:20px;box-shadow:0 2px 0 var(--line),0 10px 30px rgba(59,47,41,.06)}
 .panel h2{font-family:var(--display);font-weight:400;font-size:22px;margin:0;display:flex;align-items:center;gap:8px}
 .panel h2 small{font-family:var(--body);font-size:14px;color:var(--muted)}
 [hidden]{display:none !important}
-.home{align-self:flex-start;font-size:14px;color:var(--muted);text-decoration:none;margin-bottom:-8px}
-.home:hover{color:var(--ink)}
 
 /* 버튼 */
 .btn{border:2px solid var(--ink);background:var(--surface);border-radius:999px;padding:8px 16px;font-family:var(--display);font-size:16px;line-height:1.2;display:inline-flex;align-items:center;gap:6px;box-shadow:0 3px 0 var(--ink);transition:transform .08s, box-shadow .08s}
@@ -183,10 +221,21 @@ table.agg{border-collapse:separate;border-spacing:0;min-width:100%;font-variant-
 </head>
 <body>
 <div class="wrap">
-  <a class="home" href="../../index.html">← 스토리패커 홈</a>
   <header class="top">
     <div class="faces" aria-hidden="true" id="faces"></div>
     <h1>동물 사다리타기</h1>
+    <div class="share">
+      <button type="button" class="share-btn" id="shareBtn" aria-haspopup="true" aria-expanded="false" aria-controls="shareMenu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>공유
+      </button>
+      <div class="share-menu" id="shareMenu" hidden>
+        <button type="button" id="shKakao"><span class="ico kakao"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#191919" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 6l-.9 3.4c-.1.3.3.6.6.4l4-2.7c.4 0 .7.1 1.1.1 5 0 9-3.1 9-7S17 4 12 4z"/></svg></span>카카오톡</button>
+        <a id="shInsta" href="https://www.instagram.com/" target="_blank" rel="noopener"><span class="ico insta"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></span>인스타그램</a>
+        <a id="shFb" href="#" target="_blank" rel="noopener"><span class="ico fb">f</span>페이스북</a>
+        <a id="shX" href="#" target="_blank" rel="noopener"><span class="ico x">𝕏</span>X</a>
+        <button type="button" id="shCopy"><span class="ico link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg></span>링크 복사</button>
+      </div>
+    </div>
     <p>2~12명이 동물 친구를 골라 사다리를 타요.</p>
   </header>
 
@@ -257,7 +306,22 @@ table.agg{border-collapse:separate;border-spacing:0;min-width:100%;font-variant-
     </div>
     <div id="histBody"></div>
   </section>
+
+  <section class="ad-wrap" aria-label="광고">
+    <span class="ad-label">광고</span>
+    <div class="ad-slot">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
+      <!-- 스토리패커 수평형 -->
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5017353982200290" data-ad-slot="9844864640" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </section>
+
+  <footer class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></footer>
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <!-- 결과 팝업 -->
 <div class="modal" id="resultModal" hidden role="dialog" aria-modal="true" aria-labelledby="resTitle">
@@ -681,6 +745,74 @@ $('clearHist').addEventListener('click', () => {
   clearArmed = false; $('clearHist').textContent = '기록 지우기';
   history = []; save(); renderHistory();
   if (!$('game').hidden) syncUI();
+});
+
+/* ---------- 공유 ---------- */
+const SHARE = {
+  url: 'https://www.storypacker.com/apps/compat/index.html',
+  title: '동물 사다리타기',
+  text: '2~12명이 귀여운 동물 친구를 골라 사다리를 타요. 누가 무엇에 당첨될까요?',
+  image: 'https://www.storypacker.com/apps/compat/share.jpg',
+  kakaoKey: '2c4e4430e2560d02b764201f21f1cd98'
+};
+try { if (window.Kakao && !Kakao.isInitialized()) Kakao.init(SHARE.kakaoKey); } catch(e) {}
+const enc = encodeURIComponent;
+$('shFb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + enc(SHARE.url);
+$('shX').href = 'https://x.com/intent/tweet?text=' + enc(SHARE.text) + '&url=' + enc(SHARE.url);
+
+let toastTimer;
+function toast(msg){
+  const el = $('toast'); el.textContent = msg; el.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 2800);
+}
+async function copyLink(){
+  try { await navigator.clipboard.writeText(SHARE.url); return true; } catch(e) {}
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = SHARE.url; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy'); ta.remove(); return ok;
+  } catch(e) { return false; }
+}
+function setMenu(open){
+  $('shareMenu').hidden = !open;
+  $('shareBtn').setAttribute('aria-expanded', String(open));
+  if (open) $('shareMenu').querySelector('button,a').focus();
+}
+$('shareBtn').addEventListener('click', e => { e.stopPropagation(); setMenu($('shareMenu').hidden); });
+document.addEventListener('click', e => { if (!$('shareMenu').hidden && !e.target.closest('.share')) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('shareMenu').hidden) { setMenu(false); $('shareBtn').focus(); } });
+
+$('shKakao').addEventListener('click', async () => {
+  setMenu(false);
+  try {
+    if (!window.Kakao || !Kakao.isInitialized()) throw new Error('no-sdk');
+    const link = { mobileWebUrl: SHARE.url, webUrl: SHARE.url };
+    Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: { title: SHARE.title, description: SHARE.text, imageUrl: SHARE.image, imageWidth: 800, imageHeight: 800, link },
+      buttons: [{ title: '사다리 타러 가기', link }]
+    });
+  } catch(e) {
+    const ok = await copyLink();
+    toast(ok ? '이 화면에서는 카카오톡을 열 수 없어 링크를 복사했어요. 카톡에 붙여넣어 주세요.' : '카카오톡을 열 수 없어요. 주소: ' + SHARE.url);
+  }
+});
+$('shInsta').addEventListener('click', async e => {
+  setMenu(false);
+  if (navigator.share && matchMedia('(pointer:coarse)').matches) {
+    e.preventDefault();
+    try { await navigator.share({ title: SHARE.title, text: SHARE.text, url: SHARE.url }); return; } catch(err) { if (err && err.name === 'AbortError') return; }
+  }
+  const ok = await copyLink();
+  toast(ok ? '링크를 복사했어요. 인스타그램 스토리나 DM에 붙여넣어 주세요.' : '인스타그램에 이 주소를 붙여넣어 주세요: ' + SHARE.url);
+});
+$('shFb').addEventListener('click', () => setMenu(false));
+$('shX').addEventListener('click', () => setMenu(false));
+$('shCopy').addEventListener('click', async () => {
+  setMenu(false);
+  const ok = await copyLink();
+  toast(ok ? '링크를 복사했어요.' : '복사가 막혀 있어요. 주소: ' + SHARE.url);
 });
 
 renderSetup();
