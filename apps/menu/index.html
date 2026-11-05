@@ -4,9 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FF7A1A">
-<title>오늘은 뭐 먹지?</title>
-<meta name="description" content="점심·저녁·야식 시간대와 내 취향을 반영해 오늘 먹을 메뉴를 골라 주고, 가까운 맛집까지 찾아 주는 메뉴 추천 앱.">
-<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+<title>오늘은 뭐먹지?</title>
+<meta name="description" content="취향과 시간대로 점심·저녁·야식 메뉴를 골라 주고 가까운 맛집까지 찾아드려요.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="스토리팩커 Storypacker">
+<meta property="og:title" content="오늘은 뭐먹지?">
+<meta property="og:description" content="취향과 시간대로 점심·저녁·야식 메뉴를 골라 주고 가까운 맛집까지 찾아드려요.">
+<meta property="og:url" content="https://www.storypacker.com/apps/menu/index.html">
+<meta property="og:image" content="https://www.storypacker.com/apps/menu/share-square.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="오늘은 뭐먹지?">
+<meta name="twitter:description" content="취향과 시간대로 점심·저녁·야식 메뉴를 골라 주고 가까운 맛집까지 찾아드려요.">
+<meta name="twitter:image" content="https://www.storypacker.com/apps/menu/share-square.jpg">
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -194,22 +206,73 @@ body[data-meal="N"] .chip.hate{background:#3A3470;color:#DCD6FF}
 .hist{margin-top:10px;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .linkbtn{color:var(--accent);font-weight:700;font-size:13px;text-decoration:underline;text-underline-offset:3px}
 
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;transition:.3s;z-index:60;pointer-events:none;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:18px;font-size:14px;font-weight:700;transition:.3s;z-index:60;pointer-events:none;width:max-content;max-width:calc(100% - 32px);text-align:center;word-break:keep-all}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-.home{display:inline-block;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:4px}
-.home:hover{color:var(--ink)}
-[hidden]{display:none!important}
 footer{text-align:center;font-size:11px;color:var(--muted);margin-top:26px;line-height:1.6}
+
+/* 공유 */
+.top-actions{display:flex;align-items:center;gap:6px;flex:none}
+.share{position:relative}
+.share-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 11px;border-radius:999px;background:var(--card);box-shadow:var(--shadow);font-size:13px;font-weight:700}
+.share-btn svg{width:14px;height:14px}
+.share-btn:active{transform:scale(.97)}
+.share-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:45;width:212px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.18);padding:6px;display:flex;flex-direction:column}
+.share-menu[hidden],.share-menu [hidden]{display:none!important}
+.share-menu .item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:9px;font-size:14px;font-weight:500;text-align:left;text-decoration:none;color:inherit;line-height:1.3}
+.share-menu .item:hover,.share-menu .item:focus-visible{background:var(--chip);outline:none}
+.share-menu .ic{width:26px;height:26px;border-radius:7px;flex:none;display:grid;place-items:center;font-size:12px;font-weight:900;color:#fff}
+.share-menu .ic svg{width:15px;height:15px}
+.share-menu hr{border:0;border-top:1px solid var(--line);margin:4px 6px}
+.share-url{display:flex;flex-direction:column;gap:6px;padding:6px 8px 8px}
+.share-url small{font-size:12px;color:var(--muted);line-height:1.4}
+.share-url input{width:100%;font:12px/1.4 inherit;padding:6px 8px;border-radius:7px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+
+/* 광고 · 다른 앱 · 출처 */
+.ad-wrap{margin:26px 0 0;min-height:0}
+.ad-wrap.preview{min-height:90px;border:1.5px dashed var(--line);border-radius:14px;display:grid;place-items:center}
+.ad-wrap.preview::before{content:"광고 영역 · 사이트에서 표시돼요";font-size:12px;color:var(--muted)}
+.ad-wrap.preview ins{display:none!important}
+.more-apps{display:flex;justify-content:center;margin-top:24px}
+.more-apps a{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:15px;font-weight:500;text-decoration:none;transition:border-color .2s}
+.more-apps a:hover{border-color:var(--ink)}
+.more-apps a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.more-apps svg{width:16px;height:16px;flex:none}
+.credit{margin:12px 0 0;text-align:center;font-size:12px}
+.credit a{color:var(--muted);text-decoration:none;letter-spacing:.02em}
+.credit a:hover{color:var(--ink);text-decoration:underline}
+.brand{min-width:0}
+h1{white-space:nowrap}
+@media (max-width:440px){h1{font-size:22px}.logo{width:36px;height:36px;font-size:19px;border-radius:12px}.brand{gap:8px}.pill-btn{padding:8px 10px;font-size:13px}.pill-btn .lbl{display:none}}
 @media (max-width:370px){.maplink{font-size:11px;gap:3px}.maplink .m{width:14px;height:14px}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body data-meal="L">
 <div class="wrap">
-  <a class="home" href="../../index.html">← 스토리패커 홈</a>
   <header class="top">
-    <div class="brand"><div class="logo" aria-hidden="true">🍚</div><h1>오늘은 뭐 먹지?</h1></div>
-    <button class="pill-btn" id="prefBtn" aria-label="취향 설정 열기">⚙️ 취향</button>
+    <div class="brand"><div class="logo" aria-hidden="true">🍚</div><h1>오늘은 뭐먹지?</h1></div>
+    <div class="top-actions">
+      <button class="pill-btn" id="prefBtn" aria-label="취향 설정 열기">⚙️<span class="lbl"> 취향</span></button>
+      <div class="share">
+        <button class="share-btn" id="shareBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="shareMenu">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="3.5" r="2"/><circle cx="4" cy="8" r="2"/><circle cx="12" cy="12.5" r="2"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5"/></svg>
+          공유
+        </button>
+        <div class="share-menu" id="shareMenu" role="menu" hidden>
+          <button class="item" type="button" role="menuitem" data-share="kakao"><span class="ic" style="background:#FEE500;color:#191919">K</span>카카오톡</button>
+          <button class="item" type="button" role="menuitem" data-share="instagram"><span class="ic" style="background:linear-gradient(45deg,#F9A13A,#E1306C 55%,#8A3AB9)">IG</span>인스타그램</button>
+          <a class="item" role="menuitem" data-share="facebook" target="_blank" rel="noopener" href="#"><span class="ic" style="background:#1877F2">f</span>페이스북</a>
+          <a class="item" role="menuitem" data-share="x" target="_blank" rel="noopener" href="#"><span class="ic" style="background:#111">X</span>X (트위터)</a>
+          <button class="item" type="button" role="menuitem" data-share="native" id="nativeShare" hidden><span class="ic" style="background:#8A8F98"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 10V2M5 5l3-3 3 3M3 9v4h10V9"/></svg></span>다른 앱으로 공유</button>
+          <hr>
+          <button class="item" type="button" role="menuitem" data-share="copy"><span class="ic" style="background:var(--accent)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5l3-3M7 4.5l1.2-1.2a2.8 2.8 0 014 4L11 8.5M9 11.5l-1.2 1.2a2.8 2.8 0 01-4-4L5 7.5"/></svg></span>링크 복사</button>
+          <div class="share-url" id="shareUrlBox" hidden>
+            <small>아래 주소를 길게 누르거나 선택해서 복사하세요.</small>
+            <input id="shareUrlInput" type="text" readonly aria-label="공유 주소">
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
   <section class="hero">
@@ -234,6 +297,23 @@ footer{text-align:center;font-size:11px;color:var(--muted);margin-top:26px;line-
     식당 정보: 카카오맵 장소 검색 (사용할 수 없을 땐 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>) · 영업 여부와 메뉴는 지도에서 꼭 확인하세요<br>
     취향과 기록은 이 기기의 브라우저에만 저장돼요
   </footer>
+
+  <section class="ad-wrap" id="adWrap" aria-label="광고">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
+    <!-- 스토리패커 수평형 -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5017353982200290" data-ad-slot="9844864640" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </section>
+
+  <nav class="more-apps" aria-label="다른 앱">
+    <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
+      다른 앱도 보러가기
+    </a>
+  </nav>
+  <p class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
 </div>
 
 <div class="overlay" id="calc" hidden role="dialog" aria-modal="true" aria-label="메뉴 계산 중">
@@ -789,6 +869,79 @@ $("#prefBtn").addEventListener("click", openSheet);
 $("#closeSheet").addEventListener("click", closeSheet);
 $("#sheetBg").addEventListener("click", ev => { if (ev.target.id === "sheetBg") closeSheet(); });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape") closeSheet(); });
+
+/* ---------- 공유 ---------- */
+const SHARE_URL = "https://www.storypacker.com/apps/menu/index.html";
+const SHARE_IMG = "https://www.storypacker.com/apps/menu/share-square.jpg";
+const SHARE_TITLE = "오늘은 뭐먹지?";
+const SHARE_TEXT = "취향과 시간대로 점심·저녁·야식 메뉴를 골라 주고 가까운 맛집까지 찾아드려요";
+const IS_SITE = /(^|\.)storypacker\.com$/i.test(location.hostname);
+const IS_PHONE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ||
+  (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+if (!IS_SITE) $("#adWrap").classList.add("preview");
+
+function showUrlBox(){
+  const box = $("#shareUrlBox"), inp = $("#shareUrlInput");
+  box.hidden = false; inp.value = SHARE_URL; inp.focus(); inp.select();
+}
+function copyLink(okMsg){
+  const ok = () => { toast(okMsg); closeShare(); };
+  try { navigator.clipboard.writeText(SHARE_URL).then(ok, showUrlBox); }
+  catch(e){ showUrlBox(); }
+}
+function kakaoShareReady(){
+  try {
+    if (window.Kakao && !window.Kakao.isInitialized()) window.Kakao.init(KAKAO_JS_KEY);
+    return !!(window.Kakao && window.Kakao.isInitialized() && window.Kakao.Share);
+  } catch(e){ return false; }
+}
+function shareKakao(){
+  const fallbackMsg = "링크를 복사했어요. 카카오톡 대화방에 붙여 넣으세요.";
+  if (!kakaoShareReady()){ copyLink(fallbackMsg); return; }
+  try {
+    window.Kakao.Share.sendDefault({
+      objectType: "feed",
+      content: {
+        title: SHARE_TITLE, description: SHARE_TEXT,
+        imageUrl: SHARE_IMG, imageWidth: 800, imageHeight: 800,
+        link: { mobileWebUrl: SHARE_URL, webUrl: SHARE_URL }
+      },
+      buttons: [{ title: "메뉴 추천받기", link: { mobileWebUrl: SHARE_URL, webUrl: SHARE_URL } }]
+    });
+    closeShare();
+  } catch(e){ copyLink(fallbackMsg); }
+}
+function shareNative(){
+  navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL }).then(closeShare, () => {});
+}
+(() => {
+  const u = encodeURIComponent(SHARE_URL);
+  document.querySelector('[data-share="facebook"]').href = "https://www.facebook.com/sharer/sharer.php?u=" + u;
+  document.querySelector('[data-share="x"]').href = "https://x.com/intent/post?text=" + encodeURIComponent(SHARE_TITLE + " - " + SHARE_TEXT) + "&url=" + u;
+})();
+function openShare(){
+  $("#shareUrlBox").hidden = true;
+  $("#nativeShare").hidden = !(IS_SITE && IS_PHONE && navigator.share);
+  $("#shareMenu").hidden = false;
+  $("#shareBtn").setAttribute("aria-expanded", "true");
+}
+function closeShare(){
+  $("#shareMenu").hidden = true;
+  $("#shareBtn").setAttribute("aria-expanded", "false");
+}
+$("#shareBtn").addEventListener("click", e => { e.stopPropagation(); $("#shareMenu").hidden ? openShare() : closeShare(); });
+$("#shareMenu").addEventListener("click", e => {
+  e.stopPropagation();
+  const it = e.target.closest("[data-share]"); if (!it) return;
+  const k = it.dataset.share;
+  if (k === "kakao") shareKakao();
+  else if (k === "instagram") copyLink("링크를 복사했어요. 인스타그램 스토리나 DM에 붙여 넣으세요.");
+  else if (k === "copy") copyLink("링크를 복사했어요.");
+  else if (k === "native") shareNative();
+  else setTimeout(closeShare, 0);
+});
+document.addEventListener("click", () => { if (!$("#shareMenu").hidden) closeShare(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#shareMenu").hidden){ closeShare(); $("#shareBtn").focus(); } });
 
 /* ---------- 시작 ---------- */
 setMeal(meal);
