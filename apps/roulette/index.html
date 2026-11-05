@@ -127,6 +127,11 @@ main.view{flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;
 .ad-ph{display:none;height:90px;place-items:center;border:2px dashed rgba(26,26,31,.3);border-radius:8px;font-size:13px;color:var(--muted)}
 .ads-off .ad-ph{display:grid}
 .ads-off .ad-box ins.adsbygoogle{display:none !important}
+.more-apps{display:flex;justify-content:center;padding-top:8px}
+.more-apps a{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;border:1px solid rgba(26,26,31,.3);background:var(--panel);color:var(--ink);font-size:.95rem;font-weight:500;text-decoration:none;transition:border-color .2s,background .2s}
+.more-apps a:hover{border-color:var(--ink)}
+.more-apps a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.more-apps svg{width:16px;height:16px;flex:none}
 .copy{margin:0;padding:4px 0 20px;text-align:center;font-size:12px}
 .copy a{color:var(--muted);text-decoration:none}
 .copy a:hover{color:var(--ink);text-decoration:underline}
@@ -356,6 +361,12 @@ main.view{flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;
       </script>
       <div class="ad-ph" aria-hidden="true">광고 영역</div>
     </div>
+    <nav class="more-apps" aria-label="다른 앱">
+      <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
+        다른 앱도 보러가기
+      </a>
+    </nav>
     <p class="copy"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
   </footer>
 </div>
