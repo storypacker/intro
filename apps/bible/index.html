@@ -4,9 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f5efe4">
-<title>기독교 오늘의 말씀</title>
-<meta name="description" content="날마다 다른 성경 말씀과 말씀 풀이, 설교 묵상, 오늘의 기도를 전하는 기독교 오늘의 말씀 앱.">
-<link rel="icon" type="image/png" href="../../img/logo-badge.png">
+<title>오늘의 말씀</title>
+<meta name="description" content="매일 하나씩, 삶에 힘이 되는 성경 말씀과 설교 묵상, 오늘의 기도">
+<link rel="canonical" href="https://www.storypacker.com/apps/bible/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="스토리팩커 Storypacker">
+<meta property="og:url" content="https://www.storypacker.com/apps/bible/index.html">
+<meta property="og:title" content="기독교 오늘의 말씀">
+<meta property="og:description" content="매일 하나씩, 삶에 힘이 되는 성경 말씀과 설교 묵상, 오늘의 기도">
+<meta property="og:image" content="https://www.storypacker.com/apps/bible/share-square.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta name="twitter:card" content="summary_large_image">
+<script>window.SP_SITE = true;</script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -103,24 +114,90 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:var(--ink);color:var(--bg);font-size:.8em;padding:9px 16px;border-radius:99px;transition:.25s;pointer-events:none;z-index:30}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .fade{animation:fade .35s ease}
-.home{display:inline-block;margin-top:14px;font-size:.78em;color:var(--muted);text-decoration:none}
-.home:hover{color:var(--accent)}
-[hidden]{display:none!important}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* 공유 */
+.topR{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.share{position:relative}
+.share-btn{display:inline-flex;align-items:center;gap:5px;font-size:.72em;font-weight:500;line-height:1.2;
+  border:1px solid var(--line);background:var(--paper);color:var(--ink2);border-radius:999px;padding:5px 11px 5px 9px}
+.share-btn:hover,.share-btn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.share-btn svg{width:14px;height:14px}
+.share-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:25;width:212px;background:var(--paper);border:1px solid var(--line);
+  border-radius:12px;box-shadow:var(--shadow);padding:6px;display:flex;flex-direction:column;font-size:15px}
+.share-menu .sitem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 10px;border-radius:8px;
+  font-size:.9rem;color:var(--ink);text-decoration:none;line-height:1.3}
+.share-menu .sitem:hover,.share-menu .sitem:focus-visible{background:var(--accent-soft);outline:none}
+.share-menu .chip{width:26px;height:26px;border-radius:7px;flex:none;display:grid;place-items:center;font:700 12px/1 "Noto Sans KR",sans-serif;color:#fff}
+.share-menu .chip svg{width:15px;height:15px}
+.share-menu[hidden],.share-menu [hidden]{display:none!important}
+.share-menu hr{border:0;border-top:1px solid var(--line);margin:4px 6px}
+.share-url{display:flex;flex-direction:column;gap:6px;padding:6px 8px 8px}
+.share-url small{font-size:.75rem;color:var(--muted);line-height:1.4}
+.share-url input{width:100%;font-size:.75rem;padding:6px 8px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+
+/* 하단: 광고 · 다른 앱 · 출처 */
+.site-foot{margin-top:30px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.ad-wrap{width:100%;text-align:center}
+.ad-wrap ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
+.more-apps{display:flex;justify-content:center}
+.more-apps a{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;border:1px solid var(--line);
+  background:var(--paper);color:var(--ink);font-size:.86em;font-weight:500;text-decoration:none;transition:border-color .2s,background .2s}
+.more-apps a:hover{border-color:var(--accent)}
+.more-apps a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.more-apps svg{width:16px;height:16px;flex:none}
+.credit{margin:-6px 0 0;text-align:center;font-size:.7em}
+.credit a{color:var(--muted);text-decoration:none;letter-spacing:.02em}
+.credit a:hover{color:var(--accent);text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="app">
-  <a class="home" href="../../index.html">← 스토리패커 홈</a>
   <header class="top">
     <div class="date"><div class="ymd" id="ymd"></div><div class="dow" id="dow"></div></div>
+    <div class="topR">
+    <div class="share">
+      <button class="share-btn" id="shareBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="shareMenu">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="3.5" r="2"/><circle cx="4" cy="8" r="2"/><circle cx="12" cy="12.5" r="2"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5"/></svg>
+        공유
+      </button>
+      <div class="share-menu" id="shareMenu" role="menu" hidden>
+        <button class="sitem" type="button" role="menuitem" data-share="kakao"><span class="chip" style="background:#F2C200;color:#2A2100">K</span>카카오톡</button>
+        <button class="sitem" type="button" role="menuitem" data-share="instagram"><span class="chip" style="background:#C2407A">IG</span>인스타그램</button>
+        <a class="sitem" role="menuitem" data-share="facebook" target="_blank" rel="noopener" href="#"><span class="chip" style="background:#2F5FC4">f</span>페이스북</a>
+        <a class="sitem" role="menuitem" data-share="x" target="_blank" rel="noopener" href="#"><span class="chip" style="background:#1F2328">X</span>X (트위터)</a>
+        <button class="sitem" type="button" role="menuitem" data-share="native" id="nativeShare" hidden><span class="chip" style="background:var(--muted)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 10V2M5 5l3-3 3 3M3 9v4h10V9"/></svg></span>다른 앱으로 공유</button>
+        <hr>
+        <button class="sitem" type="button" role="menuitem" data-share="copy"><span class="chip" style="background:var(--ink);color:var(--bg)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5l3-3M7 4.5l1.2-1.2a2.8 2.8 0 014 4L11 8.5M9 11.5l-1.2 1.2a2.8 2.8 0 01-4-4L5 7.5"/></svg></span>링크 복사</button>
+        <div class="share-url" id="shareUrlBox" hidden>
+          <small>아래 주소를 길게 누르거나 선택해서 복사하세요.</small>
+          <input id="shareUrlInput" type="text" readonly aria-label="공유 주소">
+        </div>
+      </div>
+    </div>
     <div class="wx" id="wx">
       <div class="now" id="wxNow">날씨 불러오는 중…</div>
       <button class="city" id="cityBtn" aria-haspopup="true"><span id="cityName">서울</span> ▾</button>
       <div class="cityMenu" id="cityMenu"></div>
     </div>
+    </div>
   </header>
   <main id="view"></main>
+  <div class="site-foot">
+    <div class="ad-wrap">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
+      <!-- 스토리패커 수평형 -->
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5017353982200290" data-ad-slot="9844864640" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <nav class="more-apps" aria-label="다른 앱">
+      <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
+        다른 앱도 보러가기
+      </a>
+    </nav>
+    <p class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
+  </div>
 </div>
 
 <nav class="tabs"><div class="in">
@@ -226,7 +303,7 @@ function render(scroll=true){
   const q=$("#q"); if(q){q.addEventListener("input",ev=>{state.q=ev.target.value;const pos=ev.target.selectionStart;render(false);const n=$("#q");n.focus();n.setSelectionRange(pos,pos)})}
 }
 
-function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),1600)}
+function toast(msg,ms=1600){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),ms)}
 
 async function copyText(s){
   try{await navigator.clipboard.writeText(s);toast("말씀을 복사했어요");}
@@ -263,7 +340,7 @@ function buildMenu(){
   $("#cityMenu").innerHTML=`<button class="here ${city==="현재 위치"?"on":""}" data-city="현재 위치">📍 현재 위치</button>`+
     Object.keys(CITIES).map(c=>`<button data-city="${c}" class="${c===city?"on":""}">${c}</button>`).join("");
 }
-$("#cityBtn").addEventListener("click",e=>{e.stopPropagation();buildMenu();$("#cityMenu").classList.toggle("open")});
+$("#cityBtn").addEventListener("click",e=>{e.stopPropagation();closeShare();buildMenu();$("#cityMenu").classList.toggle("open")});
 $("#cityMenu").addEventListener("click",e=>{const b=e.target.closest("[data-city]");if(!b)return;e.stopPropagation();
   city=b.dataset.city;store.set("wotd_city",city);$("#cityMenu").classList.remove("open");loadWeather(true)});
 document.addEventListener("click",()=>$("#cityMenu").classList.remove("open"));
@@ -292,6 +369,66 @@ async function loadWeather(force){
 function showWx(d){const [ic,txt]=wmo(d.code);
   $("#wxNow").innerHTML=`${ic} <b>${Math.round(d.temp)}°</b> ${txt}`;
   $("#cityName").textContent=`${city} · ${Math.round(d.hi)}°/${Math.round(d.lo)}°`;}
+
+/* ---------- 공유 ---------- */
+const SHARE_URL = "https://www.storypacker.com/apps/bible/index.html";
+const SHARE_IMG = "https://www.storypacker.com/apps/bible/share-square.jpg";
+const SHARE_TITLE = "기독교 오늘의 말씀";
+const KAKAO_KEY = "2c127ea639eb42258875172f155bad63";
+const IS_SITE = !!window.SP_SITE; // 웹사이트용 파일에서만 true
+const IS_PHONE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ||
+  (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+function shareText(){ const e=DAYS[idxOf(today())]; const v=e[1].length>42?e[1].slice(0,42)+"…":e[1]; return `오늘의 말씀 · ${e[0]}\n${v}`; }
+function showUrlBox(){ const box=$("#shareUrlBox"),inp=$("#shareUrlInput"); box.hidden=false; inp.value=SHARE_URL; inp.focus(); inp.select(); }
+function copyLink(okMsg){
+  const ok=()=>{ toast(okMsg,3200); closeShare(); };
+  try{ navigator.clipboard.writeText(SHARE_URL).then(ok,showUrlBox); }catch(e){ showUrlBox(); }
+}
+let kakaoReady=false;
+function initKakao(){
+  try{ if(window.Kakao && !Kakao.isInitialized()) Kakao.init(KAKAO_KEY);
+       kakaoReady=!!(window.Kakao && Kakao.isInitialized() && Kakao.Share); }catch(e){ kakaoReady=false; }
+}
+function shareKakao(){
+  initKakao();
+  const fallbackMsg="링크를 복사했어요. 카카오톡 대화방에 붙여 넣으세요.";
+  if(!kakaoReady){ copyLink(fallbackMsg); return; }
+  try{
+    Kakao.Share.sendDefault({
+      objectType:"feed",
+      content:{ title:SHARE_TITLE, description:shareText(), imageUrl:SHARE_IMG, imageWidth:800, imageHeight:800,
+                link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL } },
+      buttons:[{ title:"오늘의 말씀 보기", link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL } }]
+    });
+    closeShare();
+  }catch(e){ copyLink(fallbackMsg); }
+}
+function shareNative(){ navigator.share({ title:SHARE_TITLE, text:shareText(), url:SHARE_URL }).then(closeShare,()=>{}); }
+function refreshShareLinks(){
+  const u=encodeURIComponent(SHARE_URL), e=DAYS[idxOf(today())];
+  document.querySelector('[data-share="facebook"]').href="https://www.facebook.com/sharer/sharer.php?u="+u;
+  document.querySelector('[data-share="x"]').href="https://x.com/intent/post?text="+encodeURIComponent(`${SHARE_TITLE} - 오늘의 말씀 ${e[0]}`)+"&url="+u;
+}
+function openShare(){
+  refreshShareLinks(); $("#shareUrlBox").hidden=true;
+  $("#nativeShare").hidden=!(IS_SITE && IS_PHONE && navigator.share);
+  $("#cityMenu").classList.remove("open");
+  $("#shareMenu").hidden=false; $("#shareBtn").setAttribute("aria-expanded","true");
+}
+function closeShare(){ $("#shareMenu").hidden=true; $("#shareBtn").setAttribute("aria-expanded","false"); }
+$("#shareBtn").addEventListener("click",e=>{ e.stopPropagation(); $("#shareMenu").hidden?openShare():closeShare(); });
+$("#shareMenu").addEventListener("click",e=>{
+  e.stopPropagation();
+  const it=e.target.closest("[data-share]"); if(!it) return;
+  const k=it.dataset.share;
+  if(k==="kakao") shareKakao();
+  else if(k==="instagram") copyLink("링크를 복사했어요. 인스타그램 스토리나 DM에 붙여 넣으세요.");
+  else if(k==="copy") copyLink("링크를 복사했어요.");
+  else if(k==="native") shareNative();
+  else setTimeout(closeShare,0);
+});
+document.addEventListener("click",()=>{ if(!$("#shareMenu").hidden) closeShare(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("#shareMenu").hidden){ closeShare(); $("#shareBtn").focus(); } });
 
 /* ---------- 시작 ---------- */
 header(); render(); loadWeather();
