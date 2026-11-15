@@ -19,8 +19,6 @@
 <meta name="twitter:title" content="로또 6/45 번호 추출기 · Lucky Slot">
 <meta name="twitter:description" content="슬롯머신을 돌려 뽑는 로또 6/45 행운의 번호! 특정 숫자 고정, 역대 회차 당첨번호까지 한 번에.">
 <meta name="twitter:image" content="https://www.storypacker.com/apps/lotto/og-image-wide.jpg">
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
 <!-- Kakao JavaScript SDK (카카오톡 공유) -->
 <script defer src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -311,6 +309,7 @@ button:disabled{cursor:not-allowed}
 }
 @media (prefers-reduced-motion:reduce){.beam,.flash{display:none}}
 </style>
+<link rel="stylesheet" href="/assets/app-guide.css">
 </head>
 <body>
 <canvas id="fx" aria-hidden="true"></canvas>
@@ -408,11 +407,33 @@ button:disabled{cursor:not-allowed}
     <p class="note" id="srcNote"></p>
   </section>
 
-  <aside class="ad-slot" aria-label="광고">
-    <!-- 스토리패커 수평형 -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5017353982200290" data-ad-slot="9844864640" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </aside>
+<!-- ===== 광고 구역 (assets/sp-ads.js 에서 켜고 끔) ===== -->
+<div class="sp-ad" hidden aria-label="광고"></div>
+<!-- ===== 앱 안내: 원리·사용법·자주 묻는 질문 ===== -->
+<section class="sp-guide" data-tone="dark" aria-labelledby="spg-title">
+  <p class="spg-eyebrow">앱 안내</p>
+  <h2 id="spg-title">로또 6/45 번호 추출기, 이렇게 뽑아요</h2>
+  <p class="spg-lede">1부터 45까지의 숫자 가운데 서로 다른 6개를 무작위로 뽑아 주는 앱입니다. 꼭 넣고 싶은 숫자를 고정할 수 있고, 지난 회차 당첨번호와 번호별 출현 횟수도 볼 수 있습니다.</p>
+  <h3>원리</h3>
+  <p>‘시작’을 누르면 브라우저의 난수 생성 기능으로 1~45 가운데 겹치지 않는 숫자 6개를 고릅니다. 슬롯머신 릴이 돌아가는 모습은 보는 재미를 위한 연출이고, 번호 자체는 모든 숫자가 같은 확률로 뽑힙니다.</p>
+  <p>로또 6/45에서 6개 번호를 모두 맞힐 확률은 <strong>8,145,060분의 1</strong>입니다. 45개 가운데 6개를 고르는 경우의 수가 8,145,060가지이기 때문입니다. 추첨은 매번 독립적으로 이루어지므로 지난 회차에 많이 나온 번호나 오래 안 나온 번호가 다음 회차에 더 잘 나오지는 않습니다. 출현 횟수 통계는 재미로 보는 기록입니다.</p>
+  <h3>사용법</h3>
+  <ol>
+  <li>‘시작’을 누르면 행운의 번호 6개가 나옵니다. 마음에 들면 ‘번호 복사’, 한 번 더 뽑으려면 ‘한 번 더!’를 누르세요.</li>
+  <li>‘특정 숫자 포함’에서 꼭 넣고 싶은 숫자를 1~5개 고르면 그 숫자는 고정되고 나머지만 새로 뽑습니다.</li>
+  <li>뽑은 번호는 ‘내가 뽑은 번호’에 쌓입니다. ‘전체 복사’로 한꺼번에 옮겨 적을 수 있습니다.</li>
+  <li>‘지난 회차 당첨번호’에서 회차를 찾아보고, 번호별 출현 횟수를 전체·최근 100회·50회·20회로 나눠 볼 수 있습니다. ‘내 최근 번호와 맞춰보기’로 뽑은 번호를 지난 당첨번호와 비교해 보세요.</li>
+  </ol>
+  <h3>자주 묻는 질문</h3>
+  <dl>
+    <dt>많이 나온 번호를 고르면 당첨에 유리한가요?</dt><dd>아닙니다. 매 회차 추첨은 이전 결과와 상관없이 이루어지므로 모든 번호 조합의 당첨 확률은 같습니다.</dd>
+    <dt>최신 회차 당첨번호가 보이지 않아요.</dt><dd>앱에는 1회부터 1,248회(2026년 10월 31일 추첨)까지의 당첨번호가 들어 있습니다. 그 뒤의 결과는 동행복권 공식 사이트(dhlottery.co.kr)에서 확인하세요.</dd>
+    <dt>이 앱에서 로또를 살 수 있나요?</dt><dd>아닙니다. 번호만 뽑아 드립니다. 로또는 만 19세 이상만 구매할 수 있으며, 구매는 판매점이나 동행복권 공식 사이트에서 해 주세요.</dd>
+    <dt>뽑은 번호는 어디에 저장되나요?</dt><dd>이 기기의 브라우저에만 저장됩니다. ‘기록 지우기’로 언제든 지울 수 있습니다.</dd>
+  </dl>
+  <p class="spg-note">번호는 무작위로 만들어지며 당첨을 보장하지 않습니다. 복권은 즐길 수 있는 만큼만 구매하세요.</p>
+  <p class="spg-foot">만든 사람 <a href="/">스토리패커 박희선</a> · <a href="/apps/index.html">다른 앱 보기</a> · <a href="/insights/">인사이트 글 읽기</a> · <a href="/privacy.html">개인정보처리방침</a></p>
+</section>
   <nav class="more-apps" aria-label="다른 앱">
     <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
@@ -2321,5 +2342,6 @@ if (fixed.length) preview();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 })();
 </script>
+<script src="/assets/sp-ads.js" defer></script>
 </body>
 </html>

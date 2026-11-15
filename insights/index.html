@@ -1,0 +1,23 @@
+---
+layout: base
+title: 인사이트
+description: 박희선(스토리패커)이 쓰는 스토리텔링 마케팅, AI·로봇 비즈니스, 신사업 기획에 관한 글. 책과 현장 경험에서 얻은 생각을 나눕니다.
+permalink: /insights/
+---
+<section class="list-page wrap">
+  <nav class="crumbs" aria-label="현재 위치"><a href="{{ '/' | relative_url }}">홈</a><span aria-hidden="true">›</span><span>인사이트</span></nav>
+  <div class="eyebrow">Insights</div>
+  <h1>스토리패커 인사이트</h1>
+  <p class="lede">25년 동안 신사업을 만들고, 로봇 사업을 이끌고, 두 권의 책을 쓰며 얻은 생각을 나눕니다. 스토리텔링 마케팅, AI·로봇 비즈니스, 신사업 기획에 관한 글을 꾸준히 올립니다.</p>
+  <div class="cats">
+  {%- for c in site.data.categories %}{% assign n = site.posts | where: "category", c.id | size %}
+    <a class="cat" href="{{ '/insights/' | append: c.id | append: '/' | relative_url }}"><h2>{{ c.name }}</h2><p>{{ c.description }}</p><span class="count">{{ n }}편 →</span></a>
+  {%- endfor %}
+  </div>
+  <div class="list-head"><h2>최신 글</h2><span>전체 {{ site.posts.size }}편</span></div>
+  {%- if site.posts.size > 0 %}
+  <div class="post-grid">{% for post in site.posts %}{% include post-card.html post=post %}{% endfor %}</div>
+  {%- else %}
+  <p class="empty">첫 글을 준비하고 있습니다.</p>
+  {%- endif %}
+</section>

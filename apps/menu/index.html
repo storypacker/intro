@@ -246,6 +246,7 @@ h1{white-space:nowrap}
 @media (max-width:370px){.maplink{font-size:11px;gap:3px}.maplink .m{width:14px;height:14px}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
+<link rel="stylesheet" href="/assets/app-guide.css">
 </head>
 <body data-meal="L">
 <div class="wrap">
@@ -298,15 +299,35 @@ h1{white-space:nowrap}
     취향과 기록은 이 기기의 브라우저에만 저장돼요
   </footer>
 
-  <section class="ad-wrap" id="adWrap" aria-label="광고">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
-    <!-- 스토리패커 수평형 -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5017353982200290" data-ad-slot="9844864640" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </section>
+  <section class="ad-wrap" id="adWrap" aria-label="광고" hidden style="display:none"></section>
 
+<!-- ===== 광고 구역 (assets/sp-ads.js 에서 켜고 끔) ===== -->
+<div class="sp-ad" hidden aria-label="광고"></div>
+<!-- ===== 앱 안내: 원리·사용법·자주 묻는 질문 ===== -->
+<section class="sp-guide" data-tone="light" aria-labelledby="spg-title">
+  <p class="spg-eyebrow">앱 안내</p>
+  <h2 id="spg-title">오늘은 뭐 먹지?, 이렇게 골라요</h2>
+  <p class="spg-lede">시간대와 내 입맛 설정을 반영해 오늘의 메뉴를 골라 주고, 그 메뉴를 파는 주변 식당까지 찾아 주는 앱입니다.</p>
+  <h3>원리</h3>
+  <p>먼저 시간대에 어울리는 메뉴 후보를 모읍니다. <strong>점심(11~15시)</strong>, <strong>저녁(17~21시)</strong>, <strong>야식(21시 이후)</strong>마다 어울리는 메뉴를 따로 두었습니다.</p>
+  <p>그다음 내 입맛 설정을 반영합니다. ‘좋아하는 음식’에 넣은 메뉴 이름, 종류(일식), 특징(국물, 매운, 고기)에 해당하는 메뉴는 더 자주 나오도록 가중치를 높이고, ‘피하고 싶은 음식’ 키워드에 걸리는 메뉴는 후보에서 아예 뺍니다. ‘최근 먹은 메뉴’는 한동안 덜 나오게 해서 같은 메뉴가 반복되지 않게 합니다. 이렇게 정한 가중치에 따라 무작위로 하나를 뽑습니다.</p>
+  <p>메뉴가 정해지면 위치 사용을 허락한 경우 카카오맵 장소 검색으로 그 메뉴를 파는 주변 식당을 가까운 순으로 보여 줍니다. 카카오맵을 쓸 수 없을 때는 OpenStreetMap 공개 지도 데이터로 찾습니다.</p>
+  <h3>사용법</h3>
+  <ol>
+  <li>점심·저녁·야식 가운데 시간대를 고릅니다.</li>
+  <li>⚙️ 취향 버튼에서 좋아하는 음식과 피하고 싶은 음식을 넣어 두면 다음부터 계속 반영됩니다.</li>
+  <li>‘시작’을 누르면 취향과 시간대를 계산해 메뉴를 골라 줍니다.</li>
+  <li>주변 식당 목록에서 마음에 드는 곳을 누르면 카카오맵이나 네이버지도로 바로 연결됩니다.</li>
+  </ol>
+  <h3>자주 묻는 질문</h3>
+  <dl>
+    <dt>위치를 허용하지 않아도 쓸 수 있나요?</dt><dd>네. 메뉴 추천은 위치 없이도 됩니다. 주변 식당 찾기만 위치가 필요합니다.</dd>
+    <dt>식당 정보가 정확한가요?</dt><dd>지도 서비스의 장소 정보를 그대로 보여 드립니다. 영업 여부, 영업시간, 메뉴는 바뀔 수 있으니 방문 전에 지도에서 꼭 확인하세요.</dd>
+    <dt>내 취향과 기록은 어디에 저장되나요?</dt><dd>이 기기의 브라우저에만 저장됩니다. 다른 기기에서는 처음 상태로 시작합니다.</dd>
+    <dt>같은 메뉴가 자꾸 나와요.</dt><dd>‘최근 먹은 메뉴는 덜 나오게 하기’를 켜 두세요. 먹은 메뉴가 기록되어 한동안 덜 나옵니다.</dd>
+  </dl>
+  <p class="spg-foot">만든 사람 <a href="/">스토리패커 박희선</a> · <a href="/apps/index.html">다른 앱 보기</a> · <a href="/insights/">인사이트 글 읽기</a> · <a href="/privacy.html">개인정보처리방침</a></p>
+</section>
   <nav class="more-apps" aria-label="다른 앱">
     <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
@@ -948,5 +969,6 @@ setMeal(meal);
 renderPrefSum();
 })();
 </script>
+<script src="/assets/sp-ads.js" defer></script>
 </body>
 </html>

@@ -150,6 +150,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .credit a{color:var(--muted);text-decoration:none;letter-spacing:.02em}
 .credit a:hover{color:var(--accent);text-decoration:underline}
 </style>
+<link rel="stylesheet" href="/assets/app-guide.css">
 </head>
 <body>
 <div class="app">
@@ -183,13 +184,33 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     </div>
   </header>
   <main id="view"></main>
+<!-- ===== 광고 구역 (assets/sp-ads.js 에서 켜고 끔) ===== -->
+<div class="sp-ad" hidden aria-label="광고"></div>
+<!-- ===== 앱 안내: 원리·사용법·자주 묻는 질문 ===== -->
+<section class="sp-guide" data-tone="auto" aria-labelledby="spg-title">
+  <p class="spg-eyebrow">앱 안내</p>
+  <h2 id="spg-title">기독교 오늘의 말씀, 이렇게 전해 드려요</h2>
+  <p class="spg-lede">날마다 다른 성경 한 구절과 말씀 풀이, 설교 묵상, 오늘의 기도와 다짐을 전해 드리는 묵상 앱입니다.</p>
+  <h3>원리</h3>
+  <p>1년 366일(2월 29일 포함) 하루하루에 서로 다른 성경 구절과 묵상 글을 하나씩 준비해 두었습니다. 앱을 열면 오늘 날짜에 해당하는 말씀이 나옵니다. 해마다 같은 날에는 같은 말씀이 나오므로 1년 뒤 같은 날 다시 읽으며 그동안의 변화를 돌아볼 수 있습니다.</p>
+  <p>성경 본문은 <strong>개역한글판</strong>을 따랐습니다. 구절마다 그 말씀이 쓰인 배경과 뜻을 풀어 주는 ‘말씀 풀이’, 오늘의 삶에 비추어 생각해 볼 ‘설교 묵상’, 하루를 맡기는 ‘오늘의 기도와 다짐’이 함께 실려 있습니다. 묵상 글은 스토리패커가 정리한 것으로, 특정 교단의 공식 해설이 아닙니다.</p>
+  <h3>사용법</h3>
+  <ol>
+  <li>‘오늘의 말씀’ 탭에서 오늘의 구절과 묵상을 읽습니다. 위쪽에는 내 지역의 오늘 날씨가 함께 나옵니다.</li>
+  <li>‘지난 말씀’ 탭에서 지난 1년 동안의 말씀을 날짜별로 다시 찾아볼 수 있습니다.</li>
+  <li>마음에 와닿은 말씀은 담아 두면 ‘마음에 담은 말씀’ 탭에 모입니다.</li>
+  <li>공유 버튼으로 오늘의 말씀을 가족이나 교우에게 보낼 수 있습니다.</li>
+  </ol>
+  <h3>자주 묻는 질문</h3>
+  <dl>
+    <dt>어떤 번역의 성경인가요?</dt><dd>개역한글판을 따랐습니다. 다른 번역본과 표현이 조금 다를 수 있습니다.</dd>
+    <dt>교회의 오늘 설교 본문과 같은가요?</dt><dd>아닙니다. 날짜마다 정해진 묵상 구절이며 교회력이나 특정 교회의 설교 본문과는 따로 준비했습니다.</dd>
+    <dt>담아 둔 말씀은 다른 기기에서도 보이나요?</dt><dd>담은 말씀은 이 기기의 브라우저에 저장됩니다. 다른 기기나 브라우저에서는 보이지 않습니다.</dd>
+    <dt>날씨는 어떻게 알려 주나요?</dt><dd>Open-Meteo의 날씨 정보를 씁니다. 위치를 허락하면 현재 위치, 허락하지 않으면 고른 도시의 날씨를 보여 드립니다.</dd>
+  </dl>
+  <p class="spg-foot">만든 사람 <a href="/">스토리패커 박희선</a> · <a href="/apps/index.html">다른 앱 보기</a> · <a href="/insights/">인사이트 글 읽기</a> · <a href="/privacy.html">개인정보처리방침</a></p>
+</section>
   <div class="site-foot">
-    <div class="ad-wrap">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
-      <!-- 스토리패커 수평형 -->
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5017353982200290" data-ad-slot="9844864640" data-ad-format="auto" data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
     <nav class="more-apps" aria-label="다른 앱">
       <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
@@ -437,5 +458,6 @@ let lastDay=+today();
 document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible"&&+today()!==lastDay){lastDay=+today();state={tab:"today",date:today(),from:null,q:""};header();render();loadWeather(true)} });
 setInterval(()=>{ if(+today()!==lastDay){lastDay=+today();if(state.tab==="today"&&!state.from){state.date=today();render(false)}header()} },60000);
 </script>
+<script src="/assets/sp-ads.js" defer></script>
 </body>
 </html>

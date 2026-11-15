@@ -1,0 +1,20 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{ '/' | absolute_url }}</loc><lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod></url>
+  <url><loc>{{ '/insights/' | absolute_url }}</loc><lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod></url>
+{%- for c in site.data.categories %}
+  <url><loc>{{ '/insights/' | append: c.id | append: '/' | absolute_url }}</loc></url>
+{%- endfor %}
+{%- for post in site.posts %}
+  <url><loc>{{ post.url | absolute_url }}</loc><lastmod>{% if post.updated %}{{ post.updated | date: "%Y-%m-%d" }}{% else %}{{ post.date | date: "%Y-%m-%d" }}{% endif %}</lastmod></url>
+{%- endfor %}
+{%- for f in site.static_files %}{% if f.name == 'index.html' and f.path contains '/apps/' %}
+  <url><loc>{{ f.path | absolute_url }}</loc></url>
+{%- endif %}{% endfor %}
+  <url><loc>{{ '/privacy.html' | absolute_url }}</loc></url>
+  <url><loc>{{ '/terms.html' | absolute_url }}</loc></url>
+</urlset>

@@ -1,0 +1,27 @@
+---
+layout: base
+---
+{%- assign cat = site.data.categories | where: "id", page.category | first -%}
+{%- assign list = site.posts | where: "category", page.category -%}
+<section class="list-page wrap">
+  <nav class="crumbs" aria-label="현재 위치">
+    <a href="{{ '/' | relative_url }}">홈</a><span aria-hidden="true">›</span>
+    <a href="{{ '/insights/' | relative_url }}">인사이트</a><span aria-hidden="true">›</span>
+    <span>{{ cat.name }}</span>
+  </nav>
+  <div class="eyebrow">Insights · {{ cat.id }}</div>
+  <h1>{{ cat.name }}</h1>
+  <p class="lede">{{ cat.description }}</p>
+  <div class="list-head"><h2>글 목록</h2><span>{{ list.size }}편</span></div>
+  {%- if list.size > 0 %}
+  <div class="post-grid">{% for post in list %}{% include post-card.html post=post %}{% endfor %}</div>
+  {%- else %}
+  <p class="empty">이 분야의 글을 준비하고 있습니다.</p>
+  {%- endif %}
+  <div class="list-head"><h2>다른 분야</h2><span></span></div>
+  <div class="cats">
+  {%- for c in site.data.categories %}{% if c.id != cat.id %}{% assign n = site.posts | where: "category", c.id | size %}
+    <a class="cat" href="{{ '/insights/' | append: c.id | append: '/' | relative_url }}"><h2>{{ c.name }}</h2><p>{{ c.description }}</p><span class="count">{{ n }}편</span></a>
+  {%- endif %}{% endfor %}
+  </div>
+</section>

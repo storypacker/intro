@@ -1,0 +1,9 @@
+---
+layout: base
+---
+<article class="wrap doc">
+  <div class="eyebrow">{{ page.eyebrow }}</div>
+  <h1>{{ page.title | escape }}</h1>
+  {% if page.effective %}<p class="meta">시행일 {{ page.effective }}</p>{% endif %}
+{{ content }}
+</article>

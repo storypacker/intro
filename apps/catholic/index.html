@@ -126,6 +126,7 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--paper
 .home{display:block;max-width:560px;margin:0 auto;padding:10px 20px 0;font-size:12.5px;color:var(--sub);text-decoration:none}
 .home:hover{color:var(--accent)}
 </style>
+<link rel="stylesheet" href="/assets/app-guide.css">
 </head>
 <body>
 <header class="top">
@@ -142,6 +143,32 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--paper
 </header>
 
 <main class="wrap" id="view"></main>
+<!-- ===== 광고 구역 (assets/sp-ads.js 에서 켜고 끔) ===== -->
+<div class="sp-ad" hidden aria-label="광고"></div>
+<!-- ===== 앱 안내: 원리·사용법·자주 묻는 질문 ===== -->
+<section class="sp-guide" data-tone="auto" aria-labelledby="spg-title">
+  <p class="spg-eyebrow">앱 안내</p>
+  <h2 id="spg-title">가톨릭 오늘의 말씀, 이렇게 전해 드려요</h2>
+  <p class="spg-lede">한국천주교주교회의 『성경』을 바탕으로 하루 한 구절과 말씀 풀이, 오늘의 삶에서 새길 점, 오늘의 다짐을 전해 드리는 묵상 앱입니다.</p>
+  <h3>원리</h3>
+  <p>1년 366일(2월 29일 포함) 하루하루에 서로 다른 성경 구절을 하나씩 정해 두었습니다. 앱을 열면 오늘 날짜의 말씀이 나오고, 자정이 지나면 자동으로 다음 날의 말씀으로 바뀝니다. 날짜가 정해진 대축일과 기념일(예: 3월 19일 성 요셉 대축일, 3월 25일 주님 탄생 예고 대축일)에는 그날의 의미에 맞는 구절을 골랐습니다.</p>
+  <p>성경 본문은 <strong>한국천주교주교회의 『성경』(2005)</strong>을 따랐고, 긴 대목은 일부를 발췌했습니다. 출처는 ‘요한 3,16’처럼 교회에서 쓰는 약어와 함께 ‘요한 복음서 3장 16절’처럼 풀어서 적어 성경에서 쉽게 찾을 수 있게 했습니다. 구절마다 배경과 뜻을 설명하는 ‘말씀 풀이’, 오늘의 삶에 적용해 볼 ‘오늘의 삶에서’, 짧은 ‘오늘의 다짐’이 함께 실려 있습니다.</p>
+  <h3>사용법</h3>
+  <ol>
+  <li>‘오늘의 말씀’ 탭에서 오늘의 구절과 풀이를 읽습니다. 아래의 ‘전날’과 ‘다음날’로 가까운 날의 말씀도 볼 수 있습니다.</li>
+  <li>마음에 와닿은 말씀은 ‘간직하기’를 누르면 ‘간직한 말씀’ 탭에 모입니다. ‘말씀 복사’로 구절과 다짐을 메시지로 보낼 수 있습니다.</li>
+  <li>‘지난 말씀’ 탭에서 지난 날들의 말씀을 목록으로 보고, ‘날짜로 찾기’로 지난 1년 가운데 원하는 날을 바로 찾을 수 있습니다.</li>
+  <li>오른쪽 위 날씨를 누르면 날씨를 볼 지역을 바꿀 수 있습니다.</li>
+  </ol>
+  <h3>자주 묻는 질문</h3>
+  <dl>
+    <dt>매일 미사 독서와 같은 말씀인가요?</dt><dd>아닙니다. 매일 미사의 독서와 복음은 전례력에 따라 해마다 바뀌지만, 이 앱은 날짜마다 정해 둔 묵상 구절을 전해 드립니다. 그날의 미사 독서는 본당 주보나 매일미사 책을 참고해 주세요.</dd>
+    <dt>풀이는 교회의 공식 해설인가요?</dt><dd>아닙니다. 풀이와 다짐은 스토리패커가 정리한 묵상 글입니다. 출처의 장·절을 성경에서 직접 찾아 앞뒤 문맥과 함께 읽어 보시길 권합니다.</dd>
+    <dt>간직한 말씀은 어디에 저장되나요?</dt><dd>이 기기의 브라우저에 저장됩니다. 다른 기기나 브라우저에서는 보이지 않습니다.</dd>
+    <dt>날씨는 어떻게 알려 주나요?</dt><dd>Open-Meteo의 날씨 정보를 씁니다. 위치를 허락하면 현재 위치, 허락하지 않으면 고른 도시의 날씨를 보여 드립니다.</dd>
+  </dl>
+  <p class="spg-foot">만든 사람 <a href="/">스토리패커 박희선</a> · <a href="/apps/index.html">다른 앱 보기</a> · <a href="/insights/">인사이트 글 읽기</a> · <a href="/privacy.html">개인정보처리방침</a></p>
+</section>
 
 <nav class="tabs">
   <div class="tabs-in">
@@ -745,5 +772,6 @@ if((location.hash||"").startsWith("#d-"))location.hash="today";
 renderHeader();route();loadWeather(false);
 })();
 </script>
+<script src="/assets/sp-ads.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,74 @@
+---
+layout: base
+---
+{%- assign cat = site.data.categories | where: "id", page.category | first -%}
+{%- assign chars = content | strip_html | size -%}
+{%- assign minutes = chars | divided_by: 500 | floor | plus: 1 -%}
+<article class="post wrap">
+  <nav class="crumbs" aria-label="현재 위치">
+    <a href="{{ '/' | relative_url }}">홈</a><span aria-hidden="true">›</span>
+    <a href="{{ '/insights/' | relative_url }}">인사이트</a>
+    {%- if cat %}<span aria-hidden="true">›</span><a href="{{ '/insights/' | append: cat.id | append: '/' | relative_url }}">{{ cat.name }}</a>{% endif %}
+  </nav>
+  <header class="post-head">
+    {% if cat %}<a class="cat-chip" href="{{ '/insights/' | append: cat.id | append: '/' | relative_url }}">{{ cat.name }}</a>{% endif %}
+    <h1>{{ page.title | escape }}</h1>
+    {% if page.description %}<p class="lede">{{ page.description | escape }}</p>{% endif %}
+    <p class="post-meta">글 <strong>{{ page.author | default: site.author.name }}</strong> · <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %-m월 %-d일" }}</time>{% if page.updated %} · 고침 <time datetime="{{ page.updated | date_to_xmlschema }}">{{ page.updated | date: "%Y년 %-m월 %-d일" }}</time>{% endif %} · 읽는 시간 약 {{ minutes }}분</p>
+  </header>
+  {%- if page.image and page.image != "" %}
+  <figure class="cover"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">{% if page.image_caption %}<figcaption>{{ page.image_caption | escape }}</figcaption>{% endif %}</figure>
+  {%- endif %}
+  <div class="prose">
+{{ content }}
+  </div>
+  {%- if page.tags and page.tags.size > 0 %}
+  <ul class="tags" aria-label="태그">{% for t in page.tags %}<li>#{{ t | escape }}</li>{% endfor %}</ul>
+  {%- endif %}
+
+  <section class="author" aria-label="글쓴이">
+    <img src="{{ site.author.image | relative_url }}" alt="{{ site.author.name }}" width="84" height="84" loading="lazy">
+    <div>
+      <h2>{{ site.author.name }} · 스토리패커</h2>
+      <p>{{ site.author.bio }}</p>
+      <div class="links"><a href="{{ '/#books' | relative_url }}">저서 보기</a><a href="{{ '/#services' | relative_url }}">컨설팅 안내</a><a href="{{ '/#contact' | relative_url }}">강연·자문 문의</a></div>
+    </div>
+  </section>
+
+  {%- assign same = site.posts | where: "category", page.category -%}
+  {%- assign shown = 0 -%}
+  {%- capture rel -%}
+  {%- for post in same -%}{%- if post.url != page.url and shown < 4 -%}{%- assign shown = shown | plus: 1 -%}{% include post-card.html post=post %}{%- endif -%}{%- endfor -%}
+  {%- endcapture -%}
+  {%- if shown > 0 %}
+  <section class="related" aria-label="관련 글">
+    <h2>{% if cat %}{{ cat.name }}의 {% endif %}다른 글</h2>
+    <div class="post-grid">{{ rel }}</div>
+  </section>
+  {%- endif %}
+
+  {%- if page.previous or page.next %}
+  <nav class="pager" aria-label="이전 글과 다음 글">
+    {%- if page.previous %}<a class="prev" href="{{ page.previous.url | relative_url }}"><span>← 이전 글</span><strong>{{ page.previous.title | escape }}</strong></a>{% endif %}
+    {%- if page.next %}<a class="next" href="{{ page.next.url | relative_url }}"><span>다음 글 →</span><strong>{{ page.next.title | escape }}</strong></a>{% endif %}
+  </nav>
+  {%- endif %}
+</article>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting",
+ "headline":{{ page.title | jsonify }},
+ "description":{{ page.description | default: "" | jsonify }},
+ "datePublished":"{{ page.date | date_to_xmlschema }}",
+ "dateModified":"{% if page.updated %}{{ page.updated | date_to_xmlschema }}{% else %}{{ page.date | date_to_xmlschema }}{% endif %}",
+ "inLanguage":"ko",
+ "mainEntityOfPage":"{{ page.url | absolute_url }}",
+ {% if page.image and page.image != "" %}"image":"{{ page.image | absolute_url }}",{% endif %}
+ "author":{"@type":"Person","name":{{ site.author.name | jsonify }},"url":"{{ '/#about' | absolute_url }}"},
+ "publisher":{"@type":"Organization","name":"스토리패커 (Storypacker)","logo":{"@type":"ImageObject","url":"{{ '/img/logo-badge.png' | absolute_url }}"}}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+ {"@type":"ListItem","position":1,"name":"홈","item":"{{ '/' | absolute_url }}"},
+ {"@type":"ListItem","position":2,"name":"인사이트","item":"{{ '/insights/' | absolute_url }}"}{% if cat %},
+ {"@type":"ListItem","position":3,"name":{{ cat.name | jsonify }},"item":"{{ '/insights/' | append: cat.id | append: '/' | absolute_url }}"}{% endif %}]}
+</script>

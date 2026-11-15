@@ -22,8 +22,6 @@
 <meta name="twitter:image" content="https://www.storypacker.com/apps/mbti/og-image.jpg">
 <script>window.SP_SITE = true;</script>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js" crossorigin="anonymous"></script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
-     crossorigin="anonymous" onerror="var a=document.getElementById('adSlot');if(a)a.hidden=true;"></script>
 <style>
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 body { margin: 0; }
@@ -402,6 +400,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 </style>
+<link rel="stylesheet" href="/assets/app-guide.css">
 </head>
 <body>
 
@@ -493,20 +492,34 @@ button { font: inherit; color: inherit; cursor: pointer; }
     <p class="note">MBTI®는 The Myers &amp; Briggs Foundation의 등록 상표입니다. 이 페이지는 해당 재단과 관련이 없는 비공식 자가 진단 도구입니다.</p>
   </footer>
 
-  <aside class="ad-slot" id="adSlot" aria-label="광고">
-    <span class="ad-label">광고</span>
-    <!-- 스토리패커 수평형 -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5017353982200290"
-         data-ad-slot="9844864640"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </aside>
 
+<!-- ===== 광고 구역 (assets/sp-ads.js 에서 켜고 끔) ===== -->
+<div class="sp-ad" hidden aria-label="광고"></div>
+<!-- ===== 앱 안내: 원리·사용법·자주 묻는 질문 ===== -->
+<section class="sp-guide" data-tone="auto" aria-labelledby="spg-title">
+  <p class="spg-eyebrow">앱 안내</p>
+  <h2 id="spg-title">MBTI 성격 유형 검사, 이렇게 진행돼요</h2>
+  <p class="spg-lede">28개 문장에 얼마나 공감하는지 답하면 네 가지 선호의 방향과 강도를 계산해 16가지 유형 가운데 나에게 가까운 유형을 찾아 드리는 간이 자가 진단입니다.</p>
+  <h3>원리</h3>
+  <p>MBTI는 사람마다 더 편하게 느끼는 방식이 있다고 보고 네 가지 축으로 나눕니다. 에너지를 어디서 얻는지(외향 E·내향 I), 정보를 어떻게 받아들이는지(감각 S·직관 N), 결정을 무엇으로 내리는지(사고 T·감정 F), 생활을 어떻게 꾸리는지(판단 J·인식 P)입니다. 네 축의 선택을 합치면 ISTJ, ENFP 같은 16가지 유형이 됩니다.</p>
+  <p>이 검사의 28문항은 네 축에 나뉘어 있습니다. 각 문장에 ‘그렇지 않다’부터 ‘그렇다’까지 5단계로 답하면, 문장이 가리키는 쪽에 점수가 쌓입니다. 축마다 어느 쪽 점수가 더 큰지로 유형 글자를 정하고, 그 차이를 백분율 막대로 보여 줍니다. 막대가 한쪽으로 크게 기울수록 그 선호가 뚜렷하다는 뜻이고, 50% 가까이 맞서면 두 방식을 모두 편하게 쓰는 편이라는 뜻입니다.</p>
+  <h3>사용법</h3>
+  <ol>
+  <li>‘시작’을 누르고 문장을 하나씩 읽습니다. 오래 고민하지 말고 평소의 나에 가까운 쪽을 고르세요. 키보드 숫자 1~5로도 답할 수 있습니다.</li>
+  <li>잘못 고른 답은 ‘이전 문항’으로 돌아가 고칠 수 있습니다.</li>
+  <li>28문항을 마치면 내 유형과 네 가지 선호의 강도, 유형별 강점과 주의할 점이 나옵니다.</li>
+  <li>‘16가지 유형 둘러보기’에서 다른 유형을 눌러 가족이나 동료의 유형과 비교해 보세요.</li>
+  <li>‘결과 복사’나 공유 버튼으로 결과를 보낼 수 있습니다.</li>
+  </ol>
+  <h3>자주 묻는 질문</h3>
+  <dl>
+    <dt>할 때마다 결과가 조금씩 달라요.</dt><dd>선호가 50% 근처인 축은 그날의 기분이나 상황에 따라 글자가 바뀔 수 있습니다. 여러 번 해 보고 자주 나오는 쪽, 그리고 설명을 읽었을 때 더 공감되는 쪽을 내 유형으로 보시면 됩니다.</dd>
+    <dt>공식 MBTI 검사와 같은가요?</dt><dd>아닙니다. 이 검사는 MBTI의 원리를 참고해 만든 간이 자가 진단이며, 공인된 MBTI® 검사를 대신하지 않습니다. 정확한 결과가 필요하면 공인 전문가를 통해 정식 검사를 받아 보세요.</dd>
+    <dt>좋은 유형, 나쁜 유형이 있나요?</dt><dd>없습니다. 각 축은 어느 쪽이 더 편한지를 볼 뿐 어느 쪽이 더 낫다는 뜻이 아닙니다. 유형은 나를 이해하는 출발점이지 나를 가두는 틀이 아닙니다.</dd>
+    <dt>답한 내용이 저장되나요?</dt><dd>답과 결과는 이 브라우저 안에서만 계산되고 서버로 보내지 않습니다.</dd>
+  </dl>
+  <p class="spg-foot">만든 사람 <a href="/">스토리패커 박희선</a> · <a href="/apps/index.html">다른 앱 보기</a> · <a href="/insights/">인사이트 글 읽기</a> · <a href="/privacy.html">개인정보처리방침</a></p>
+</section>
   <nav class="more-apps" aria-label="다른 앱">
     <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
@@ -919,5 +932,6 @@ window.claude?.hot?.snapshot?.(() => ({ screen: state.screen, idx: state.idx, an
 window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
 </script>
 
+<script src="/assets/sp-ads.js" defer></script>
 </body>
 </html>

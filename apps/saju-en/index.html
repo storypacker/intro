@@ -19,8 +19,6 @@
 <meta name="twitter:title" content="Daily Fortune &amp; Quote">
 <meta name="twitter:description" content="Your daily fortune score and a quote for today, based on Korean Saju.">
 <meta name="twitter:image" content="https://www.storypacker.com/apps/saju-en/og-image.jpg">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290"
-     crossorigin="anonymous"></script>
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -220,6 +218,7 @@ footer p { margin: 0; }
 .ad-slot .ad-label { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-align: center; }
 .ad-slot .adsbygoogle { width: 100%; min-height: 100px; }
 </style>
+<link rel="stylesheet" href="/assets/app-guide.css">
 </head>
 <body>
 <div class="wrap">
@@ -282,20 +281,36 @@ footer p { margin: 0; }
     <main class="result" id="result" aria-live="polite"></main>
   </div>
 
-  <aside class="ad-slot" aria-label="Advertisement">
-    <span class="ad-label">Advertisement</span>
-    <!-- 스토리패커 수평형 -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5017353982200290"
-         data-ad-slot="9844864640"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </aside>
 
+<!-- ===== 광고 구역 (assets/sp-ads.js 에서 켜고 끔) ===== -->
+<div class="sp-ad" hidden aria-label="Advertisement"></div>
+<!-- ===== 앱 안내: 원리·사용법·자주 묻는 질문 ===== -->
+<section class="sp-guide" data-tone="auto" lang="en" aria-labelledby="spg-title">
+  <p class="spg-eyebrow">ABOUT THIS APP</p>
+  <h2 id="spg-title">How Daily Fortune &amp; Quote works</h2>
+  <p class="spg-lede">This app compares your Four Pillars of Destiny with today's day pillar to read the flow of your day, then picks a quote to carry with you.</p>
+  <h3>The idea</h3>
+  <p><strong>Saju</strong>, the Korean Four Pillars of Destiny, writes the year, month, day and hour of your birth as four pillars. Each pillar is a pair of characters: a Heavenly Stem and an Earthly Branch, eight characters in all. The app calculates these pillars from your birth date and time. The year and month pillars change at the 24 solar terms, which are worked out from the sun's position rather than the lunar calendar, so people born near the start of spring (around February 4) or near a solar term can land in a different pillar than the calendar month suggests.</p>
+  <p>Every day also has its own pillar, one of the 60 combinations of stems and branches. The app compares today's pillar with your <strong>Day Master</strong>, the stem of the day you were born. It looks at how their Five Elements (wood, fire, earth, metal, water) support or restrain each other, and whether the branches combine or clash. From that it gives today's score, readings for work, money, relationships and health, and a quote matched to the day's energy.</p>
+  <p>Your birth time is converted to standard time in your birthplace with daylight saving removed, because the pillars follow the local sun. Births from 11 PM count toward the next day, as in traditional Saju.</p>
+  <h3>How to use it</h3>
+  <ol>
+  <li>Enter your name and date of birth.</li>
+  <li>Enter your time of birth, or tick “I don't know my birth time”. The Hour pillar is then left out of the reading.</li>
+  <li>Pick the time zone of the place you were born, not where you live now.</li>
+  <li>Choose your gender and tap “See today's fortune”.</li>
+  <li>Share the result or copy the link to send it to a friend.</li>
+  </ol>
+  <h3>FAQ</h3>
+  <dl>
+    <dt>Why does the app need my birthplace time zone?</dt><dd>Saju follows the local solar time of your birth. The same clock time means a different moment of the day in Seoul, London or New York, so the app needs the zone to place your hour and, near midnight, your day correctly.</dd>
+    <dt>Will I get a different result tomorrow?</dt><dd>Yes. Your own pillars stay the same, but the day pillar changes every day, so the reading and quote change with it.</dd>
+    <dt>What if I only know my lunar birthday?</dt><dd>The app uses the Gregorian (solar) calendar. Convert your lunar birthday with any lunar-to-solar converter first.</dd>
+    <dt>Is my information stored anywhere?</dt><dd>Your details are processed in your browser and are not sent to our server.</dd>
+    <dt>How seriously should I take it?</dt><dd>It is a reading based on traditional Saju principles, meant for reflection and fun. Trust your own judgment for important decisions.</dd>
+  </dl>
+  <p class="spg-foot">Made by <a href="/">Storypacker (Heesun Park)</a> · <a href="/apps/index.html">More apps</a></p>
+</section>
   <footer>
     <p>A reading based on the principles of Korean Saju (the Four Pillars of Destiny), for reflection and fun. Trust your own judgment for important decisions.</p>
     <a class="credit" href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a>
@@ -818,5 +833,6 @@ document.querySelector('[data-share="instagram"]').addEventListener("click", () 
     : shareToast("Copy this link for Instagram:", true));
 });
 </script>
+<script src="/assets/sp-ads.js" defer></script>
 </body>
 </html>
