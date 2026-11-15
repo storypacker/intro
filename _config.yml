@@ -9,6 +9,7 @@ og_image: /img/hero-main.webp
 
 author:
   name: 박희선
+  byline: 박희선(스토리패커)   # 글 머리에 보이는 글쓴이 표기
   bio: 작가 겸 신사업·AI·로보틱스·스토리텔링 마케팅 컨설턴트. KT 신사업부문과 대동로보틱스 로봇사업본부 본부장을 거쳐 기업의 신사업과 마케팅을 돕고 있습니다.
   image: /img/portrait.webp
   email: storypacker@gmail.com
