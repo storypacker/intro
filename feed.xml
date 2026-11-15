@@ -1,0 +1,38 @@
+---
+layout: null
+permalink: /feed.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+  <title>스토리패커 인사이트</title>
+  <link>{{ '/insights/' | absolute_url }}</link>
+  <atom:link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/rss+xml"/>
+  <description>박희선(스토리패커)이 쓰는 스토리텔링 마케팅, AI·로봇 비즈니스, 신사업 기획에 관한 글</description>
+  <language>ko</language>
+  <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+  <image>
+    <url>{{ '/img/logo-badge.png' | absolute_url }}</url>
+    <title>스토리패커 인사이트</title>
+    <link>{{ '/insights/' | absolute_url }}</link>
+  </image>
+{%- for post in site.posts limit:30 %}
+{%- assign fc = site.data.categories | where: "id", post.category | first %}
+  <item>
+    <title>{{ post.title | xml_escape }}</title>
+    <link>{{ post.url | absolute_url }}</link>
+    <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
+    <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+    <dc:creator>{{ post.author | default: site.author.byline | default: site.author.name | xml_escape }}</dc:creator>
+    {%- if fc %}
+    <category>{{ fc.name | xml_escape }}</category>
+    {%- endif %}
+    {%- for t in post.tags %}
+    <category>{{ t | xml_escape }}</category>
+    {%- endfor %}
+    <description>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | xml_escape }}</description>
+    <content:encoded>{{ post.content | xml_escape }}</content:encoded>
+  </item>
+{%- endfor %}
+</channel>
+</rss>

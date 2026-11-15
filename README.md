@@ -24,7 +24,7 @@
 - `_posts/` 인사이트 글 / `insights/` 인사이트 목록·분야 페이지
 - `_layouts/`, `_includes/`, `assets/site.css` 글 페이지 디자인 (보통 손대지 않아도 됩니다)
 - `_config.yml` 사이트 설정 / `_data/categories.yml` 분야 목록
-- `privacy.html` 개인정보처리방침 / `terms.html` 이용약관 / `sitemap.xml` 자동 사이트맵 / `robots.txt`, `ads.txt`
+- `privacy.html` 개인정보처리방침 / `terms.html` 이용약관 / `sitemap.xml` 자동 사이트맵 / `feed.xml` 인사이트 RSS 피드(최신 글 30편 자동 갱신, 네이버 서치어드바이저 RSS 제출용) / `robots.txt`, `ads.txt`
 
 ## 앱 페이지 광고 켜고 끄기
 
