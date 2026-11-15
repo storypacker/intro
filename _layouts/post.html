@@ -2,8 +2,6 @@
 layout: base
 ---
 {%- assign cat = site.data.categories | where: "id", page.category | first -%}
-{%- assign chars = content | strip_html | size -%}
-{%- assign minutes = chars | divided_by: 500 | floor | plus: 1 -%}
 <article class="post wrap">
   <nav class="crumbs" aria-label="현재 위치">
     <a href="{{ '/' | relative_url }}">홈</a><span aria-hidden="true">›</span>
@@ -14,7 +12,7 @@ layout: base
     {% if cat %}<a class="cat-chip" href="{{ '/insights/' | append: cat.id | append: '/' | relative_url }}">{{ cat.name }}</a>{% endif %}
     <h1>{{ page.title | escape }}</h1>
     {% if page.description %}<p class="lede">{{ page.description | escape }}</p>{% endif %}
-    <p class="post-meta">글 <strong>{{ page.author | default: site.author.name }}</strong> · <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %-m월 %-d일" }}</time>{% if page.updated %} · 고침 <time datetime="{{ page.updated | date_to_xmlschema }}">{{ page.updated | date: "%Y년 %-m월 %-d일" }}</time>{% endif %} · 읽는 시간 약 {{ minutes }}분</p>
+    <p class="post-meta">글 <strong>{{ page.author | default: site.author.byline | default: site.author.name }}</strong> · <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %-m월 %-d일" }}</time>{% if page.updated %} · 고침 <time datetime="{{ page.updated | date_to_xmlschema }}">{{ page.updated | date: "%Y년 %-m월 %-d일" }}</time>{% endif %}</p>
   </header>
   {%- if page.image and page.image != "" %}
   <figure class="cover"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">{% if page.image_caption %}<figcaption>{{ page.image_caption | escape }}</figcaption>{% endif %}</figure>
