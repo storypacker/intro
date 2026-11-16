@@ -5,11 +5,11 @@ category: storytelling
 date: 2026-11-16 11:26:00 +0900
 image: "/img/insights/Code_Generated_Image.webp"
 image_alt: "브랜드스토리텔링"
+image_position: "top"
 tags: ["브랜드 스토리텔링","스토리텔링 마케팅","감성 마케팅","브랜드 기획","마케팅 체크리스트"]
 published: true
 ---
 
-![브랜드 스토리텔링이란? 스토리텔링 마케팅 뜻과 점검 질문 12가지](img/insights/Code_Generated_Image.webp)
 
 신제품 소개서에 기능과 사양, 가격을 빠짐없이 적었는데도 밋밋하다는 느낌을 받을 때가 있습니다. 보고를 받는 사람은 "그래서 고객이 왜 이걸 사야 하죠?"라고 묻습니다. 스토리텔링을 해 보라는 조언을 들어도 무엇을 하라는 말인지 잘 잡히지 않습니다. 
 

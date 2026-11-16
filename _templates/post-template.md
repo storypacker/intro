@@ -10,8 +10,11 @@ description: "검색 결과와 공유 미리보기에 보이는 한두 문장 �
 category: storytelling          # storytelling | ai-robot | new-business 중 하나
 date: 2026-11-20 09:00:00 +0900 # 글을 올리는 날짜와 시각
 # updated: 2026-12-01           # 글을 고쳤다면 앞의 # 을 지우고 고친 날짜를 쓰세요
-image: ""                        # 대표 이미지 (예: "/img/insights/story-first.webp"), 없으면 비워 두세요
-image_alt: ""                    # 대표 이미지 설명
+image: ""                        # 대표 이미지. img/insights 폴더에 먼저 올린 뒤 "/img/insights/파일이름.webp" 또는 파일 이름만. 없으면 비워 두세요
+image_alt: ""                    # 대표 이미지 설명 (무엇이 보이는지)
+image_position: "top"            # 글 속 위치: "top"(제목 바로 아래) 또는 "after-intro"(도입 문단 뒤, 첫 소제목 앞)
+image_caption: ""                # 사진 아래 설명글 (선택)
+# 대표 이미지는 위 위치에 자동으로 들어갑니다. 본문에 같은 이미지를 한 번 더 넣지 마세요.
 tags: ["스토리텔링", "브랜딩"]
 published: true                  # false 로 바꾸면 사이트에 보이지 않는 임시 글이 됩니다
 ---

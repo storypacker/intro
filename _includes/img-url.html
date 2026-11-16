@@ -1,0 +1,9 @@
+{%- comment -%}
+  이미지 경로를 사이트 주소로 바꿉니다. include.src 예:
+  "/img/insights/a.webp"(그대로) · "img/insights/a.webp"(앞에 / 붙임) · "a.webp"(/img/insights/ 폴더로) · "https://..."(그대로)
+{%- endcomment -%}
+{%- assign _u = include.src | strip -%}
+{%- if _u contains "://" -%}{{ _u }}{%- else -%}
+{%- unless _u contains "/" -%}{%- assign _u = "/img/insights/" | append: _u -%}{%- endunless -%}
+{%- assign _f = _u | slice: 0 -%}{%- if _f != "/" -%}{%- assign _u = "/" | append: _u -%}{%- endif -%}
+{{ _u | relative_url }}{%- endif -%}

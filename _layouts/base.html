@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 {%- assign desc = page.description | default: site.description | strip_html | normalize_whitespace | escape -%}
-{%- assign share_image = page.image | default: site.og_image | absolute_url %}
+{%- if page.image and page.image != "" -%}{%- capture share_image -%}{% include img-url.html src=page.image %}{%- endcapture -%}{%- assign share_image = share_image | strip | absolute_url -%}{%- else -%}{%- assign share_image = site.og_image | absolute_url -%}{%- endif %}
 <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title }}</title>
 <meta name="description" content="{{ desc }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
