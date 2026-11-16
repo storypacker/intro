@@ -3,8 +3,9 @@ title: "사내 신사업 제안서가 반려되는 이유 7가지와 제출 전 
 description: "회사의 기술과 상품을 잘 아는 임직원의 신사업 제안서가 왜 번번이 반려될까요. 반려 이유 7가지와 항목별 점검 질문, 제출 직전에 확인할 작성 순서를 정리했습니다."
 category: new-business
 date: 2026-11-16 16:52:00 +0900
-image: "img/insights/Code_Generated_Image3.webp"
+image: "/img/insights/Code_Generated_Image3.webp"
 image_alt: "사내 신사업 제안이 반려되는 모습"
+image_position: "after-intro"
 tags: ["신사업 제안서","사내 제안","신사업 기획","사업계획서","제안서 반려"]
 published: true
 ---
@@ -25,7 +26,6 @@ published: true
 
 ## 제안서가 반려되는 이유 7가지와 스스로 던질 질문
 
-![사내 신사업 제안서가 반려되는 이유 7가지와 제출 전 점검 질문](img/insights/Code_Generated_Image3.webp)
 
 아래 일곱 가지는 서로 떨어져 있지 않습니다. 고객 문제가 흐리면 근거도 약해지고, 근거가 약하면 비용 계산도 흔들립니다. 그러니 한 항목만 고치기보다 처음부터 끝까지 한 번 훑어보시기 바랍니다.
 

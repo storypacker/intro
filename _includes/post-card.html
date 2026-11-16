@@ -1,7 +1,7 @@
 {%- assign p = include.post -%}
 {%- assign pc = site.data.categories | where: "id", p.category | first -%}
 <a class="post-card" href="{{ p.url | relative_url }}">
-  {%- if p.image and p.image != "" %}<img class="pc-img" src="{{ p.image | relative_url }}" alt="" loading="lazy">{% endif %}
+  {%- if p.image and p.image != "" %}<img class="pc-img" src="{% include img-url.html src=p.image %}" alt="" loading="lazy">{% endif %}
   <div class="pc-body">
     {% if pc %}<span class="pc-cat">{{ pc.name }}</span>{% endif %}
     <h3>{{ p.title | escape }}</h3>
