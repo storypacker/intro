@@ -256,7 +256,7 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--paper
 <div class="sheet-bg" id="sheet">
   <div class="sheet">
     <h4>날씨 지역 선택</h4>
-    <p>현재 위치를 사용할 수 없을 때 선택한 지역의 날씨를 보여 드립니다.</p>
+    <p>날씨를 볼 지역을 고르세요. ‘현재 위치’를 고르면 위치 사용 허락을 묻습니다.</p>
     <div class="cities" id="cities"></div>
   </div>
 </div>
@@ -820,12 +820,14 @@ async function fetchWeather(lat,lon,place){
 function getPos(){return new Promise(res=>{if(!navigator.geolocation)return res(null);
   try{navigator.geolocation.getCurrentPosition(p=>res(p.coords),()=>res(null),{timeout:6000,maximumAge:1800000})}catch(e){res(null)}});}
 async function loadWeather(force){
-  const cached=store.get("wx",null);if(!force&&cached&&Date.now()-cached.at<30*60000){showWeather(cached);return}
-  const pref=store.get("city",null);let o=null;
-  if(!pref||pref==="here"){const c=await getPos();if(c)o=await fetchWeather(c.latitude.toFixed(3),c.longitude.toFixed(3),"현재 위치");}
+  const pref=store.get("city","서울");let o=null;
+  const want=pref==="here"?"현재 위치":((CITIES.find(x=>x[0]===pref)||CITIES[0])[0]);
+  const cached=store.get("wx",null);if(!force&&cached&&cached.place===want&&Date.now()-cached.at<30*60000){showWeather(cached);return}
+  /* 위치 권한은 사용자가 '현재 위치'를 직접 골랐을 때만 묻습니다 */
+  if(pref==="here"){const c=await getPos();if(c)o=await fetchWeather(c.latitude.toFixed(3),c.longitude.toFixed(3),"현재 위치");}
   if(!o){const city=CITIES.find(x=>x[0]===pref)||CITIES[0];o=await fetchWeather(city[1],city[2],city[0]);}
   showWeather(o);}
-function openSheet(){const pref=store.get("city","here");
+function openSheet(){const pref=store.get("city","서울");
   $("#cities").innerHTML=[["here"]].concat(CITIES).map(c=>`<button data-city="${c[0]}" class="${pref===c[0]?"on":""}">${c[0]==="here"?"📍 현재 위치":c[0]}</button>`).join("");
   $("#sheet").classList.add("open");}
 $("#weather").addEventListener("click",openSheet);
