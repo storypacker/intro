@@ -76,6 +76,14 @@ a{color:inherit}
 .post{max-width:760px;padding-block:36px 72px}
 .post-head h1{font-family:var(--display);font-size:clamp(28px,4.6vw,40px);line-height:1.35;margin:10px 0 14px;text-wrap:balance}
 .post-head .lede{font-size:18px}
+.post-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.share{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-left:auto}
+.share-btn{display:inline-flex;align-items:center;gap:6px;font:500 13px/1 inherit;font-family:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer}
+.share-btn:hover{border-color:var(--accent);color:var(--accent)}
+.share-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.share-btn[hidden],.share-url[hidden]{display:none}
+.share-url{font-size:12px;width:min(320px,70vw);padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.share-msg{font-size:12.5px;color:var(--accent);min-width:0}
 .cat-chip{display:inline-block;font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:3px 12px;text-decoration:none}
 .post-meta{margin:18px 0 0;padding-bottom:22px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
 .post-meta strong{color:var(--ink);font-weight:600}

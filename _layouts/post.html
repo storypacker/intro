@@ -9,7 +9,15 @@ layout: base
     {%- if cat %}<span aria-hidden="true">›</span><a href="{{ '/insights/' | append: cat.id | append: '/' | relative_url }}">{{ cat.name }}</a>{% endif %}
   </nav>
   <header class="post-head">
-    {% if cat %}<a class="cat-chip" href="{{ '/insights/' | append: cat.id | append: '/' | relative_url }}">{{ cat.name }}</a>{% endif %}
+    <div class="post-top">
+      {% if cat %}<a class="cat-chip" href="{{ '/insights/' | append: cat.id | append: '/' | relative_url }}">{{ cat.name }}</a>{% else %}<span></span>{% endif %}
+      <div class="share" data-url="{{ page.url | absolute_url }}" data-title="{{ page.title | escape }}">
+        <button type="button" class="share-btn" data-act="copy" aria-label="이 글 주소 복사"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>주소 복사</span></button>
+        <button type="button" class="share-btn" data-act="share" hidden aria-label="이 글 공유하기"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>공유</span></button>
+        <input class="share-url" type="text" readonly value="{{ page.url | absolute_url }}" aria-label="이 글 주소" hidden>
+        <span class="share-msg" role="status" aria-live="polite"></span>
+      </div>
+    </div>
     <h1>{{ page.title | escape }}</h1>
     {% if page.description %}<p class="lede">{{ page.description | escape }}</p>{% endif %}
     <p class="post-meta">글 <strong>{{ page.author | default: site.author.byline | default: site.author.name }}</strong> · <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %-m월 %-d일" }}</time>{% if page.updated %} · 고침 <time datetime="{{ page.updated | date_to_xmlschema }}">{{ page.updated | date: "%Y년 %-m월 %-d일" }}</time>{% endif %}</p>
@@ -60,6 +68,23 @@ layout: base
   </nav>
   {%- endif %}
 </article>
+<script>
+(function(){
+  var box=document.querySelector(".post-head .share");if(!box)return;
+  var url=box.getAttribute("data-url"),title=box.getAttribute("data-title");
+  var msg=box.querySelector(".share-msg"),field=box.querySelector(".share-url"),t;
+  function say(text){msg.textContent=text;clearTimeout(t);t=setTimeout(function(){msg.textContent=""},2500)}
+  function manual(){field.hidden=false;field.focus();field.select();say("주소를 선택해 두었습니다. 복사(Ctrl+C, ⌘+C)하세요")}
+  function copy(){
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(url).then(function(){say("주소를 복사했습니다")},fallback)}else fallback()}
+  function fallback(){try{field.hidden=false;field.select();var ok=document.execCommand("copy");field.hidden=true;ok?say("주소를 복사했습니다"):manual()}catch(e){manual()}}
+  var shareBtn=box.querySelector('[data-act="share"]');
+  if(navigator.share&&/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent))shareBtn.hidden=false;
+  box.addEventListener("click",function(e){var b=e.target.closest(".share-btn");if(!b)return;
+    if(b.getAttribute("data-act")==="copy")copy();
+    else navigator.share({title:title,url:url}).catch(function(){});});
+})();
+</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BlogPosting",
  "headline":{{ page.title | jsonify }},
