@@ -271,6 +271,21 @@ footer .foot-links a:hover{color:var(--ink)}
 .ins-head{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:28px}
 .ins-head .apps-all{margin-left:0}
 .ins-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.ins-carousel{position:relative}
+.ins-viewport{overflow:hidden;padding:6px 0;margin:-6px 0}
+.ins-track{display:flex;gap:40px;transition:transform .55s cubic-bezier(.22,.61,.36,1);will-change:transform}
+.ins-page{flex:0 0 100%;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-content:start}
+@media (max-width:860px){.ins-page{grid-template-columns:1fr 1fr}.ins-page+.ins-page{display:none}.ins-track{transform:none!important}}
+@media (max-width:560px){.ins-page{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.ins-track{transition:none}}
+.ins-nav{position:absolute;top:50%;z-index:2;width:46px;height:46px;margin-top:-23px;display:grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font:400 28px/1 var(--display);cursor:pointer;box-shadow:0 2px 10px rgba(20,24,31,.12);transition:border-color .2s,color .2s,opacity .2s}
+.ins-nav span{display:block;margin-top:-3px}
+.ins-nav:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.ins-nav:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ins-nav:disabled{opacity:.35;cursor:default;box-shadow:none}
+.ins-prev{left:-23px}
+.ins-next{right:-23px}
+@media (max-width:1220px){.ins-prev{left:-10px}.ins-next{right:-10px}}
 .ins-card{display:flex;flex-direction:column;padding:0;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s,transform .2s}
 .ins-img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--line)}
 .ins-body{display:flex;flex-direction:column;gap:10px;padding:22px 24px 24px;flex:1}
@@ -328,8 +343,13 @@ footer .foot-links a:hover{color:var(--ink)}
         <div class="eyebrow">Insights</div>
         <a class="apps-all" href="/insights/">전체 글 보기 →</a>
       </div>
-      <div class="ins-grid">
-      {%- for post in site.posts limit:6 %}{% assign pc = site.data.categories | where: "id", post.category | first %}
+      <div class="ins-carousel">
+      <button class="ins-nav ins-prev" type="button" aria-label="최근 글 보기" hidden><span aria-hidden="true">‹</span></button>
+      <div class="ins-viewport">
+      <div class="ins-track">
+      {%- for post in site.posts limit:30 %}{% assign pc = site.data.categories | where: "id", post.category | first %}{% assign m = forloop.index0 | modulo: 6 %}
+        {%- if m == 0 %}
+        <div class="ins-page">{% endif %}
         <a class="ins-card" href="{{ post.url }}">
           {%- if post.image and post.image != "" %}
           <img class="ins-img" src="{{ post.image }}" alt="{{ post.image_alt | default: post.title | escape }}" loading="lazy">
@@ -341,10 +361,37 @@ footer .foot-links a:hover{color:var(--ink)}
           <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
           </div>
         </a>
+        {%- assign m2 = forloop.index | modulo: 6 %}{% if m2 == 0 or forloop.last %}
+        </div>{% endif %}
       {%- endfor %}
+      </div>
+      </div>
+      <button class="ins-nav ins-next" type="button" aria-label="이전 글 보기" hidden><span aria-hidden="true">›</span></button>
       </div>
     </div>
   </section>
+
+<script>
+/* 인사이트 카드 넘기기: 넓은 화면(861px 이상)에서만 6장 묶음을 좌우로 밀어 넘깁니다. 오른쪽 = 이전(오래된) 글, 왼쪽 = 최근 글 */
+(function(){
+  var box=document.querySelector('.ins-carousel'); if(!box) return;
+  var track=box.querySelector('.ins-track'), prev=box.querySelector('.ins-prev'), next=box.querySelector('.ins-next');
+  var pages=[].slice.call(track.querySelectorAll('.ins-page')), page=0;
+  var mq=window.matchMedia('(min-width: 861px)');
+  function show(){
+    var wide=mq.matches, p=wide?page:0;
+    track.style.transform=p?'translateX(calc('+(-p)+' * (100% + 40px)))':'';
+    pages.forEach(function(el,i){ var off=i!==p; el.inert=off; if(off) el.setAttribute('aria-hidden','true'); else el.removeAttribute('aria-hidden'); });
+    var on=wide && pages.length>1;
+    prev.hidden=next.hidden=!on;
+    prev.disabled=p<=0; next.disabled=p>=pages.length-1;
+  }
+  next.addEventListener('click',function(){ if(page<pages.length-1){ page++; show(); } });
+  prev.addEventListener('click',function(){ if(page>0){ page--; show(); } });
+  if(mq.addEventListener) mq.addEventListener('change',show); else if(mq.addListener) mq.addListener(show);
+  show();
+})();
+</script>
 {%- endif %}
 
   <section id="about">
