@@ -268,6 +268,8 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
 footer .foot-links a{color:var(--muted);text-decoration:none}
 footer .foot-links a:hover{color:var(--ink)}
 /* insights (최신 글) */
+.ins-head{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+.ins-head .apps-all{margin-left:0}
 .ins-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .ins-card{display:flex;flex-direction:column;padding:0;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-decoration:none;color:inherit;transition:border-color .2s,transform .2s}
 .ins-img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--line)}
@@ -319,13 +321,31 @@ footer .foot-links a:hover{color:var(--ink)}
     </div>
   </div>
 
-  <div class="facts">
+{%- if site.posts.size > 0 %}
+  <section id="insights" aria-label="인사이트">
     <div class="wrap">
-      <div class="fact"><div class="n">25<small>년</small></div><p>신사업 기획 · 발굴 · 사업화 경력</p></div>
-      <div class="fact"><div class="n">대상</div><p>2023 유니커스 신사업 공모전 (KT·신한은행 주최)</p></div>
-      <div class="fact"><div class="n">2<small>권</small></div><p>스토리텔링 마케팅 · AI로봇 비즈니스 저서</p></div>
+      <div class="ins-head">
+        <div class="eyebrow">Insights</div>
+        <a class="apps-all" href="/insights/">전체 글 보기 →</a>
+      </div>
+      <div class="ins-grid">
+      {%- for post in site.posts limit:6 %}{% assign pc = site.data.categories | where: "id", post.category | first %}
+        <a class="ins-card" href="{{ post.url }}">
+          {%- if post.image and post.image != "" %}
+          <img class="ins-img" src="{{ post.image }}" alt="{{ post.image_alt | default: post.title | escape }}" loading="lazy">
+          {%- endif %}
+          <div class="ins-body">
+          {% if pc %}<span class="ins-cat">{{ pc.name }}</span>{% endif %}
+          <h3>{{ post.title | escape }}</h3>
+          <p>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 100 | escape }}</p>
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+          </div>
+        </a>
+      {%- endfor %}
+      </div>
     </div>
-  </div>
+  </section>
+{%- endif %}
 
   <section id="about">
     <div class="wrap">
@@ -490,31 +510,6 @@ footer .foot-links a:hover{color:var(--ink)}
     </div>
   </section>
 
-{%- if site.posts.size > 0 %}
-  <section id="insights">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="eyebrow">Insights</div>
-        <h2>스토리패커 인사이트 <a class="apps-all" href="/insights/">전체 글 보기 →</a></h2>
-      </div>
-      <div class="ins-grid">
-      {%- for post in site.posts limit:3 %}{% assign pc = site.data.categories | where: "id", post.category | first %}
-        <a class="ins-card" href="{{ post.url }}">
-          {%- if post.image and post.image != "" %}
-          <img class="ins-img" src="{{ post.image }}" alt="{{ post.image_alt | default: post.title | escape }}" loading="lazy">
-          {%- endif %}
-          <div class="ins-body">
-          {% if pc %}<span class="ins-cat">{{ pc.name }}</span>{% endif %}
-          <h3>{{ post.title | escape }}</h3>
-          <p>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 100 | escape }}</p>
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
-          </div>
-        </a>
-      {%- endfor %}
-      </div>
-    </div>
-  </section>
-{%- endif %}
 
   <section id="apps">
     <div class="wrap">
