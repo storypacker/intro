@@ -64,7 +64,17 @@ header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
 .nav nav a:hover{color:var(--ink)}
 @media (max-width:1100px){.brand span{display:none}}
 @media (max-width:980px){.nav nav{gap:14px;font-size:13px}}
-@media (max-width:860px){.nav nav{display:none}}
+.menu-btn{display:none}
+@media (max-width:860px){
+  .menu-btn{display:grid;place-items:center;flex:none;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);cursor:pointer}
+  .menu-btn svg{width:22px;height:22px}
+  .menu-btn .i-close,header.nav.open .menu-btn .i-open{display:none}
+  header.nav.open .menu-btn .i-close{display:block}
+  .nav nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;max-height:calc(100vh - 80px);overflow-y:auto;padding:4px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 14px 28px rgba(20,24,31,.12);font-size:16px;color:var(--ink)}
+  header.nav.open nav{display:flex}
+  .nav nav a{padding:13px 4px;border-bottom:1px solid var(--line)}
+  .nav nav a:last-child{border-bottom:0}
+}
 @media (max-width:400px){.kst{padding-left:10px}.nav-left{gap:10px}.brand{font-size:16px}}
 
 /* hero */
@@ -308,11 +318,30 @@ footer .foot-links a:hover{color:var(--ink)}
         <span class="kst-wx" id="kstWx" hidden></span>
       </div>
     </div>
-    <nav aria-label="주요 메뉴">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="메뉴 열기">
+      <svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav id="mainNav" aria-label="주요 메뉴">
       <a href="#about">소개</a><a href="#services">컨설팅</a><a href="#process">진행 방식</a><a href="#books">저서</a><a href="#course">강의</a><a href="/insights/">인사이트</a><a href="#apps">앱</a><a href="#contact">문의</a><a href="#shorts">Shorts</a>
     </nav>
   </div>
 </header>
+<script>
+/* 휴대폰 메뉴: 화면 폭 860px 이하에서 메뉴 버튼으로 펼치고 접습니다 */
+(function(){
+  var h=document.querySelector('header.nav'); if(!h) return;
+  var b=h.querySelector('.menu-btn'), n=h.querySelector('nav');
+  function set(open){ h.classList.toggle('open',open); b.setAttribute('aria-expanded',open?'true':'false'); b.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기'); }
+  b.addEventListener('click',function(){ set(!h.classList.contains('open')); });
+  n.addEventListener('click',function(e){ if(e.target.closest('a')) set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && h.classList.contains('open')){ set(false); b.focus(); } });
+  document.addEventListener('click',function(e){ if(!h.contains(e.target)) set(false); });
+  var mq=window.matchMedia('(min-width: 861px)');
+  function wide(){ if(mq.matches) set(false); }
+  if(mq.addEventListener) mq.addEventListener('change',wide); else if(mq.addListener) mq.addListener(wide);
+})();
+</script>
 
 <main id="top">
   <div class="hero">
