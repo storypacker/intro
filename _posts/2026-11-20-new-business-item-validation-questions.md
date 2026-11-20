@@ -3,7 +3,7 @@ title: "신사업 아이템 검증 방법, 기획자가 먼저 해 보아야 할
 description: "신사업 아이템을 키우기 전에 걸러 봐야 할 다섯 가지 확인 항목을 질문과 함께 정리했습니다. 구매자와 수혜자 구분, 핵심 고충, 차별점, 보유 자산, 첫 고객까지 오늘 바로 점검할 수 있습니다."
 category: new-business
 date: 2026-11-20 15:50:00 +0900
-image: "/img/insights/new-business-item-validation-checklist.webp"
+image: "/img/insights/new-business-item-validation-questions.webp"
 image_alt: "스토리텔링 마케팅"
 image_position: "top"
 tags: ["신사업 기획","아이템 검증","사업계획서","신사업 체크리스트","페인포인트"]
