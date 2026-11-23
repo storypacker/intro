@@ -4,21 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>IQ 추정 검사</title>
-<meta name="description" content="언어·수리·논리·시공간·작업 기억 5개 영역 30문항으로 IQ를 추정하는 검사. 문항반응이론(IRT)으로 채점하고 95% 신뢰구간, 백분위, 영역별 프로파일, 문항별 풀이까지 보여 줍니다.">
-<link rel="canonical" href="https://www.storypacker.com/apps/iq/index.html">
+<meta name="description" content="언어·수리·논리·시공간·작업 기억 5개 영역 30문항으로 문항반응이론(IRT)에 따라 IQ를 추정하고, 95% 신뢰구간과 백분위, 영역별 강점·약점, 문항별 풀이까지 알려 주는 무료 IQ 추정 검사.">
 <link rel="icon" type="image/png" href="../../img/logo-badge.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://www.storypacker.com/apps/iq/index.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="스토리패커 Storypacker">
-<meta property="og:title" content="IQ 추정 검사 | 스토리패커">
-<meta property="og:description" content="언어·수리·논리·시공간·작업 기억 5개 영역 30문항으로 IQ를 추정하는 검사. 문항반응이론(IRT)으로 채점하고 95% 신뢰구간, 백분위, 영역별 프로파일, 문항별 풀이까지 보여 줍니다.">
+<meta property="og:site_name" content="스토리팩커 Storypacker">
 <meta property="og:url" content="https://www.storypacker.com/apps/iq/index.html">
-<meta property="og:image" content="https://www.storypacker.com/apps/iq/og-image.jpg">
+<meta property="og:title" content="IQ 추정 검사">
+<meta property="og:description" content="5개 영역 30문항으로 알아보는 나의 IQ. 오차 범위와 영역별 강점까지 알려 드려요.">
+<meta property="og:image" content="https://www.storypacker.com/apps/iq/share-square.jpg">
 <meta property="og:image:width" content="800">
 <meta property="og:image:height" content="800">
-<meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
-<link rel="stylesheet" href="/assets/app-guide.css">
+<meta name="twitter:card" content="summary_large_image">
+<script>window.SP_SITE = true;</script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -129,16 +128,99 @@ summary{cursor:pointer;font-weight:600;font-size:17px;min-height:32px}
 .endacts{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
 @media(max-width:700px){.rhead{grid-template-columns:1fr}.qual{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}}
 @media(max-width:600px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.prompt{font-size:18px}.kv b{font-size:18px}.pr,.scale{grid-template-columns:5.5em minmax(0,1fr) 4.2em;gap:8px}.pr .nm small{display:none}.opts.pics{gap:6px}.opts.pics .opt{padding:8px 2px}.bub{width:26px;height:26px;font-size:13px}.flash{font-size:60px}}
-[hidden]{display:none!important}
-.more-apps{display:flex;justify-content:center;padding:8px 16px 48px}
-.more-apps a{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:15px;font-weight:600;background:var(--bg)}
-.more-apps a:hover{border-color:var(--acc)}
-.more-apps svg{width:16px;height:16px}
 @media(prefers-reduced-motion:no-preference){.view.on{animation:in .35s ease}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+/* 공유 */
+.top .sub{color:var(--mute);font-size:14px;margin-left:10px;font-weight:400}
+.share{position:relative;flex:none}
+.share-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;line-height:1.2;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 12px 6px 10px;min-height:32px}
+.share-btn:hover,.share-btn[aria-expanded="true"]{border-color:var(--ink)}
+.share-btn svg{width:15px;height:15px}
+.share-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:20;width:212px;background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.14);padding:6px;display:flex;flex-direction:column}
+.share-menu .sitem{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;cursor:pointer;padding:9px 10px;border-radius:8px;font-size:15px;color:var(--ink);text-decoration:none;line-height:1.3}
+.share-menu .sitem:hover,.share-menu .sitem:focus-visible{background:var(--accs);outline:none}
+.share-menu .chip{width:26px;height:26px;border-radius:7px;flex:none;display:grid;place-items:center;font:700 12px/1 "IBM Plex Sans KR",sans-serif;color:#fff}
+.share-menu .chip svg{width:15px;height:15px}
+.share-menu[hidden],.share-menu [hidden],.snack[hidden]{display:none!important}
+.share-menu hr{border:0;border-top:1px solid var(--line);margin:4px 6px}
+.share-url{display:flex;flex-direction:column;gap:6px;padding:6px 8px 8px}
+.share-url small{font-size:12px;color:var(--mute);line-height:1.4}
+.share-url input{width:100%;font-size:12px;padding:6px 8px;border-radius:6px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.snack{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));max-width:calc(100% - 32px);z-index:30;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;line-height:1.45;text-align:center}
+@media(max-width:600px){.top .sub{display:none}}
+/* 검사 중에는 안내·광고를 숨겨 실수로 누르는 일을 막음 */
+body.testing .sp-guide,body.testing .sp-ad{display:none!important}
+/* 하단: 다른 앱 · 출처 */
+.site-foot{max-width:560px;margin:30px auto 0;padding:0 20px 28px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.more-apps{display:flex;justify-content:center}
+.more-apps a{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:14.5px;font-weight:500;text-decoration:none;transition:border-color .2s,background .2s}
+.more-apps a:hover{border-color:var(--acc)}
+.more-apps a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.more-apps svg{width:16px;height:16px;flex:none}
+.credit{margin:-6px 0 0;text-align:center;font-size:12px}
+.credit a{color:var(--mute);text-decoration:none;letter-spacing:.02em}
+.credit a:hover{color:var(--acc);text-decoration:underline}
+</style>
+<style>
+/* 사이트 공통 /assets/app-guide.css 와 같은 내용 (다른 앱과 동일) */
+.sp-guide,.sp-guide *,.sp-ad,.sp-ad>.sp-ad-label{all:revert;box-sizing:border-box}
+.sp-guide{
+  --g-bg:#FFFFFF; --g-ink:#1C2129; --g-muted:#5A6270; --g-line:#D6DBE1; --g-accent:#2F44C8; --g-soft:#EEF1FB;
+  display:block;max-width:760px;margin:48px auto 28px;padding:28px max(20px,4vw) 24px;
+  background:var(--g-bg);color:var(--g-ink);border:1px solid var(--g-line);border-radius:14px;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  font-size:15.5px;line-height:1.8;text-align:left;word-break:keep-all;overflow-wrap:anywhere;
+  position:relative;z-index:1;width:calc(100% - 32px)
+}
+.sp-guide[data-tone="dark"]{--g-bg:#171B24;--g-ink:#E7EAF0;--g-muted:#A3ABB8;--g-line:#2E3542;--g-accent:#9AA7FF;--g-soft:#222A40;color-scheme:dark}
+@media (prefers-color-scheme:dark){.sp-guide[data-tone="auto"]{--g-bg:#171B24;--g-ink:#E7EAF0;--g-muted:#A3ABB8;--g-line:#2E3542;--g-accent:#9AA7FF;--g-soft:#222A40;color-scheme:dark}}
+:root[data-theme=light] .sp-guide[data-tone="auto"]{--g-bg:#FFFFFF;--g-ink:#1C2129;--g-muted:#5A6270;--g-line:#D6DBE1;--g-accent:#2F44C8;--g-soft:#EEF1FB;color-scheme:light}
+:root[data-theme=dark] .sp-guide[data-tone="auto"]{--g-bg:#171B24;--g-ink:#E7EAF0;--g-muted:#A3ABB8;--g-line:#2E3542;--g-accent:#9AA7FF;--g-soft:#222A40;color-scheme:dark}
+.sp-guide .spg-eyebrow{margin:0 0 6px;font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--g-accent)}
+.sp-guide h2{margin:0 0 10px;font-size:22px;line-height:1.4;font-weight:700;color:var(--g-ink)}
+.sp-guide .spg-lede{margin:0 0 8px;color:var(--g-muted)}
+.sp-guide h3{margin:28px 0 8px;padding-top:20px;border-top:1px solid var(--g-line);font-size:17px;line-height:1.5;font-weight:700;color:var(--g-ink)}
+.sp-guide p{margin:0 0 10px}
+.sp-guide ol,.sp-guide ul{margin:0 0 10px;padding-left:1.4em}
+.sp-guide li{margin:4px 0}
+.sp-guide strong{font-weight:700}
+.sp-guide a{color:var(--g-accent);text-decoration:underline;text-underline-offset:3px}
+.sp-guide dl{margin:0}
+.sp-guide dt{margin:16px 0 4px;font-weight:700}
+.sp-guide dt::before{content:"Q. ";color:var(--g-accent)}
+.sp-guide dd{margin:0;color:var(--g-ink)}
+.sp-guide .spg-note{margin:18px 0 0;padding:12px 16px;border-radius:10px;background:var(--g-soft);font-size:14px;color:var(--g-ink)}
+.sp-guide .spg-foot{margin:22px 0 0;padding-top:16px;border-top:1px solid var(--g-line);font-size:13px;color:var(--g-muted)}
+.sp-guide .spg-foot a{color:var(--g-muted)}
+@media (max-width:480px){.sp-guide{font-size:15px;padding:22px 18px 20px;margin-top:36px;border-radius:12px}.sp-guide h2{font-size:20px}}
+.sp-ad{display:block;max-width:760px;width:calc(100% - 32px);margin:40px auto 0;text-align:center;position:relative;z-index:1}
+.sp-ad[hidden]{display:none}
+.sp-ad>.sp-ad-label{display:block;margin:0 0 6px;font:500 11px/1.4 system-ui,sans-serif;letter-spacing:.12em;color:#8A919C}
+.sp-ad ins.adsbygoogle{display:block;min-height:100px}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap wide"><b>IQ 추정 검사</b><span>5개 영역 · 30문항 · IRT 채점</span></div></header>
+<header class="top"><div class="wrap wide">
+  <div><b>IQ 추정 검사</b><span class="sub">5개 영역 · 30문항 · IRT 채점</span></div>
+  <div class="share">
+    <button class="share-btn" id="shareBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="shareMenu">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="3.5" r="2"/><circle cx="4" cy="8" r="2"/><circle cx="12" cy="12.5" r="2"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5"/></svg>
+      공유
+    </button>
+    <div class="share-menu" id="shareMenu" role="menu" hidden>
+      <button class="sitem" type="button" role="menuitem" data-share="kakao"><span class="chip" style="background:#F2C200;color:#2A2100">K</span>카카오톡</button>
+      <button class="sitem" type="button" role="menuitem" data-share="instagram"><span class="chip" style="background:#C2407A">IG</span>인스타그램</button>
+      <a class="sitem" role="menuitem" data-share="facebook" target="_blank" rel="noopener" href="#"><span class="chip" style="background:#2F5FC4">f</span>페이스북</a>
+      <a class="sitem" role="menuitem" data-share="x" target="_blank" rel="noopener" href="#"><span class="chip" style="background:#1F2328">X</span>X (트위터)</a>
+      <button class="sitem" type="button" role="menuitem" data-share="native" id="nativeShare" hidden><span class="chip" style="background:var(--mute)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 10V2M5 5l3-3 3 3M3 9v4h10V9"/></svg></span>다른 앱으로 공유</button>
+      <hr>
+      <button class="sitem" type="button" role="menuitem" data-share="copy"><span class="chip" style="background:var(--ink);color:var(--bg)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5l3-3M7 4.5l1.2-1.2a2.8 2.8 0 014 4L11 8.5M9 11.5l-1.2 1.2a2.8 2.8 0 01-4-4L5 7.5"/></svg></span>링크 복사</button>
+      <div class="share-url" id="shareUrlBox" hidden>
+        <small>아래 주소를 길게 누르거나 선택해서 복사하세요.</small>
+        <input id="shareUrlInput" type="text" readonly aria-label="공유 주소">
+      </div>
+    </div>
+  </div>
+</div></header>
 
 <section id="home" class="view on">
   <div class="wrap">
@@ -176,45 +258,56 @@ summary{cursor:pointer;font-weight:600;font-size:17px;min-height:32px}
 <section id="test" class="view"><div class="wrap" id="stage"></div></section>
 <section id="result" class="view"><div class="wrap wide" id="res"></div></section>
 
-<!-- ===== 광고 구역 (assets/sp-ads.js 에서 켜고 끔) ===== -->
-<div class="sp-ad" hidden aria-label="광고"></div>
 <!-- ===== 앱 안내: 원리·사용법·자주 묻는 질문 ===== -->
 <section class="sp-guide" data-tone="auto" aria-labelledby="spg-title">
   <p class="spg-eyebrow">앱 안내</p>
-  <h2 id="spg-title">IQ 추정 검사, 이렇게 점수를 매겨요</h2>
-  <p class="spg-lede">언어·수리·논리·시공간·작업 기억 다섯 영역 30문항으로 IQ를 추정하고, 측정 오차(95% 신뢰구간)까지 함께 보여 주는 간이 지능 검사입니다.</p>
+  <h2 id="spg-title">IQ 추정 검사, 이렇게 계산해요</h2>
+  <p class="spg-lede">언어 이해·수리 추론·논리 추론·시공간 추론·작업 기억의 5개 영역, 30문항에 답하면 문항반응이론(IRT)으로 IQ를 추정하고 오차 범위와 영역별 강점·약점을 함께 알려 드리는 무료 검사입니다.</p>
   <h3>원리</h3>
-  <p>IQ는 같은 연령대 사람들 사이에서 내가 어디쯤인지를 나타내는 점수로, <strong>평균 100, 표준편차 15</strong>가 되도록 맞춥니다. 사람의 약 68%가 85~115, 약 95%가 70~130 사이에 있습니다.</p>
-  <p>이 검사는 <strong>언어 이해, 수리 추론, 논리 추론, 시공간 추론, 작업 기억</strong> 다섯 영역에서 6문항씩, 모두 30문항을 냅니다. 채점에는 공식 능력 검사에서도 쓰는 <strong>문항반응이론(IRT)</strong>을 씁니다. 문항마다 난이도, 실력 차이를 얼마나 잘 가려내는지(변별도), 찍어서 맞힐 확률을 정해 두고, 응답 전체를 함께 보아 능력치를 추정합니다. 그래서 같은 개수를 맞혀도 어려운 문항을 맞힌 쪽이 더 높은 점수를 받습니다.</p>
-  <p>추정에는 오차가 따르기 때문에 점수 하나만이 아니라 <strong>95% 신뢰구간</strong>을 함께 보여 줍니다. 실제 IQ가 95% 확률로 들어 있을 범위입니다. 문항과 보기의 순서가 고정되어 있고 시간 점수나 무작위 요소가 없어서, 같은 응답에는 언제나 같은 점수가 나옵니다.</p>
+  <p>지능 검사에서 널리 쓰는 영역 구분을 참고해 5개 영역에 6문항씩 배치했습니다. 각 영역은 쉬운 문항에서 어려운 문항 순으로 나오며, 문항마다 난이도·변별도·추측 확률을 정해 두었습니다.</p>
+  <p>점수는 맞힌 개수를 단순히 더하지 않습니다. <strong>3모수 문항반응이론(3PL IRT)</strong>과 <strong>EAP 추정</strong>으로 응답 전체를 함께 보아 능력치를 계산하고, 평균 100·표준편차 15인 IQ 척도로 바꿉니다. 그래서 같은 개수를 맞혀도 어려운 문항을 맞힌 쪽이 더 높게 나오고, 점수와 함께 실제 값이 95% 확률로 들어 있는 범위(신뢰구간)를 보여 드립니다.</p>
+  <p>문항·보기·도형의 순서가 모두 고정되어 있고 무작위 요소와 시간 가산점이 없어서, <strong>같은 문항에 같은 답을 하면 언제나 같은 점수</strong>가 나옵니다. 검사를 마치면 받는 결과 코드에 응답 패턴이 담겨 있어 언제든 같은 결과를 다시 계산할 수 있습니다.</p>
   <h3>사용법</h3>
   <ol>
-  <li>조용한 곳에서 계산기와 메모 없이 ‘검사 시작’을 누릅니다. 15~20분쯤 걸립니다.</li>
-  <li>다섯 파트를 차례로 풉니다. 파트마다 쉬운 문항부터 점점 어려워집니다. 객관식은 키보드 숫자 1~5로도 고를 수 있고, 수리 문항은 답을 숫자로 직접 넣습니다.</li>
-  <li>작업 기억 파트는 ‘제시 시작’을 누르면 숫자나 글자가 하나씩 나타났다 사라집니다. 한 번만 보여 주니 기억해서 입력하세요.</li>
-  <li>모르는 문항은 찍지 말고 ‘모르겠음’을 누르세요. 지난 문항으로는 돌아갈 수 없습니다.</li>
-  <li>결과 화면에서 추정 IQ와 신뢰구간, 백분위, 영역별 프로파일, 결과의 신뢰성, 문항별 정답과 풀이를 확인합니다. ‘결과 복사’로 결과와 결과 코드를 보낼 수 있습니다.</li>
+    <li>‘검사 시작’을 누르고 파트별 안내를 읽은 뒤 문제를 풉니다. 객관식은 보기를 누르거나 숫자 키 1~5로 고르고 ‘다음’을 누릅니다.</li>
+    <li>수리 문항은 답을 숫자로 직접 입력합니다. 작업 기억 문항은 ‘제시 시작’을 누르면 숫자·글자가 하나씩 나타났다 사라지니 기억해서 입력합니다.</li>
+    <li>모르는 문항은 찍지 말고 ‘모르겠음’을 누르세요. 우연히 맞는 경우가 줄어 결과가 더 정확해집니다.</li>
+    <li>결과 화면에서 추정 IQ, 신뢰구간, 백분위, 영역별 점수, 응답 일관성, 문항별 정답과 풀이를 확인합니다. 오른쪽 위 ‘공유’로 친구에게 앱을 보낼 수 있습니다.</li>
   </ol>
-  <h3>결과 읽는 법</h3>
-  <p>추정 IQ 한 숫자보다 <strong>신뢰구간 전체</strong>를 내 점수로 보는 것이 정확합니다. 분류는 130 이상 최우수, 120~129 우수, 110~119 평균 상, 90~109 평균, 80~89 평균 하, 70~79 경계선입니다.</p>
-  <p>영역별 점수는 6문항씩이라 전체 점수보다 오차가 큽니다. 전체 점수와의 차이가 그 영역의 오차보다 클 때만 ‘뚜렷한 강점·약점’으로 표시합니다. ‘응답 일관성’이 주의로 나오면 쉬운 문항을 틀리고 어려운 문항을 맞힌 경우가 많다는 뜻이라, 찍기나 부주의가 섞였을 수 있습니다.</p>
   <h3>자주 묻는 질문</h3>
   <dl>
-    <dt>공식 IQ 검사와 같은 결과인가요?</dt><dd>아닙니다. 문항의 난이도 값은 설계 단계에서 정한 것이며, 많은 사람을 대상으로 표준화(규준 작성)를 거치지 않았습니다. 점수는 참고용 추정치이고 임상 진단이나 채용·진학 판단에 쓸 수 없습니다. 공식 평가는 K-WAIS 같은 표준화 검사를 전문가에게 받아야 합니다.</dd>
-    <dt>다시 풀었더니 점수가 올랐어요.</dt><dd>문항이 매번 같아서 다시 풀면 연습 효과로 점수가 오르기 쉽습니다. 처음 본 결과를 기준으로 보세요.</dd>
-    <dt>왜 ‘모르겠음’을 누르라고 하나요?</dt><dd>객관식은 찍어도 5분의 1 확률로 맞기 때문에, 찍은 정답이 섞이면 추정이 흔들립니다. ‘모르겠음’은 오답으로 처리되지만 우연한 정답을 막아 결과를 더 정확하게 만듭니다.</dd>
-    <dt>아주 높거나 낮은 점수도 정확한가요?</dt><dd>30문항 검사라 정확하게 잴 수 있는 범위는 대략 IQ 60~140입니다. 양 끝으로 갈수록 신뢰구간이 넓어집니다.</dd>
-    <dt>결과 코드는 무엇이고, 기록은 어디에 저장되나요?</dt><dd>결과 코드는 30문항의 정답·오답·모르겠음 패턴을 담은 짧은 문자열로, 처음 화면에 넣으면 같은 결과가 다시 계산됩니다. 최근 기록 20개는 이 기기의 브라우저에만 저장되고 서버로 보내지 않습니다.</dd>
+    <dt>공식 지능 검사와 같은 결과인가요?</dt><dd>아닙니다. 이 검사는 재미와 자기 이해를 위한 참고용 추정치이며, 대규모 표본으로 표준화한 검사가 아닙니다. 진단이나 채용·진학 판단에는 쓸 수 없고, 공식 평가는 K-WAIS 같은 표준화 검사를 전문가에게 받아야 합니다.</dd>
+    <dt>다시 풀면 점수가 바뀌나요?</dt><dd>같은 답을 하면 같은 점수가 나옵니다. 다만 문항이 매번 같아서 두 번째부터는 연습 효과로 점수가 오를 수 있으니 처음 결과를 기준으로 보세요.</dd>
+    <dt>푸는 데 오래 걸리면 점수가 깎이나요?</dt><dd>아닙니다. 소요 시간은 참고로만 기록하고 점수에는 넣지 않습니다.</dd>
+    <dt>응답 일관성 ‘주의’는 무슨 뜻인가요?</dt><dd>쉬운 문항은 틀리고 어려운 문항은 맞힌 경우가 예상보다 많다는 뜻입니다. 찍기나 부주의가 섞였을 수 있으니 차분한 환경에서 다시 풀어 보길 권합니다.</dd>
+    <dt>내 응답은 어디에 저장되나요?</dt><dd>서버로 보내지 않습니다. 지난 기록은 이 기기의 브라우저에만 저장되며, 다른 기기나 브라우저에서는 보이지 않습니다.</dd>
   </dl>
-  <p class="spg-note">결과는 재미와 자기 이해를 위한 참고 자료입니다. 점수 하나로 사람의 능력이나 가능성을 판단하지 마세요.</p>
-  <p class="spg-foot">만든 사람 <a href="/">스토리패커 박희선</a> · <a href="/apps/index.html">다른 앱 보기</a> · <a href="/insights/">인사이트 글 읽기</a> · <a href="/privacy.html">개인정보처리방침</a></p>
+  <p class="spg-foot">만든 사람 <a href="https://www.storypacker.com/">스토리패커 박희선</a> · <a href="https://www.storypacker.com/apps/index.html">다른 앱 보기</a> · <a href="https://www.storypacker.com/insights/">인사이트 글 읽기</a> · <a href="https://www.storypacker.com/privacy.html">개인정보처리방침</a></p>
 </section>
-<nav class="more-apps" aria-label="다른 앱">
-  <a href="https://www.storypacker.com/apps/index.html">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
-    다른 앱도 보러가기
-  </a>
-</nav>
+
+<!-- ===== 광고 구역 (assets/sp-ads.js 에서 다른 앱과 함께 켜고 끔) =====
+     아래 template 안의 광고 단위는 꺼져 있는 동안 아무 요청도 하지 않습니다. -->
+<div class="sp-ad" hidden aria-label="광고">
+  <template id="sp-ad-unit">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290" crossorigin="anonymous"></script>
+    <!-- 스토리패커 수평형 -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5017353982200290" data-ad-slot="9844864640" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </template>
+</div>
+
+<!-- ===== 다른 앱 · 출처 ===== -->
+<div class="site-foot">
+  <nav class="more-apps" aria-label="다른 앱">
+    <a href="https://www.storypacker.com/apps/index.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
+      다른 앱도 보러가기
+    </a>
+  </nav>
+  <p class="credit"><a href="https://www.storypacker.com/" target="_blank" rel="noopener">ⓒ스토리팩커_Storypacker</a></p>
+</div>
+
+<div class="snack" id="snack" role="status" aria-live="polite" hidden></div>
 
 <script>
 {
@@ -396,7 +489,7 @@ function drawCurve(s,o){
 function mountCurve(s,o){if(curveRO)curveRO.disconnect();curveRO=new ResizeObserver(()=>drawCurve(s,o));curveRO.observe(s);drawCurve(s,o)}
 
 /* ---------- 화면 전환 ---------- */
-function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===id));window.scrollTo(0,0)}
+function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===id));document.body.classList.toggle('testing',id==='test');closeShare();window.scrollTo(0,0)}
 function home(){show('home');renderHome();mountCurve($('#heroCurve'),{})}
 function renderHome(){
   const h=loadH();
@@ -556,6 +649,7 @@ function showResult(st,meta){
   </details>
   <div class="endacts"><button class="primary" id="again">처음 화면으로</button></div>`;
   show('result');
+  LAST={iq:sc.iq,lo:sc.lo,hi:sc.hi};
   mountCurve($('#resCurve'),{iq:sc.iq,lo:sc.lo,hi:sc.hi});
   $('#again').onclick=home;
   $('#cpy').onclick=async()=>{
@@ -564,6 +658,87 @@ function showResult(st,meta){
     catch(e){const r=document.createRange();r.selectNodeContents($('#codeTxt'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);$('#cpyMsg').textContent='코드를 선택해 두었어요. 직접 복사해 주세요.'}
   };
 }
+
+/* ---------- 공유 ---------- */
+let LAST=null;
+const SHARE_URL = "https://www.storypacker.com/apps/iq/index.html";
+const SHARE_IMG = "https://www.storypacker.com/apps/iq/share-square.jpg";
+const SHARE_TITLE = "IQ 추정 검사";
+const KAKAO_KEY = "20494e25aec52272fa44c014278624f3";
+const IS_SITE = !!window.SP_SITE; // 웹사이트용 파일에서만 true
+const IS_PHONE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ||
+  (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+function shareText(){
+  return ($('#result').classList.contains('on') && LAST)
+    ? `나의 추정 IQ는 ${LAST.iq} (95% 신뢰구간 ${LAST.lo}–${LAST.hi}). 5개 영역 30문항, 당신도 도전해 보세요!`
+    : "언어·수리·논리·시공간·작업 기억 30문항으로 알아보는 나의 IQ와 영역별 강점";
+}
+let snackTimer;
+function snack(msg){const el=$('#snack');el.textContent=msg;el.hidden=false;clearTimeout(snackTimer);snackTimer=setTimeout(()=>{el.hidden=true},3200)}
+function showUrlBox(){const box=$('#shareUrlBox'),inp=$('#shareUrlInput');box.hidden=false;inp.value=SHARE_URL;inp.focus();inp.select()}
+function copyLink(okMsg){
+  const ok=()=>{snack(okMsg);closeShare()};
+  try{navigator.clipboard.writeText(SHARE_URL).then(ok,showUrlBox)}catch(e){showUrlBox()}
+}
+let kakaoReady=false;
+function initKakao(){
+  try{if(window.Kakao&&!Kakao.isInitialized())Kakao.init(KAKAO_KEY);
+      kakaoReady=!!(window.Kakao&&Kakao.isInitialized()&&Kakao.Share)}catch(e){kakaoReady=false}
+}
+function shareKakao(){
+  initKakao();
+  const fallbackMsg="링크를 복사했어요. 카카오톡 대화방에 붙여 넣으세요.";
+  if(!kakaoReady){copyLink(fallbackMsg);return}
+  try{
+    Kakao.Share.sendDefault({
+      objectType:"feed",
+      content:{title:SHARE_TITLE,description:shareText(),imageUrl:SHARE_IMG,imageWidth:800,imageHeight:800,
+               link:{mobileWebUrl:SHARE_URL,webUrl:SHARE_URL}},
+      buttons:[{title:"IQ 검사하러 가기",link:{mobileWebUrl:SHARE_URL,webUrl:SHARE_URL}}]
+    });
+    closeShare();
+  }catch(e){copyLink(fallbackMsg)}
+}
+function shareNative(){navigator.share({title:SHARE_TITLE,text:shareText(),url:SHARE_URL}).then(closeShare,()=>{})}
+function refreshShareLinks(){
+  const u=encodeURIComponent(SHARE_URL);
+  document.querySelector('[data-share="facebook"]').href="https://www.facebook.com/sharer/sharer.php?u="+u;
+  document.querySelector('[data-share="x"]').href="https://x.com/intent/post?text="+encodeURIComponent(`${SHARE_TITLE} - ${shareText()}`)+"&url="+u;
+}
+function openShare(){
+  refreshShareLinks();$('#shareUrlBox').hidden=true;
+  $('#nativeShare').hidden=!(IS_SITE&&IS_PHONE&&navigator.share);
+  $('#shareMenu').hidden=false;$('#shareBtn').setAttribute('aria-expanded','true');
+}
+function closeShare(){$('#shareMenu').hidden=true;$('#shareBtn').setAttribute('aria-expanded','false')}
+$('#shareBtn').addEventListener('click',e=>{e.stopPropagation();$('#shareMenu').hidden?openShare():closeShare()});
+$('#shareMenu').addEventListener('click',e=>{
+  e.stopPropagation();
+  const it=e.target.closest('[data-share]');if(!it)return;
+  const k=it.dataset.share;
+  if(k==='kakao')shareKakao();
+  else if(k==='instagram')copyLink("링크를 복사했어요. 인스타그램 스토리나 DM에 붙여 넣으세요.");
+  else if(k==='copy')copyLink("링크를 복사했어요.");
+  else if(k==='native')shareNative();
+  else setTimeout(closeShare,0);
+});
+document.addEventListener('click',()=>{if(!$('#shareMenu').hidden)closeShare()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#shareMenu').hidden){closeShare();$('#shareBtn').focus()}});
+
+/* ---------- 광고: 사이트 공통 스위치(/assets/sp-ads.js)가 .sp-ad를 보이게 하면 광고 단위를 채움 ---------- */
+const adBox=document.querySelector('.sp-ad');
+function fillAd(){
+  if(adBox.hidden||adBox.querySelector('ins.adsbygoogle'))return;
+  const tpl=$('#sp-ad-unit'),ins=tpl&&tpl.content.querySelector('ins.adsbygoogle');if(!ins)return;
+  if(!document.querySelector('script[src*="adsbygoogle.js"]')){
+    const s=document.createElement('script');s.async=true;s.crossOrigin='anonymous';
+    s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5017353982200290';
+    document.head.appendChild(s);
+  }
+  adBox.appendChild(ins.cloneNode(true));
+  try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}
+}
+const adRO=new MutationObserver(fillAd);adRO.observe(adBox,{attributes:true,attributeFilter:['hidden']});
 
 /* ---------- 이벤트 ---------- */
 $('#go').onclick=start;
