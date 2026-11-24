@@ -286,7 +286,18 @@ footer .foot-links a:hover{color:var(--ink)}
 .ins-viewport{overflow:hidden;padding:6px 0;margin:-6px 0}
 .ins-track{display:flex;gap:40px;transition:transform .55s cubic-bezier(.22,.61,.36,1);will-change:transform}
 .ins-page{flex:0 0 100%;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-content:start}
-@media (max-width:860px){.ins-page{grid-template-columns:1fr 1fr}.ins-page+.ins-page{display:none}.ins-track{transform:none!important}}
+@media (max-width:860px){.ins-page{grid-template-columns:1fr 1fr}.ins-carousel:not([data-swipe]) .ins-page+.ins-page{display:none}.ins-carousel:not([data-swipe]) .ins-track{transform:none!important}}
+[data-swipe] .ins-viewport{touch-action:pan-y}
+[data-swipe] .ins-track{align-items:flex-start}
+.car-pager{display:none;align-items:center;justify-content:center;gap:14px;margin-top:18px}
+.car-pager button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:400 22px/1 var(--display);cursor:pointer;display:grid;place-items:center;padding:0}
+.car-pager button:disabled{opacity:.35;cursor:default}
+.car-dots{display:flex;gap:8px}
+.car-dots i{width:8px;height:8px;border-radius:50%;background:var(--line);transition:background .2s,width .2s}
+.car-dots i.on{width:20px;border-radius:4px;background:var(--accent)}
+.car-hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+@media (max-width:860px){[data-swipe] .car-pager{display:flex}[data-swipe] .ins-viewport{transition:height .35s ease}}
+@media (max-width:860px) and (prefers-reduced-motion:reduce){[data-swipe] .ins-viewport{transition:none}}
 @media (max-width:560px){.ins-page{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.ins-track{transition:none}}
 .ins-nav{position:absolute;top:50%;z-index:2;width:46px;height:46px;margin-top:-23px;display:grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font:400 28px/1 var(--display);cursor:pointer;box-shadow:0 2px 10px rgba(20,24,31,.12);transition:border-color .2s,color .2s,opacity .2s}
@@ -401,27 +412,6 @@ footer .foot-links a:hover{color:var(--ink)}
     </div>
   </section>
 
-<script>
-/* 인사이트 카드 넘기기: 넓은 화면(861px 이상)에서만 6장 묶음을 좌우로 밀어 넘깁니다. 오른쪽 = 이전(오래된) 글, 왼쪽 = 최근 글 */
-(function(){
-  var box=document.querySelector('.ins-carousel'); if(!box) return;
-  var track=box.querySelector('.ins-track'), prev=box.querySelector('.ins-prev'), next=box.querySelector('.ins-next');
-  var pages=[].slice.call(track.querySelectorAll('.ins-page')), page=0;
-  var mq=window.matchMedia('(min-width: 861px)');
-  function show(){
-    var wide=mq.matches, p=wide?page:0;
-    track.style.transform=p?'translateX(calc('+(-p)+' * (100% + 40px)))':'';
-    pages.forEach(function(el,i){ var off=i!==p; el.inert=off; if(off) el.setAttribute('aria-hidden','true'); else el.removeAttribute('aria-hidden'); });
-    var on=wide && pages.length>1;
-    prev.hidden=next.hidden=!on;
-    prev.disabled=p<=0; next.disabled=p>=pages.length-1;
-  }
-  next.addEventListener('click',function(){ if(page<pages.length-1){ page++; show(); } });
-  prev.addEventListener('click',function(){ if(page>0){ page--; show(); } });
-  if(mq.addEventListener) mq.addEventListener('change',show); else if(mq.addListener) mq.addListener(show);
-  show();
-})();
-</script>
 {%- endif %}
 
   <section id="about">
@@ -595,7 +585,11 @@ footer .foot-links a:hover{color:var(--ink)}
         <div class="eyebrow">Apps</div>
         <h2>스토리패커가 만든 작은 앱들 <a class="apps-all" href="apps/index.html">앱만 모아보기 →</a></h2>
       </div>
-      <div class="apps">
+      <div class="ins-carousel" data-carousel="apps" data-swipe>
+      <button class="ins-nav ins-prev" type="button" aria-label="앞의 앱 보기" hidden><span aria-hidden="true">‹</span></button>
+      <div class="ins-viewport">
+      <div class="ins-track">
+      <div class="ins-page apps">
         <a class="app" href="apps/saju/index.html">
           <div class="app-top">
             <div class="app-seal" aria-hidden="true"><span id="todayGz">日辰</span><small>TODAY</small></div>
@@ -731,8 +725,90 @@ footer .foot-links a:hover{color:var(--ink)}
           <p>AI와 스토리텔링을 활용한 새로운 앱이 이 자리에 차례로 추가됩니다.</p>
         </div>
       </div>
+      </div>
+      </div>
+      <button class="ins-nav ins-next" type="button" aria-label="다음 앱 보기" hidden><span aria-hidden="true">›</span></button>
+      </div>
     </div>
   </section>
+
+<script>
+/* 카드 넘기기(인사이트·앱 공통): 넓은 화면(861px 이상)에서는 좌우 버튼으로 6장씩 넘깁니다.
+   인사이트: 오른쪽 = 이전(오래된) 글 / 앱: 오른쪽 = 다음 앱.
+   data-swipe 가 붙은 목록(앱)은 휴대폰·태블릿에서도 손가락으로 밀어 넘기고, 아래 점과 화살표로 위치를 보여 줍니다. */
+(function(){
+  var mq=window.matchMedia('(min-width: 861px)');
+  [].forEach.call(document.querySelectorAll('.ins-carousel'),function(box){
+    var view=box.querySelector('.ins-viewport'), track=box.querySelector('.ins-track'), prev=box.querySelector('.ins-prev'), next=box.querySelector('.ins-next');
+    var swipe=box.hasAttribute('data-swipe');
+    if(box.getAttribute('data-carousel')==='apps'){
+      var one=track.querySelector('.ins-page'), items=[].slice.call(one.children);
+      track.innerHTML='';
+      for(var i=0;i<items.length;i+=6){
+        var pg=document.createElement('div'); pg.className='ins-page apps';
+        items.slice(i,i+6).forEach(function(el){ pg.appendChild(el); });
+        track.appendChild(pg);
+      }
+    }
+    var pages=[].slice.call(track.querySelectorAll('.ins-page')), page=0, dots=[], mPrev, mNext;
+    if(swipe && pages.length>1){
+      var bar=document.createElement('div'); bar.className='car-pager';
+      bar.innerHTML='<button type="button" aria-label="앞으로"><span aria-hidden="true">‹</span></button><div class="car-dots" aria-hidden="true"></div><button type="button" aria-label="다음으로"><span aria-hidden="true">›</span></button>';
+      box.appendChild(bar);
+      var hint=document.createElement('p'); hint.className='car-hint'; hint.textContent='옆으로 밀어서 더 보기'; bar.after(hint);
+      var dw=bar.querySelector('.car-dots');
+      pages.forEach(function(){ var d=document.createElement('i'); dw.appendChild(d); dots.push(d); });
+      mPrev=bar.firstChild; mNext=bar.lastChild;
+      mPrev.addEventListener('click',function(){ go(page-1,true); });
+      mNext.addEventListener('click',function(){ go(page+1,true); });
+    }
+    function active(){ return mq.matches || swipe; }
+    function fitHeight(){
+      if(!swipe) return;
+      view.style.height = (!mq.matches && pages[page]) ? pages[page].offsetHeight+12+'px' : '';
+    }
+    function show(){
+      var p=active()?page:0;
+      track.style.transform=p?'translateX(calc('+(-p)+' * (100% + 40px)))':'';
+      pages.forEach(function(el,i){ var off=i!==p; el.inert=off; if(off) el.setAttribute('aria-hidden','true'); else el.removeAttribute('aria-hidden'); });
+      var on=mq.matches && pages.length>1;
+      prev.hidden=next.hidden=!on;
+      prev.disabled=p<=0; next.disabled=p>=pages.length-1;
+      dots.forEach(function(d,i){ d.classList.toggle('on',i===p); });
+      if(mPrev){ mPrev.disabled=p<=0; mNext.disabled=p>=pages.length-1; }
+      fitHeight();
+    }
+    function go(n,scroll){
+      n=Math.max(0,Math.min(pages.length-1,n)); if(n===page){ show(); return; }
+      page=n; show();
+      if(scroll && !mq.matches){ var top=box.getBoundingClientRect().top; if(top<80) window.scrollBy({top:top-90,behavior:'smooth'}); }
+    }
+    next.addEventListener('click',function(){ go(page+1); });
+    prev.addEventListener('click',function(){ go(page-1); });
+    if(swipe){
+      var x0=0,y0=0,dx=0,drag=false,moved=false,id=null;
+      view.addEventListener('pointerdown',function(e){ if(e.pointerType==='mouse'||mq.matches) return; id=e.pointerId; x0=e.clientX; y0=e.clientY; dx=0; drag=false; moved=false; });
+      view.addEventListener('pointermove',function(e){
+        if(e.pointerId!==id) return;
+        var mx=e.clientX-x0, my=e.clientY-y0;
+        if(!drag){ if(Math.abs(mx)>10 && Math.abs(mx)>Math.abs(my)){ drag=true; moved=true; track.style.transition='none'; try{ view.setPointerCapture(e.pointerId); }catch(_){} } else if(Math.abs(my)>10){ id=null; return; } else return; }
+        dx=mx; if((page===0&&dx>0)||(page===pages.length-1&&dx<0)) dx=dx/3;
+        track.style.transform='translateX(calc('+(-page)+' * (100% + 40px) + '+dx+'px))';
+      });
+      function end(e){
+        if(e.pointerId!==id) return; id=null;
+        if(!drag) return; drag=false; track.style.transition='';
+        var w=view.offsetWidth; if(dx<-w*0.18) go(page+1,true); else if(dx>w*0.18) go(page-1,true); else show();
+      }
+      view.addEventListener('pointerup',end); view.addEventListener('pointercancel',end);
+      view.addEventListener('click',function(e){ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } },true);
+      window.addEventListener('resize',fitHeight);
+    }
+    if(mq.addEventListener) mq.addEventListener('change',show); else if(mq.addListener) mq.addListener(show);
+    show();
+  });
+})();
+</script>
 
   <section id="contact" class="contact">
     <div class="wrap">
