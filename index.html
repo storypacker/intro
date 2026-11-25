@@ -23,17 +23,17 @@ layout: null
 /* Layout: 원고 여백처럼 넓은 왼쪽 마진 + 로봇 궤적처럼 그려진 '이야기 곡선'이 진행 방식을 관통 */
 :root{
   --bg:#EDF0F2; --surface:#F8F9FA; --ink:#14181F; --muted:#5A6270; --line:#C9CFD6;
-  --accent:#2F44C8; --accent-soft:#DDE2FA; --mark:#E2603F; --shelf:#FFFFFF;
+  --accent:#2F44C8; --accent-soft:#DDE2FA; --mark:#E2603F; --shelf:#FFFFFF; --label:#D21F2B; --label-inv:#FF7A7A;
   --display:"Gowun Batang","Noto Serif KR",serif;
   --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#10131A; --surface:#171B24; --ink:#E7EAF0; --muted:#98A0AE; --line:#2C3340;
-  --accent:#8C9BFF; --accent-soft:#232A4A; --mark:#F08A6C; --shelf:#F2F3F5; color-scheme:dark}}
+  --accent:#8C9BFF; --accent-soft:#232A4A; --mark:#F08A6C; --shelf:#F2F3F5; --label:#FF6B6B; --label-inv:#C41E2A; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#10131A; --surface:#171B24; --ink:#E7EAF0; --muted:#98A0AE; --line:#2C3340;
-  --accent:#8C9BFF; --accent-soft:#232A4A; --mark:#F08A6C; --shelf:#F2F3F5; color-scheme:dark}
+  --accent:#8C9BFF; --accent-soft:#232A4A; --mark:#F08A6C; --shelf:#F2F3F5; --label:#FF6B6B; --label-inv:#C41E2A; color-scheme:dark}
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -48,7 +48,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 a{color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 .ph{background:var(--accent-soft);color:var(--accent);padding:0 .3em;border-radius:3px;font-style:normal}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--label);font-weight:600}
+.hero-text .eyebrow{color:var(--muted);font-weight:400}
+.contact .eyebrow{color:var(--label-inv)!important;opacity:1!important}
 
 /* nav */
 header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
