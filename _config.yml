@@ -5,7 +5,7 @@ url: https://www.storypacker.com
 baseurl: ""
 lang: ko
 timezone: Asia/Seoul
-og_image: /img/hero-main.webp
+og_image: /img/og-storypacker.jpg
 
 author:
   name: 박희선
